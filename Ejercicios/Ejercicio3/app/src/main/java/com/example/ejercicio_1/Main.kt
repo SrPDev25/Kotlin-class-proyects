@@ -7,7 +7,7 @@ fun main(){
         Vehiculo("Nisu","","Nisu"),
         Moto("","Rosa","Motomami", true, 1),
         Moto("390 Duke","Naranja-Negra","KTM", false, 2),
-        Coche("Tanque","Feo","SAAB",2,5),
+        Coche("Tanque","Feo","SAAB",5,5),
         Coche("Celica","Ninguno, ya que no lo tiene", "Toyota",3,4)
     )
     for (x in vehiculos){
