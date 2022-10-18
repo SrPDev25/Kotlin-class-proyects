@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ExplicacionTema2_Layout</string>
+    <string name="title_home">Linear</string>
+    <string name="title_dashboard">Frame</string>
+    <string name="title_notifications">Constraints</string>
+    <string name="buenos_dias">Good Morning</string>
+    <string name="hola_a_todos">Hello everyone</string>
+    <string name="boton">Boton</string>
+    <string name="nombre">Introduce un nombre</string>
+</resources>

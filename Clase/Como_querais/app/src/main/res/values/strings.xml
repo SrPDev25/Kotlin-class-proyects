@@ -1,0 +1,8 @@
+<resources><!--TODO name es la etiqueta, aquí se cambia el contenido de los textos-->
+    <!--TODO the name of every XML file, must writed in lowercase letters and without numbers-->
+    <string name="app_name">Como_querais</string>
+    <string name="title_home">España</string>
+    <string name="title_dashboard">Warframe</string>
+    <string name="title_notifications">Hey, listen</string>
+    <string name="buttom_main">Hellowis</string>
+</resources>

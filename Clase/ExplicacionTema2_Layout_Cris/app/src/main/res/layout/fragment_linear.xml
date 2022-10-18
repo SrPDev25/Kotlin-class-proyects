@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?><!-- QUIERO QUE LA RAIZ SEA UN SCROLL VIEW,QUE HAYA UN SCROLL EN VEZ DEL LINEAR,EL SCROLL TIENE QUE CONTENER TODO-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.HomeFragment"
+    android:layout_marginBottom="50dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_orange_light"
+        android:gravity="top|center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/defecto"
+            android:layout_marginTop="@dimen/defecto"
+            android:layout_marginEnd="@dimen/defecto"
+            android:background="@android:color/holo_blue_light"
+            android:paddingStart="@dimen/izquierda"
+            android:text="@string/buenos_dias"
+            android:textAlignment="center"
+            android:textSize="@dimen/tamaño_letra" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/defecto"
+            android:background="@android:color/holo_green_light"
+            android:text="@string/hola_a_todos" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/defecto"
+            android:text="@string/boton" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/defecto"
+            android:text="@string/boton" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/defecto"
+            android:text="@string/boton" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/defecto"
+            android:background="@android:color/holo_orange_light"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/defecto"
+                android:text="@string/boton" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/defecto"
+                android:text="@string/boton" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/defecto"
+                android:text="@string/boton" />
+        </LinearLayout>
+
+        <include layout="@layout/fragment_dashboard" />
+
+        <include layout="@layout/fragment_notifications" />
+
+
+    </LinearLayout>
+</ScrollView>

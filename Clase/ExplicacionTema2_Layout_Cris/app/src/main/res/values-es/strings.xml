@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DISEÑOS_EXPLICACION</string>
+    <string name="title_home">LINEAL</string>
+    <string name="title_dashboard">CAPAS</string>
+    <string name="title_notifications">RESTRICCIONES</string>
+    <string name="buenos_dias">Buenos dias</string>
+    <string name="hola_a_todos">Hola a todos</string>
+    <string name="boton">Boton</string>
+    <string name="nombre">Introduce un nombre</string>
+</resources>
