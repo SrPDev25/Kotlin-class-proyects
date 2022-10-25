@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ScrollingActivity"
+    tools:showIn="@layout/activity_scrolling">
+
+<!--Linear layout, es la zona donde se encuentran lo que esta dentro, como un panel-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/web_direction"
+            app:helperText="@string/necessary"
+            app:endIconMode="clear_text"
+            >
+            <!--Si escribes 0dp, pondra el tamaño que le salga del codigo -->
+            <!--Todo match_parent=ocupa todo, wrap_content=ocupa lo que necesite-->
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textUri"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <!--Un edit text es muy simple, si quieres un cuadro de texto wapo wapo, usa TextInputEditText, dentro de un TextInputLayout-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/web_direction"
+            app:helperText="@string/necessary"
+            app:endIconMode="password_toggle"
+            >
+            <!--Si escribes 0dp, pondra el tamaño que le salga del codigo -->
+            <!--Todo match_parent=ocupa todo, wrap_content=ocupa lo que necesite-->
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
