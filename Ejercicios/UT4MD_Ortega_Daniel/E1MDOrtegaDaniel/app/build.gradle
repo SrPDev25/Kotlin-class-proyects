@@ -30,9 +30,13 @@ android {
         jvmTarget = '1.8'
     }
 
+    //TODO permite el uso de binding para conectar XML y kotlin
     buildFeatures {
         viewBinding true
     }
+    //TODO agrega la libreria coil
+    implementation "io.coil-kt:coil:1.1.1"
+
 
 }
 
