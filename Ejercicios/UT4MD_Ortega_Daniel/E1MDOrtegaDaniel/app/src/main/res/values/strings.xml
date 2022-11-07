@@ -3,4 +3,6 @@
     <string name="username">Username</string>
     <string name="password">password</string>
     <string name="login">Login</string>
+    <string name="loginButton">Iniciar sesion</string>
+    <string name="credits">Creditos</string>
 </resources>
