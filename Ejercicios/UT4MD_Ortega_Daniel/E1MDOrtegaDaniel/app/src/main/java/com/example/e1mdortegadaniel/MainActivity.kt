@@ -16,7 +16,8 @@ class MainActivity : AppCompatActivity() {
 
         Glide.with(this)
             .load("https://librosking.com/wp-content/uploads/2022/04/Logo-Libros-king-2022.1.png")
-            .into(binding.imgLogo)
+            .into(binding.content.imgLogo)
+        binding.content.whiteLayout.background.alpha=200
     }
 }
 
