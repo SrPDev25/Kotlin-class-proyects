@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
 
     package="com.example.e1mdortegadaniel">
-    <!--Se le da el permiso a la aplicación a tener acceso a internet-->
+    <!-- TODO Se le da el permiso a la aplicación a tener acceso a internet-->
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
