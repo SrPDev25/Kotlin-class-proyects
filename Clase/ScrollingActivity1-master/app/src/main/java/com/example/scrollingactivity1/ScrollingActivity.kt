@@ -1,15 +1,16 @@
 package com.example.scrollingactivity1
 
 import android.os.Bundle
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.webkit.URLUtil
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.scrollingactivity1.databinding.ActivityScrollingBinding
 import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.snackbar.Snackbar
 
 
 class ScrollingActivity : AppCompatActivity() {
@@ -20,6 +21,7 @@ class ScrollingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // INFLAMOS EL ARCHIVO XML (LE DA FORMA)
+            //Solo se pude inflar un layout
         binding = ActivityScrollingBinding.inflate(layoutInflater)
         // SETTEAMOS EL CONTENT VIEW A ROOT
      setContentView(binding.root)
@@ -44,6 +46,40 @@ class ScrollingActivity : AppCompatActivity() {
                 .show()//muestra el picoteo
 
         }
+        cargarImagen()
+        //https://rlv.zcache.es/poster_selfie_de_mono-r97fed6033c784b2e8b5d1a004ee90393_wvg_8byvr_307.jpg
+        binding.content.urlText.setOnFocusChangeListener { _, foco ->
+            //foco comprueba si esta fucuseado o no
+
+                val url = binding.content.urlText.text.toString()
+                var error:String?=null
+            if (!foco) {
+                if (url.isBlank()) {
+                    binding.content.urlText.error= R.string.vacio.toString()
+
+                }else{
+                    if(URLUtil.isValidUrl(url)){//Comprueba si la imagen es válida, si no lo es saldrá un error
+                        cargarImagen(url)
+                        error=null
+                    }else{
+                        error=getString(R.string.direction)//Introduce el nombre del error en la variable error
+                    }
+
+                }
+                //En el error del contenido introduce el nombre del error, quitando el nulo y activando el error
+                binding.content.txtContenido.error=error
+            }
+
+        }
+
+    }
+    //https://rlv.zcache.es/poster_selfie_de_mono-r97fed6033c784b2e8b5d1a004ee90393_wvg_8byvr_307.jpg
+    private fun cargarImagen(url:String="https://www.nationalgeographic.com.es/medio/2018/02/27/monos__1280x720.jpg"){
+         Glide.with(this)
+             .load(url)//aqui se introduce la url de la imagen
+             .centerCrop()//Ajusta al tamaño la imagen, creo
+             .diskCacheStrategy(DiskCacheStrategy.DATA)//guarda en caché la imagen
+             .into(binding.content.imgMono)//Indicamos que imageView tendra la imagen
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

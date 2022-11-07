@@ -7,7 +7,9 @@
     android:fitsSystemWindows="true"
     tools:context=".ScrollingActivity">
 
-    <include layout="@layout/content_scrolling" />
+    <!--Activity solo hay uno, dentro de el se añaden los demás layouts-->
+    <include layout="@layout/content_scrolling"
+        android:id="@+id/content"/>
  <!--BARRA DE HERRAMIENTAS -->
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/barra"

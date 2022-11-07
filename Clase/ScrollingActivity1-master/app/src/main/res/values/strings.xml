@@ -95,4 +95,6 @@
     <string name="exito">mensaje con exito</string>
     <string name="web_direction">Direccion</string>
     <string name="necessary">Hola caracola</string>
+    <string name="vacio">Vacio</string>
+    <string name="direction">Direccion no valida</string>
 </resources>

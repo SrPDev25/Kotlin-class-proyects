@@ -14,6 +14,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtContenido"
             android:layout_width    ="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/web_direction"
@@ -23,6 +24,7 @@
             <!--Si escribes 0dp, pondra el tamaño que le salga del codigo -->
             <!--Todo match_parent=ocupa todo, wrap_content=ocupa lo que necesite-->
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/urlText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textUri"/>
@@ -44,6 +46,15 @@
                 android:inputType="textPassword"/>
 
         </com.google.android.material.textfield.TextInputLayout>
+        <!--//Pongo la imagen del mono-->
+        <ImageView
+            android:id="@+id/imgMono"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_gravity="center"
+            android:background="@color/purple_700"
+
+            />
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
