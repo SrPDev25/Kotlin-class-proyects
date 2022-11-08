@@ -1,5 +1,6 @@
 package com.example.e1mdortegadaniel
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -19,19 +20,11 @@ class MainActivity : AppCompatActivity() {
             .into(binding.imgLogo)
         binding.whiteLayout.background.alpha=200
 
-        binding.main.buttonLogin.setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus){
-                /*val placeHolder :LinearLayout = findViewById<LinearLayout>(binding.loginLayout)
-                layoutInflater.inflate(R.layout.second_layout, placeHolder)*/
-            }
+        binding.main.buttonLogin.setOnClickListener {
+            val myIntent =Intent(this, SecondActivity::class.java)
+
+            startActivity(myIntent)
         }
-
-
-
-
-
-
-
     }
 }
 
