@@ -15,9 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.E1MDOrtegaDaniel"
         tools:targetApi="31">
+        <!-- android:exported="false"-->
         <activity
             android:name=".SecondActivity"
-            android:exported="false">
+            android:parentActivityName=".MainActivity"
+            >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

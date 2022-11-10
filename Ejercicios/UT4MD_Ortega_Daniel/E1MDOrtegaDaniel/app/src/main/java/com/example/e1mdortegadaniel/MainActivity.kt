@@ -10,8 +10,8 @@ import com.example.e1mdortegadaniel.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var binding:ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -20,9 +20,9 @@ class MainActivity : AppCompatActivity() {
             .into(binding.imgLogo)
         binding.whiteLayout.background.alpha=200
 
+        //Inicia el second activity ejecutando también el SecondActivity.kt
         binding.main.buttonLogin.setOnClickListener {
-            val myIntent =Intent(this, SecondActivity::class.java)
-
+            val myIntent = Intent(this, SecondActivity::class.java)
             startActivity(myIntent)
         }
     }
