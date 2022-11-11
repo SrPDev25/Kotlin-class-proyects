@@ -19,12 +19,24 @@ class MainActivity : AppCompatActivity() {
             .load("https://librosking.com/wp-content/uploads/2022/04/Logo-Libros-king-2022.1.png")
             .into(binding.imgLogo)
         binding.whiteLayout.background.alpha=200
+        binding.main.buttonCredits.background.alpha=0
+
+
 
         //Inicia el second activity ejecutando también el SecondActivity.kt
         binding.main.buttonLogin.setOnClickListener {
             val myIntent = Intent(this, SecondActivity::class.java)
             startActivity(myIntent)
         }
+
+        binding.main.buttonCredits.setOnClickListener {
+            val myIntent =Intent(this,CreditsActivity::class.java)
+            startActivity(myIntent)
+        }
+
+
+
+
     }
 }
 

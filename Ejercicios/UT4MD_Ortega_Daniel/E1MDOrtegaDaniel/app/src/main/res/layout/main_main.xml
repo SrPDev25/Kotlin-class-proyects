@@ -22,14 +22,14 @@
             android:layout_gravity="center"
             android:text="@string/loginButton" />
 
-        <TextView
-            android:id="@+id/credits"
+        <Button
+            android:id="@+id/buttonCredits"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/credits"
-            style="@style/Theme.Material3.DynamicColors.Dark"
-            />
+            android:textColor="@color/black"
+            style="?android:attr/borderlessButtonStyle"
+            android:text="@string/credits"/>
 
 
     </LinearLayout>

@@ -8,8 +8,8 @@ import com.example.e1mdortegadaniel.databinding.ActivitySecondBinding
 
 class SecondActivity : AppCompatActivity() {
     private lateinit var binding:ActivitySecondBinding
-    var count: Int =3
-    var users= arrayListOf<User>()
+    private var count: Int =3
+    private var users= arrayListOf<User>()
     override fun onCreate(savedInstanceState: Bundle?) {
 
         //Inicio del layout
@@ -57,8 +57,8 @@ class SecondActivity : AppCompatActivity() {
 
 
     }
-    fun isUser(user:String,pass:String):Boolean{
-        var fine:Boolean=false
+    private fun isUser(user:String, pass:String):Boolean{
+        var fine =false
         for(i:User in users){
             if (i.isSame(user,pass)){
                 fine=true

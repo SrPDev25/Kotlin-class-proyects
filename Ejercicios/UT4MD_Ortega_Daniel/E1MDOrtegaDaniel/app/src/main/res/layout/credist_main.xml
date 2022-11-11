@@ -4,13 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".SecondActivity">
+    tools:context=".CreditsActivity">
+
+
 
     <LinearLayout
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
+        android:gravity="center"
+        >
 
         <LinearLayout
             android:id="@+id/whiteLayout"
@@ -27,8 +30,26 @@
                 android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/app_logo" />
-            <include layout="@layout/login_main"
-                android:id="@+id/loginLayout" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/credits_name"
+                android:layout_gravity="center"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/credits_grade"
+                android:layout_gravity="center"
+                android:textColor="@color/black"/>
+            <Button
+                android:id="@+id/buttonReturn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/return_layout"
+                android:layout_gravity="center"/>
+
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
