@@ -7,58 +7,100 @@ import com.example.e2mdortegadaniel.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    var numberOnOperation: String =""
-    var operations :Int = -1
-    var isStarted =false
+    var numberOnOperation = "0"
+    var numberLastOperation = ""
+    var operation: Int = -1
+    var isStarted = false
+    var isCommed = false
+    var control = CalculatorOperations()
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        binding=ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         /**
          * Insert a new number into the textView
          */
-        fun insertNumber(number:String){
-            if (isStarted){
-                binding.numberTextView.text=number
-            }else{
-            numberOnOperation += number
-            binding.numberTextView.text=numberOnOperation
+        fun insertNumber(number: String) {
+            if (!isStarted) {
+                numberOnOperation = number
+                binding.numberTextView.text = numberOnOperation
+            } else {
+                numberOnOperation += number
+                binding.numberTextView.text = numberOnOperation
             }
+            isStarted = true
         }
 
         /**
          * Delete de last digit
          */
-        fun deleteLastNumber(){
-            var numberChar=numberOnOperation.toCharArray()
-            numberChar.dropLast(2)
-            numberOnOperation= String(numberChar.dropLast(1).toCharArray())
-            binding.numberTextView.text=numberOnOperation
+        fun deleteLastNumber() {
+            var numberChar = numberOnOperation.toCharArray()
+            if (numberChar.size == 1) {
+                numberOnOperation = "0"
+            } else {
+                numberOnOperation = String(numberChar.dropLast(1).toCharArray())
+            }
+            binding.numberTextView.text = numberOnOperation
         }
 
         /**
          * Reset the calculator
          */
-        fun resetAll(){
-            numberOnOperation=""
-            operations=-1
-            binding.numberTextView.text=""
+        fun resetAll() {
+            numberOnOperation = ""
+            operation = -1
+            binding.numberTextView.text = "0"
+            isStarted = false
+            isCommed= false
         }
 
         /**
          * Switch positive and negative numbers
          */
-        fun switchSimbol(){
-            var textChar=numberOnOperation.toList()
+        fun switchSimbol() {
+            var textChar = numberOnOperation.toList()
             //Comprueba si ya tiene un -
-            if (textChar[0] != "-".toList()[0]){
-                numberOnOperation= "-$numberOnOperation"
-            }else{
-                numberOnOperation=String(textChar.drop(1).toCharArray())
+            if (textChar[0] != "-".toList()[0]) {
+                numberOnOperation = "-$numberOnOperation"
+            } else {
+                numberOnOperation = String(textChar.drop(1).toCharArray())
             }
-            binding.numberTextView.text=numberOnOperation
+            binding.numberTextView.text = numberOnOperation
+        }
+
+        fun resetNumber(newOperation: Int) {
+            operation = newOperation
+            isStarted = false
+            isCommed = false
+        }
+
+        fun startOperation(newOperation: Int) {
+            if (operation != -1 && numberOnOperation != "0") {
+                numberOnOperation =
+                    control.operation(numberLastOperation, numberOnOperation, operation)
+                binding.numberTextView.text = numberOnOperation
+
+                numberLastOperation = numberOnOperation
+                resetNumber(newOperation)
+            } else if (operation == -1) {
+
+                numberLastOperation = numberOnOperation
+                resetNumber(newOperation)
+            } else if (operation != -1 && numberOnOperation == "0") {
+                resetNumber(newOperation)
+            }
+
+        }
+
+
+        fun startEquals() {
+            if (operation != -1) {
+                startOperation(operation)
+                operation = -1
+            }
         }
 
         binding.button0.setOnClickListener {
@@ -92,7 +134,16 @@ class MainActivity : AppCompatActivity() {
             insertNumber("9")
         }
         binding.buttonPoint.setOnClickListener {
-            insertNumber(",")
+            if (!isCommed && (numberOnOperation=="0" || !isStarted) ){
+                insertNumber("0.")
+                isCommed=true
+            }
+            else if (!isCommed) {
+                insertNumber(".")
+                isCommed = true
+            }
+
+
         }
         binding.buttonDelete.setOnClickListener {
             deleteLastNumber()
@@ -103,6 +154,20 @@ class MainActivity : AppCompatActivity() {
         binding.buttonSwitch.setOnClickListener {
             switchSimbol()
         }
-
+        binding.buttonPlus.setOnClickListener {
+            startOperation(control.plusOperation)
+        }
+        binding.buttonMinus.setOnClickListener {
+            startOperation(control.minusOperation)
+        }
+        binding.buttonTimes.setOnClickListener {
+            startOperation(control.timesOperation)
+        }
+        binding.buttonDivision.setOnClickListener {
+            startOperation(control.divisionOperation)
+        }
+        binding.buttonEquals.setOnClickListener {
+            startEquals()
+        }
     }
 }
