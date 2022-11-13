@@ -5,58 +5,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:context=".MainActivity">
+
     <LinearLayout
-        android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        >
+        android:gravity="center">
 
         <LinearLayout
-            android:id="@+id/whiteLayout"
-            android:layout_width="300dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minHeight="300dp"
             android:layout_gravity="center"
             android:orientation="vertical"
-            android:background="@color/white"
-            >
+            tools:ignore="UselessParent">
 
-            <ImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center"
-                android:id="@+id/img_logo"/>
+
+            <!--Textbox de user-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/user"
+
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:hint="@string/username"
                 app:endIconMode="clear_text">
+
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/user"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textUri"/>
+                    android:inputType="textUri" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <!--Textbox de pass-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/pass"
+
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
                 android:hint="@string/password"
-                app:endIconMode="clear_text">
+                app:endIconMode="password_toggle">
+
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/pass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textUri"/>
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
-
+            <!--Boton de login-->
             <Button
-                android:id="@+id/login"
+                android:id="@+id/buttonLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
