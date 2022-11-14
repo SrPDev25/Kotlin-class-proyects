@@ -1,5 +1,6 @@
 package com.example.e2mdortegadaniel
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.e2mdortegadaniel.databinding.ActivityMainBinding
@@ -7,12 +8,12 @@ import com.example.e2mdortegadaniel.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    var numberOnOperation = "0"
-    var numberLastOperation = ""
-    var operation: Int = -1
-    var isStarted = false
-    var isCommed = false
-    var control = CalculatorOperations()
+    private var numberOnOperation = "0"
+    private var numberLastOperation = ""
+    private var operation: Int = -1
+    private var isStarted = false//Indica si hay algun número insertado o hay 0
+    private var isCommed = false
+    private var control = CalculatorOperations()
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
          * Insert a new number into the textView
          */
         fun insertNumber(number: String) {
-            if (!isStarted) {
+            if (!isStarted) {//Comprueba si el numero es 0 o tiene que añadirse un nueveo numero
                 numberOnOperation = number
                 binding.numberTextView.text = numberOnOperation
             } else {
@@ -37,9 +38,10 @@ class MainActivity : AppCompatActivity() {
          * Delete de last digit
          */
         fun deleteLastNumber() {
-            var numberChar = numberOnOperation.toCharArray()
+            val numberChar = numberOnOperation.toCharArray()
             if (numberChar.size == 1) {
                 numberOnOperation = "0"
+                isStarted = false
             } else {
                 numberOnOperation = String(numberChar.dropLast(1).toCharArray())
             }
@@ -54,27 +56,57 @@ class MainActivity : AppCompatActivity() {
             operation = -1
             binding.numberTextView.text = "0"
             isStarted = false
-            isCommed= false
+            isCommed = false
         }
 
         /**
          * Switch positive and negative numbers
          */
         fun switchSimbol() {
-            var textChar = numberOnOperation.toList()
+            val textChar = numberOnOperation.toList()
             //Comprueba si ya tiene un -
-            if (textChar[0] != "-".toList()[0]) {
-                numberOnOperation = "-$numberOnOperation"
+            numberOnOperation = if (textChar[0] != "-".toList()[0]) {
+                "-$numberOnOperation"
             } else {
-                numberOnOperation = String(textChar.drop(1).toCharArray())
+                String(textChar.drop(1).toCharArray())
             }
             binding.numberTextView.text = numberOnOperation
         }
 
-        fun resetNumber(newOperation: Int) {
+        /**
+         * Reset just the operations
+         */
+        fun resetOperations(newOperation: Int) {
             operation = newOperation
             isStarted = false
             isCommed = false
+        }
+
+        fun markOperation() {
+            if (operation == control.minusOperation) {
+                binding.buttonMinus.setBackgroundColor(Color.parseColor("#41039e"))
+            } else {
+                binding.buttonMinus.setBackgroundColor(Color.parseColor("#1F1F1F"))
+            }
+
+            if (operation == control.plusOperation) {
+                binding.buttonPlus.setBackgroundColor(Color.parseColor("#41039e"))
+            } else {
+                binding.buttonPlus.setBackgroundColor(Color.parseColor("#1F1F1F"))
+            }
+
+            if (operation == control.timesOperation) {
+                binding.buttonTimes.setBackgroundColor(Color.parseColor("#41039e"))
+            } else {
+                binding.buttonTimes.setBackgroundColor(Color.parseColor("#1F1F1F"))
+            }
+
+            if (operation == control.divisionOperation) {
+                binding.buttonDivision.setBackgroundColor(Color.parseColor("#41039e"))
+            } else {
+                binding.buttonDivision.setBackgroundColor(Color.parseColor("#1F1F1F"))
+            }
+
         }
 
         fun startOperation(newOperation: Int) {
@@ -82,15 +114,16 @@ class MainActivity : AppCompatActivity() {
                 numberOnOperation =
                     control.operation(numberLastOperation, numberOnOperation, operation)
                 binding.numberTextView.text = numberOnOperation
-
                 numberLastOperation = numberOnOperation
-                resetNumber(newOperation)
+                resetOperations(newOperation)
+                markOperation()
             } else if (operation == -1) {
-
                 numberLastOperation = numberOnOperation
-                resetNumber(newOperation)
-            } else if (operation != -1 && numberOnOperation == "0") {
-                resetNumber(newOperation)
+                resetOperations(newOperation)
+                markOperation()
+            } else {
+                resetOperations(newOperation)
+                markOperation()
             }
 
         }
@@ -101,6 +134,7 @@ class MainActivity : AppCompatActivity() {
                 startOperation(operation)
                 operation = -1
             }
+            markOperation()
         }
 
         binding.button0.setOnClickListener {
@@ -134,11 +168,10 @@ class MainActivity : AppCompatActivity() {
             insertNumber("9")
         }
         binding.buttonPoint.setOnClickListener {
-            if (!isCommed && (numberOnOperation=="0" || !isStarted) ){
+            if (!isCommed && (numberOnOperation == "0" || !isStarted)) {
                 insertNumber("0.")
-                isCommed=true
-            }
-            else if (!isCommed) {
+                isCommed = true
+            } else if (!isCommed) {
                 insertNumber(".")
                 isCommed = true
             }

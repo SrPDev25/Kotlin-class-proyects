@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="txtButton">30sp</dimen>
+    <dimen name="paddingButton">10dp</dimen>
 </resources>
