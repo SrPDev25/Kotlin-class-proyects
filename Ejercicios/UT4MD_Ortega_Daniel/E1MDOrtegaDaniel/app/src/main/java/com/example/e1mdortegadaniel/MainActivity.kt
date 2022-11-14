@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         //Inicia el second activity ejecutando también el SecondActivity.kt
         binding.main.buttonLogin.setOnClickListener {
             val myIntent = Intent(this, SecondActivity::class.java)
+            //myIntent.putExtra()//Learning:    método con el que puedes enviarle datos en una variable tipo Bundle
             startActivity(myIntent)
         }
 

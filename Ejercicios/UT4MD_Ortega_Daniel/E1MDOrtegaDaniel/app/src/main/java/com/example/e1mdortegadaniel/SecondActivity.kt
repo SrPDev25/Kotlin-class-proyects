@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.e1mdortegadaniel.databinding.ActivitySecondBinding
+import kotlin.system.exitProcess
 
 class SecondActivity : AppCompatActivity() {
     private lateinit var binding:ActivitySecondBinding

@@ -48,16 +48,7 @@ class MainActivity : AppCompatActivity() {
             binding.numberTextView.text = numberOnOperation
         }
 
-        /**
-         * Reset the calculator
-         */
-        fun resetAll() {
-            numberOnOperation = ""
-            operation = -1
-            binding.numberTextView.text = "0"
-            isStarted = false
-            isCommed = false
-        }
+
 
         /**
          * Switch positive and negative numbers
@@ -109,10 +100,21 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        /**
+         * Reset the calculator
+         */
+        fun resetAll() {
+            numberOnOperation = ""
+            operation = -1
+            binding.numberTextView.text = "0"
+            isStarted = false
+            isCommed = false
+            markOperation()//Solo se pueden llamar los métodos de arriba a abajo
+        }
+
         fun startOperation(newOperation: Int) {
             if (operation != -1 && numberOnOperation != "0") {
-                numberOnOperation =
-                    control.operation(numberLastOperation, numberOnOperation, operation)
+                numberOnOperation = control.operation(numberLastOperation, numberOnOperation, operation)
                 binding.numberTextView.text = numberOnOperation
                 numberLastOperation = numberOnOperation
                 resetOperations(newOperation)
