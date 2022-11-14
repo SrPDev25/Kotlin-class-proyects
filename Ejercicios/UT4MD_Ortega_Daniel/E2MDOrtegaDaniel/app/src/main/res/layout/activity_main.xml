@@ -8,16 +8,17 @@
     tools:context=".MainActivity"
     app:layout_constraintVertical_chainStyle="packed">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/numberLayout"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="130dp"
         android:background="#323232"
         android:foregroundGravity="bottom"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/buttonsLayout"
+        app:layout_constraintTop_toTopOf="parent"
 
-        >
+        tools:layout_editor_absoluteX="0dp">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textViewLa"
@@ -35,8 +36,6 @@
                 android:textSize="50sp" />
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
