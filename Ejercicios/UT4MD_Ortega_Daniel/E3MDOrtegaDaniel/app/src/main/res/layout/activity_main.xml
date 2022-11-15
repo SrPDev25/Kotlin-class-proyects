@@ -23,10 +23,10 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/textPrimes"
+                android:id="@+id/textPrimesLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@id/textInput"
+                app:layout_constraintBottom_toBottomOf="@id/textInputLayout"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -37,6 +37,7 @@
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/prime"
                     android:background="#3282A6"
                     android:gravity="center"
                     android:minWidth="100dp"
@@ -52,7 +53,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/textInput"
+                android:id="@+id/textInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="50dp"
@@ -61,7 +62,7 @@
                 app:layout_constraintHorizontal_weight=".5"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textPrimes"
+                app:layout_constraintTop_toBottomOf="@id/textPrimesLayout"
                 android:background="#0A2635">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -78,6 +79,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/textInput"
                     android:inputType="number"
                     android:textSize="30sp" />
             </com.google.android.material.textfield.TextInputLayout>
