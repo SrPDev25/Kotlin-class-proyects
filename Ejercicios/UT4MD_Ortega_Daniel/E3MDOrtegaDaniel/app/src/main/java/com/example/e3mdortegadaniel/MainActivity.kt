@@ -16,14 +16,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         primesChache.add(1)
         primesChache.add(2)
-        primesChache.add(2)
+        primesChache.add(3)
 
         fun inCache(n: String): Int {
             var result = 0
-            if (n != "" && primesChache.size<=n.toInt()) {
-
+            if (n != "" && primesChache.size >= n.toInt()) {
+                result = primesChache[n.toInt() - 1]
             }
-
             return result
         }
 
@@ -32,11 +31,11 @@ class MainActivity : AppCompatActivity() {
 
 
             if (n != "" && thePrime == 0) {
-                var count = 4
-                var num = 5
+                var count = primesChache.size
+                var num = primesChache[count - 1] + 1
                 var flag = false
                 val nUsing = n.toInt()
-                while (count != nUsing) {
+                while (count < nUsing) {
                     flag = false
                     for (i in 2..num / 2) {
                         // condition for nonprime number
@@ -45,13 +44,14 @@ class MainActivity : AppCompatActivity() {
                             break
                         }
                     }
-                    if (flag) {
+                    if (!flag) {
                         count++
                         thePrime = num
+                        primesChache.add(thePrime)
                     }
                     num++
                 }
-                primesChache.add(nUsing, thePrime)
+
             }
             return thePrime.toString()
         }
@@ -71,7 +71,9 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                binding.prime.text = foundNPrime(binding.textInput.text.toString())
+                val text = binding.textInput.text.toString()
+                if (text != "0")
+                    binding.prime.text = foundNPrime(text)
             }
         }
 
