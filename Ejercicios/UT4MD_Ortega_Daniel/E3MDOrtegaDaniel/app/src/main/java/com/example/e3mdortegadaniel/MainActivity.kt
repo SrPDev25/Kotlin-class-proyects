@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        primesChache.add(1)
+        //1 is not prime
         primesChache.add(2)
         primesChache.add(3)
 
@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
             if (n != "" && primesChache.size >= n.toInt()) {
                 result = primesChache[n.toInt() - 1]
             }
+
             return result
         }
 
@@ -44,14 +45,14 @@ class MainActivity : AppCompatActivity() {
                             break
                         }
                     }
-                    if (!flag) {
+                    if (flag) {
                         count++
                         thePrime = num
                         primesChache.add(thePrime)
                     }
                     num++
                 }
-
+                primesChache.add(nUsing, thePrime)
             }
             return thePrime.toString()
         }
@@ -73,6 +74,9 @@ class MainActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
                 val text = binding.textInput.text.toString()
                 if (text != "0")
+                    //his@MainActivity.runOnUiThread(java.lang.Runnable {
+                        binding.prime.text ="processing..."//Not found without threads
+                    //})
                     binding.prime.text = foundNPrime(text)
             }
         }
