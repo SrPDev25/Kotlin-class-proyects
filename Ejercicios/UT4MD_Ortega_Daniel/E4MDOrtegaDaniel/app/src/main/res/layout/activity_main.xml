@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".GameActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,13 +13,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed">
         <!--Image layout-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/imageLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/buttonsLayout"
+            app:layout_constraintBottom_toTopOf="@id/textToResolveLayout"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -36,13 +37,38 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
         <!--Buttons layout-->
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/textToResolveLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/imageLayout"
+            app:layout_constraintBottom_toTopOf="@id/buttonsLayout"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginBottom="5dp"
+            >
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textToResolve"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="50sp"
+                android:text="_ _ _ _"
+                android:textColor="#F86868"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/buttonsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageLayout">
+            app:layout_constraintTop_toBottomOf="@id/textToResolveLayout">
             <!--Top buttons layout-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/topButtonLayout"
@@ -424,7 +450,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
+            <!--Z layout-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/zButtonLayout"
                 android:layout_width="match_parent"
