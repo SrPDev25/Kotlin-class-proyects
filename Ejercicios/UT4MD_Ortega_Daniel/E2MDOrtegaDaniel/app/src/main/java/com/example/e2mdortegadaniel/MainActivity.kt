@@ -104,11 +104,12 @@ class MainActivity : AppCompatActivity() {
          * Reset the calculator
          */
         fun resetAll() {
-            numberOnOperation = ""
+            numberOnOperation = "0"
+            numberLastOperation = ""
             operation = -1
-            binding.numberTextView.text = "0"
-            isStarted = false
+            isStarted = false//Indica si hay algun número insertado o hay 0
             isCommed = false
+            binding.numberTextView.text="0";
             markOperation()//Solo se pueden llamar los métodos de arriba a abajo
         }
 
@@ -119,11 +120,14 @@ class MainActivity : AppCompatActivity() {
                 numberLastOperation = numberOnOperation
                 resetOperations(newOperation)
                 markOperation()
+            }else if(operation == -1 && numberOnOperation !="0") {
+                resetOperations(newOperation)
+                markOperation()
             } else if (operation == -1) {
                 numberLastOperation = numberOnOperation
                 resetOperations(newOperation)
                 markOperation()
-            } else if(numberOnOperation !="0") {
+            } else  {
                 resetOperations(newOperation)
                 markOperation()
             }

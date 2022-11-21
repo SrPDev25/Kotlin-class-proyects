@@ -15,7 +15,7 @@ class CalculatorOperations {
         var operator1:Double=number1.toDouble()
         var operator2:Double=number2.toDouble()
         var solution:String=""
-
+        //TODO corregir si escribimos 0.
         solution= (operator1+operator2).toString()
 
         return solution
