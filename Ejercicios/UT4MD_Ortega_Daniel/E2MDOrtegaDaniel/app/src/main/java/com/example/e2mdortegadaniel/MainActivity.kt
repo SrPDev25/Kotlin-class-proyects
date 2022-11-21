@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
         /**
          * Reset just the operations
          */
-        fun resetOperations(newOperation: Int) {
+        fun setOperation(newOperation: Int) {
             operation = newOperation
             isStarted = false
             isCommed = false
@@ -114,22 +114,28 @@ class MainActivity : AppCompatActivity() {
         }
 
         fun startOperation(newOperation: Int) {
-            if (operation != -1 && numberOnOperation != "0") {
-                numberOnOperation = control.operation(numberLastOperation, numberOnOperation, operation)
-                binding.numberTextView.text = numberOnOperation
-                numberLastOperation = numberOnOperation
-                resetOperations(newOperation)
-                markOperation()
-            }else if(operation == -1 && numberOnOperation !="0") {
-                resetOperations(newOperation)
-                markOperation()
-            } else if (operation == -1) {
-                numberLastOperation = numberOnOperation
-                resetOperations(newOperation)
-                markOperation()
-            } else  {
-                resetOperations(newOperation)
-                markOperation()
+            var hola=binding.numberTextView.text.get(binding.numberTextView.text.length-1);
+            //Comprueba que no acaba en "."
+            if (hola!='.') {
+                //TODO estaría bien comprobar que no calcule cuando tienes un resultado y quieres cambiar de operación
+                //Cuando tiene ya una operación lista
+                if (operation != -1 && numberOnOperation != "0") {
+                    numberOnOperation=binding.numberTextView.text.toString();
+                    numberOnOperation =
+                        control.operation(numberLastOperation, numberOnOperation, operation)
+                    binding.numberTextView.text = numberOnOperation
+                    numberLastOperation = numberOnOperation
+                    setOperation(newOperation)
+                    markOperation()
+                    //Cuando se indico un numero y no se indico anteriormente una operación
+                } else if (operation == -1 && numberOnOperation != "0") {
+                    setOperation(newOperation)//Indica el nuevo operador
+                    markOperation()//Marca el operador en uso
+                    numberLastOperation=numberOnOperation;
+                }  else {
+                    setOperation(newOperation)
+                    markOperation()
+                }
             }
 
         }
