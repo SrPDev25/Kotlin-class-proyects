@@ -58,13 +58,14 @@ class SecondActivity : AppCompatActivity() {
 
 
     }
+
+    /**
+     * Comprueba si existe el usuario en el arrayList
+     */
     private fun isUser(user:String, pass:String):Boolean{
         var fine =false
-        for(i:User in users){
-            if (i.isSame(user,pass)){
-                fine=true
-                break
-            }
+        if (users.indexOf(User(user,pass))!=-1){
+            fine=true
         }
         return fine
     }
