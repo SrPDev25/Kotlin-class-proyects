@@ -5,7 +5,7 @@ import kotlin.collections.ArrayList
 
 class HangmanControl {
     var random=Random()
-    var palabra=ArrayList<String>()
+    var palabras=ArrayList<String>()
     var wordInGame:String=""
     var wordInProgress=ArrayList<Char>()
 
@@ -13,8 +13,11 @@ class HangmanControl {
         chargeStrings()
     }
 
+    /**
+     * Resetea la partida e inicia con una palabra nueva
+     */
     fun startGame():String{
-        wordInGame=palabra.get((0..palabra.size-1).random().toInt())
+        wordInGame=palabras.get((0..palabras.size-1).random().toInt())
         var lines=""
         wordInProgress= ArrayList<Char>()
         for (i in wordInGame){
@@ -49,15 +52,18 @@ class HangmanControl {
         return word
     }
 
+    /**
+     * genera las palabras con las que se ván a jugar
+     */
     fun chargeStrings(){
-        palabra.add("meseta")
-        palabra.add("interludio")
-        palabra.add("perrito")
-        palabra.add("gatete")
-        palabra.add("hojaldre")
-        palabra.add("mansalva")
-        palabra.add("mesopotamia")
-        palabra.add("sap")
-        palabra.add("otorrino")
+        palabras.add("meseta")
+        palabras.add("interludio")
+        palabras.add("perrito")
+        palabras.add("gatete")
+        palabras.add("hojaldre")
+        palabras.add("mansalva")
+        palabras.add("mesopotamia")
+        palabras.add("sap")
+        palabras.add("otorrino")
     }
 }
