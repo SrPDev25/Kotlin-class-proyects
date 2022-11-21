@@ -56,14 +56,26 @@ class HangmanControl {
      * genera las palabras con las que se ván a jugar
      */
     fun chargeStrings(){
-        palabras.add("meseta")
-        palabras.add("interludio")
-        palabras.add("perrito")
-        palabras.add("gatete")
-        palabras.add("hojaldre")
-        palabras.add("mansalva")
-        palabras.add("mesopotamia")
-        palabras.add("sap")
-        palabras.add("otorrino")
+        palabras.add("MESETA")
+        palabras.add("INTERLUDIO")
+        palabras.add("PERRITO")
+        palabras.add("GATETE")
+        palabras.add("HOJALDRE")
+        palabras.add("MANSALVA")
+        palabras.add("MESOPOTAMIA")
+        palabras.add("SAP")
+        palabras.add("OTORRINO")
+        palabras.add("AA")
+    }
+    
+    fun isVictory():Boolean{
+        var isVictory=true
+        for (i in wordInProgress){
+            if (i.equals('-')){
+                isVictory=false
+                break
+            }
+        }
+        return isVictory
     }
 }
