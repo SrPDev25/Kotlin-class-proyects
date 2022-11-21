@@ -18,6 +18,7 @@ class GameActivity : AppCompatActivity() {
         binding.hangmanImage.setBackgroundResource(R.drawable.hangman1)
         chargeLines()
 
+
         //binding.buttonB.visibility = View.INVISIBLE//Arapaho
 
         binding.buttonA.setOnClickListener {
@@ -62,6 +63,119 @@ class GameActivity : AppCompatActivity() {
             isVictory()
         }
 
+        binding.buttonH.setOnClickListener {
+            insertLetter('H')
+            binding.buttonH.visibility= View.INVISIBLE
+            isVictory()
+        }
+
+        binding.buttonI.setOnClickListener {
+            insertLetter('I')
+            binding.buttonI.visibility= View.INVISIBLE
+            isVictory()
+        }
+
+        binding.buttonJ.setOnClickListener {
+            insertLetter('J')
+            binding.buttonJ.visibility= View.INVISIBLE
+            isVictory()
+        }
+
+        binding.buttonK.setOnClickListener {
+            insertLetter('K')
+            binding.buttonK.visibility= View.INVISIBLE
+            isVictory()
+        }
+
+        binding.buttonL.setOnClickListener {
+            insertLetter('L')
+            binding.buttonL.visibility= View.INVISIBLE
+            isVictory()
+        }
+
+        binding.buttonM.setOnClickListener {
+            insertLetter('M')
+            binding.buttonM.visibility= View.INVISIBLE
+            isVictory()
+        }
+
+        binding.buttonN.setOnClickListener {
+            insertLetter('N')
+            binding.buttonN.visibility= View.INVISIBLE
+            isVictory()
+        }
+
+        binding.buttonO.setOnClickListener {
+            insertLetter('O')
+            binding.buttonO.visibility= View.INVISIBLE
+            isVictory()
+        }
+
+        binding.buttonP.setOnClickListener {
+            insertLetter('P')
+            binding.buttonP.visibility= View.INVISIBLE
+            isVictory()
+        }
+        binding.buttonQ.setOnClickListener {
+            insertLetter('Q')
+            binding.buttonQ.visibility= View.INVISIBLE
+            isVictory()
+        }
+
+        binding.buttonR.setOnClickListener {
+            insertLetter('R')
+            binding.buttonR.visibility= View.INVISIBLE
+            isVictory()
+        }
+
+        binding.buttonS.setOnClickListener {
+            insertLetter('S')
+            binding.buttonS.visibility= View.INVISIBLE
+            isVictory()
+        }
+
+        binding.buttonT.setOnClickListener {
+            insertLetter('T')
+            binding.buttonT.visibility= View.INVISIBLE
+            isVictory()
+        }
+
+        binding.buttonU.setOnClickListener {
+            insertLetter('U')
+            binding.buttonU.visibility= View.INVISIBLE
+            isVictory()
+        }
+
+        binding.buttonV.setOnClickListener {
+            insertLetter('V')
+            binding.buttonV.visibility= View.INVISIBLE
+            isVictory()
+        }
+
+        binding.buttonW.setOnClickListener {
+            insertLetter('W')
+            binding.buttonW.visibility= View.INVISIBLE
+            isVictory()
+        }
+
+        binding.buttonX.setOnClickListener {
+            insertLetter('X')
+            binding.buttonX.visibility= View.INVISIBLE
+            isVictory()
+        }
+
+        binding.buttonY.setOnClickListener {
+            insertLetter('Y')
+            binding.buttonY.visibility= View.INVISIBLE
+            isVictory()
+        }
+
+        binding.buttonZ.setOnClickListener {
+            insertLetter('Z')
+            binding.buttonZ.visibility= View.INVISIBLE
+            isVictory()
+        }
+
     }
     fun chargeLines(){
         binding.textToResolve.text=control.startGame()
@@ -74,6 +188,7 @@ class GameActivity : AppCompatActivity() {
         }
         binding.textToResolve.text=control.resetLines()
     }
+
 
     fun changeHangman(){
         if (countFails==1){
@@ -98,9 +213,22 @@ class GameActivity : AppCompatActivity() {
         if (control.isVictory()) {
             val myIntent = Intent(this, VictoryActivity::class.java)
             startActivity(myIntent)
+            resetAll()
+        }else if(countFails>=6){
+            val myIntent = Intent(this, LostActivity::class.java)
+            startActivity(myIntent)
+            resetAll()
         }
     }
 
+    /**
+     * This function reset all
+     */
+    fun resetAll(){
+        countFails=0
+        binding.hangmanImage.setBackgroundResource(R.drawable.hangman1)
+        chargeLines()
+    }
 
 
 

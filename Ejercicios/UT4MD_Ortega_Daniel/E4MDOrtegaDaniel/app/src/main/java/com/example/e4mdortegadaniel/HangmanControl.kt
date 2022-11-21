@@ -71,7 +71,7 @@ class HangmanControl {
     fun isVictory():Boolean{
         var isVictory=true
         for (i in wordInProgress){
-            if (i.equals('-')){
+            if (i=='_'){
                 isVictory=false
                 break
             }
