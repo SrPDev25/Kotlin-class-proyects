@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity() {
                 numberLastOperation = numberOnOperation
                 resetOperations(newOperation)
                 markOperation()
-            } else {
+            } else if(numberOnOperation !="0") {
                 resetOperations(newOperation)
                 markOperation()
             }

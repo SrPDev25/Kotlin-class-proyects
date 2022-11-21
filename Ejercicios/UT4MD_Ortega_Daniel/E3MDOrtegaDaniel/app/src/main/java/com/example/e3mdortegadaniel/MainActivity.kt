@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
             if (n != "" && thePrime == 0) {
                 var count = primesChache.size
-                var num = primesChache[count - 1] + 1
+                var num = primesChache[count - 1] +1
                 var flag: Boolean
                 val nUsing = n.toInt()
                 while (count < nUsing) {
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
                             break
                         }
                     }
-                    if (flag) {
+                    if (!flag) {
                         count++
                         thePrime = num
                         primesChache.add(thePrime)
@@ -73,9 +73,6 @@ class MainActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
                 val text = binding.textInput.text.toString()
                 if (text != "0")
-                    //his@MainActivity.runOnUiThread(java.lang.Runnable {
-                        binding.prime.text ="processing..."//Not found without threads
-                    //})
                     binding.prime.text = foundNPrime(text)
             }
         }
