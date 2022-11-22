@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
          */
         fun resetAll() {
             numberOnOperation = "0"
-            numberLastOperation = ""
+            numberLastOperation = "0"
             operation = -1
             isStarted = false//Indica si hay algun número insertado o hay 0
             isCommed = false

@@ -13,5 +13,8 @@ class VictoryActivity : AppCompatActivity() {
         binding=ActivityVictoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.restartButton.setOnClickListener {
+            finishAffinity()
+        }
     }
 }

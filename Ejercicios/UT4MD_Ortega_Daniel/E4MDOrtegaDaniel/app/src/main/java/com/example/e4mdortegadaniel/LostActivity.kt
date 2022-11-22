@@ -12,5 +12,8 @@ class LostActivity : AppCompatActivity() {
         binding= ActivityLostBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.restartButton.setOnClickListener {
+            finish()
+        }
     }
 }

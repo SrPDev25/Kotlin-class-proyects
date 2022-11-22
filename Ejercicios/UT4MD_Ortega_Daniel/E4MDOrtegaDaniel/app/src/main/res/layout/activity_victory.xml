@@ -16,12 +16,11 @@
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/restartButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/restart"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="250dp"
+        android:layout_height="58dp"
+        android:background="@drawable/restart"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lostImage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
