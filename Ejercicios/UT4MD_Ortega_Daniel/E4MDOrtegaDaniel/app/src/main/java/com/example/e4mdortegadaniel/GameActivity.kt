@@ -228,6 +228,33 @@ class GameActivity : AppCompatActivity() {
         countFails=0
         binding.hangmanImage.setBackgroundResource(R.drawable.hangman1)
         chargeLines()
+        binding.buttonA.visibility= View.INVISIBLE
+        binding.buttonB.visibility= View.INVISIBLE
+        binding.buttonC.visibility= View.INVISIBLE
+        binding.buttonD.visibility= View.INVISIBLE
+        binding.buttonE.visibility= View.INVISIBLE
+        binding.buttonF.visibility= View.INVISIBLE
+        binding.buttonG.visibility= View.INVISIBLE
+        binding.buttonH.visibility= View.INVISIBLE
+        binding.buttonI.visibility= View.INVISIBLE
+        binding.buttonJ.visibility= View.INVISIBLE
+        binding.buttonK.visibility= View.INVISIBLE
+        binding.buttonL.visibility= View.INVISIBLE
+        binding.buttonM.visibility= View.INVISIBLE
+        binding.buttonN.visibility= View.INVISIBLE
+        binding.buttonO.visibility= View.INVISIBLE
+        binding.buttonP.visibility= View.INVISIBLE
+        binding.buttonQ.visibility= View.INVISIBLE
+        binding.buttonR.visibility= View.INVISIBLE
+        binding.buttonS.visibility= View.INVISIBLE
+        binding.buttonT.visibility= View.INVISIBLE
+        binding.buttonU.visibility= View.INVISIBLE
+        binding.buttonV.visibility= View.INVISIBLE
+        binding.buttonW.visibility= View.INVISIBLE
+        binding.buttonX.visibility= View.INVISIBLE
+        binding.buttonY.visibility= View.INVISIBLE
+        binding.buttonZ.visibility= View.INVISIBLE
+
     }
 
 
