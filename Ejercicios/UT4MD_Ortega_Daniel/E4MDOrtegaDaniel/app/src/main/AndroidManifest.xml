@@ -30,7 +30,7 @@
         <activity
             android:name=".VictoryActivity"
             android:exported="true"
-            android:parentActivityName=".GameActivity">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

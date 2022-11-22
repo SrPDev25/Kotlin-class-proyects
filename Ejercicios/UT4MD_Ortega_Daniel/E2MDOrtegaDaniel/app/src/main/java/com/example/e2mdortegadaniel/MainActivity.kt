@@ -109,18 +109,17 @@ class MainActivity : AppCompatActivity() {
             operation = -1
             isStarted = false//Indica si hay algun número insertado o hay 0
             isCommed = false
-            binding.numberTextView.text="0";
+            binding.numberTextView.text="0"
             markOperation()//Solo se pueden llamar los métodos de arriba a abajo
         }
 
         fun startOperation(newOperation: Int) {
-            var hola=binding.numberTextView.text.get(binding.numberTextView.text.length-1);
+            val hola= binding.numberTextView.text[binding.numberTextView.text.length-1]
             //Comprueba que no acaba en "."
             if (hola!='.') {
-                //TODO estaría bien comprobar que no calcule cuando tienes un resultado y quieres cambiar de operación
                 //Cuando tiene ya una operación lista
                 if (operation != -1 && numberOnOperation != "0") {
-                    numberOnOperation=binding.numberTextView.text.toString();
+                    numberOnOperation=binding.numberTextView.text.toString()
                     numberOnOperation =
                         control.operation(numberLastOperation, numberOnOperation, operation)
                     binding.numberTextView.text = numberOnOperation
@@ -131,7 +130,7 @@ class MainActivity : AppCompatActivity() {
                 } else if (operation == -1 && numberOnOperation != "0") {
                     setOperation(newOperation)//Indica el nuevo operador
                     markOperation()//Marca el operador en uso
-                    numberLastOperation=numberOnOperation;
+                    numberLastOperation=numberOnOperation
                 }  else {
                     setOperation(newOperation)
                     markOperation()

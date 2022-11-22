@@ -17,25 +17,31 @@ class MainActivity : AppCompatActivity() {
         primesChache.add(2)
         primesChache.add(3)
 
-        fun inCache(n: String): Int {
+        /**
+         * Comprueba si el numero primo requerido existe
+         * @return devuelve le número primo
+         */
+        fun inCache(number: Int): Int {
             var result = 0
-            if (n != "" && primesChache.size >= n.toInt()) {
-                result = primesChache[n.toInt() - 1]
+            if (primesChache.size >= number && number != 0) {
+                result = primesChache[number - 1]
             }
 
             return result
         }
 
-        fun foundNPrime(n: String): String {
+        /**
+         * Busca los numeros primos
+         * @return devuelve el numero primo
+         */
+        fun foundNPrime(n: Int): String {
             var thePrime = inCache(n)
 
-
-            if (n != "" && thePrime == 0) {
+            if (thePrime == 0) {
                 var count = primesChache.size
                 var num = primesChache[count - 1] +1
                 var flag: Boolean
-                val nUsing = n.toInt()
-                while (count < nUsing) {
+                while (count < n) {
                     flag = false
                     for (i in 2..num / 2) {
                         // condition for nonprime number
@@ -51,11 +57,14 @@ class MainActivity : AppCompatActivity() {
                     }
                     num++
                 }
-                primesChache.add(nUsing, thePrime)
+                primesChache.add(n, thePrime)
             }
             return thePrime.toString()
         }
 
+        /**
+         * Un listener que comprueba en este casi si el texto cambia
+         */
         val watcher: TextWatcher = object : TextWatcher {
             override fun beforeTextChanged(
                 s: CharSequence?,
@@ -71,9 +80,15 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                val text = binding.textInput.text.toString()
-                if (text != "0")
-                    binding.prime.text = foundNPrime(text)
+                val text=binding.textInput.text.toString()
+
+                if (text!="") {
+                    val pos: Int = text.toInt()
+                    if (pos != 0)
+                        binding.prime.text = foundNPrime(pos)
+                }else{
+                    binding.prime.text="0"
+                }
             }
         }
 
