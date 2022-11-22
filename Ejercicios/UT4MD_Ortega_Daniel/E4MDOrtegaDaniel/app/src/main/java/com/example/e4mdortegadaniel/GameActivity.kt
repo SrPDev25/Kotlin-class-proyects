@@ -7,10 +7,9 @@ import android.view.View
 import com.example.e4mdortegadaniel.databinding.ActivityMainBinding
 
 class GameActivity : AppCompatActivity() {
-    lateinit var binding:ActivityMainBinding
-    var control =HangmanControl()
-    var hangmanImages =ArrayList<String>()
-    var countFails=0
+    private lateinit var binding:ActivityMainBinding
+    private var control =HangmanControl()
+    private var countFails=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityMainBinding.inflate(layoutInflater)
@@ -177,11 +176,11 @@ class GameActivity : AppCompatActivity() {
         }
 
     }
-    fun chargeLines(){
+    private fun chargeLines(){
         binding.textToResolve.text=control.startGame()
     }
 
-    fun insertLetter(letter:Char){
+    private fun insertLetter(letter:Char){
         if (control.checkWord(letter)==-1){
             countFails++
             changeHangman()
@@ -190,26 +189,34 @@ class GameActivity : AppCompatActivity() {
     }
 
 
-    fun changeHangman(){
-        if (countFails==1){
-            binding.hangmanImage.setBackgroundResource(R.drawable.hangman2)
-        }else if(countFails==2){
-            binding.hangmanImage.setBackgroundResource(R.drawable.hangman3)
-        }else if(countFails==3){
-            binding.hangmanImage.setBackgroundResource(R.drawable.hangman4)
-        }else if(countFails==4){
-            binding.hangmanImage.setBackgroundResource(R.drawable.hangman5)
-        }else if(countFails==5){
-            binding.hangmanImage.setBackgroundResource(R.drawable.hangman6)
-        }else {
-            binding.hangmanImage.setBackgroundResource(R.drawable.hangman7)
+    private fun changeHangman(){
+
+        when (countFails) {
+            1 -> {
+                binding.hangmanImage.setBackgroundResource(R.drawable.hangman2)
+            }
+            2 -> {
+                binding.hangmanImage.setBackgroundResource(R.drawable.hangman3)
+            }
+            3 -> {
+                binding.hangmanImage.setBackgroundResource(R.drawable.hangman4)
+            }
+            4 -> {
+                binding.hangmanImage.setBackgroundResource(R.drawable.hangman5)
+            }
+            5 -> {
+                binding.hangmanImage.setBackgroundResource(R.drawable.hangman6)
+            }
+            else -> {
+                binding.hangmanImage.setBackgroundResource(R.drawable.hangman7)
+            }
         }
     }
 
     /**
-     * Envía al menú de victoria
+     * Lanza el menu de victoria
      */
-    fun isVictory(){
+    private fun isVictory(){
         if (control.isVictory()) {
             val myIntent = Intent(this, VictoryActivity::class.java)
             startActivity(myIntent)
@@ -224,7 +231,7 @@ class GameActivity : AppCompatActivity() {
     /**
      * This function reset all
      */
-    fun resetAll(){
+    private fun resetAll(){
         countFails=0
         binding.hangmanImage.setBackgroundResource(R.drawable.hangman1)
         chargeLines()

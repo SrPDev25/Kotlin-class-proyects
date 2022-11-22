@@ -9,7 +9,7 @@ import com.example.e2mdortegadaniel.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var numberOnOperation = "0"
-    private var numberLastOperation = ""
+    private var numberLastOperation = "0"
     private var operation: Int = -1
     private var isStarted = false//Indica si hay algun número insertado o hay 0
     private var isCommed = false

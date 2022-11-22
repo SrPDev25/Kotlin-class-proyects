@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.e4mdortegadaniel.databinding.ActivityLostBinding
 
 class LostActivity : AppCompatActivity() {
-    lateinit var binding: ActivityLostBinding
+    private lateinit var binding: ActivityLostBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
