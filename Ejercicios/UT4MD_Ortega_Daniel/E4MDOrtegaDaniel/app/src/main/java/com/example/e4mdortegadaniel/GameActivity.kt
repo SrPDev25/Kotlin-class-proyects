@@ -228,32 +228,32 @@ class GameActivity : AppCompatActivity() {
         countFails=0
         binding.hangmanImage.setBackgroundResource(R.drawable.hangman1)
         chargeLines()
-        binding.buttonA.visibility= View.INVISIBLE
-        binding.buttonB.visibility= View.INVISIBLE
-        binding.buttonC.visibility= View.INVISIBLE
-        binding.buttonD.visibility= View.INVISIBLE
-        binding.buttonE.visibility= View.INVISIBLE
-        binding.buttonF.visibility= View.INVISIBLE
-        binding.buttonG.visibility= View.INVISIBLE
-        binding.buttonH.visibility= View.INVISIBLE
-        binding.buttonI.visibility= View.INVISIBLE
-        binding.buttonJ.visibility= View.INVISIBLE
-        binding.buttonK.visibility= View.INVISIBLE
-        binding.buttonL.visibility= View.INVISIBLE
-        binding.buttonM.visibility= View.INVISIBLE
-        binding.buttonN.visibility= View.INVISIBLE
-        binding.buttonO.visibility= View.INVISIBLE
-        binding.buttonP.visibility= View.INVISIBLE
-        binding.buttonQ.visibility= View.INVISIBLE
-        binding.buttonR.visibility= View.INVISIBLE
-        binding.buttonS.visibility= View.INVISIBLE
-        binding.buttonT.visibility= View.INVISIBLE
-        binding.buttonU.visibility= View.INVISIBLE
-        binding.buttonV.visibility= View.INVISIBLE
-        binding.buttonW.visibility= View.INVISIBLE
-        binding.buttonX.visibility= View.INVISIBLE
-        binding.buttonY.visibility= View.INVISIBLE
-        binding.buttonZ.visibility= View.INVISIBLE
+        binding.buttonA.visibility= View.VISIBLE
+        binding.buttonB.visibility= View.VISIBLE
+        binding.buttonC.visibility= View.VISIBLE
+        binding.buttonD.visibility= View.VISIBLE
+        binding.buttonE.visibility= View.VISIBLE
+        binding.buttonF.visibility= View.VISIBLE
+        binding.buttonG.visibility= View.VISIBLE
+        binding.buttonH.visibility= View.VISIBLE
+        binding.buttonI.visibility= View.VISIBLE
+        binding.buttonJ.visibility= View.VISIBLE
+        binding.buttonK.visibility= View.VISIBLE
+        binding.buttonL.visibility= View.VISIBLE
+        binding.buttonM.visibility= View.VISIBLE
+        binding.buttonN.visibility= View.VISIBLE
+        binding.buttonO.visibility= View.VISIBLE
+        binding.buttonP.visibility= View.VISIBLE
+        binding.buttonQ.visibility= View.VISIBLE
+        binding.buttonR.visibility= View.VISIBLE
+        binding.buttonS.visibility= View.VISIBLE
+        binding.buttonT.visibility= View.VISIBLE
+        binding.buttonU.visibility= View.VISIBLE
+        binding.buttonV.visibility= View.VISIBLE
+        binding.buttonW.visibility= View.VISIBLE
+        binding.buttonX.visibility= View.VISIBLE
+        binding.buttonY.visibility= View.VISIBLE
+        binding.buttonZ.visibility= View.VISIBLE
 
     }
 
