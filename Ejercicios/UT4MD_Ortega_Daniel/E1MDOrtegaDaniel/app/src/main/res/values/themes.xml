@@ -15,11 +15,5 @@
         <item name="android:windowFullscreen">true</item>
 
     </style>
-    <style name="Theme.E1MDOrtegaDaniel.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-    <style name="Theme.E1MDOrtegaDaniel.AppBarOverlay"
-        parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="Theme.E1MDOrtegaDaniel.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>
