@@ -7,7 +7,7 @@ class HangmanControl {
     var random=Random()
     var palabras=ArrayList<String>()
     var wordInGame:String=""
-    var wordInProgress=ArrayList<Char>()
+    var wordInProgress=ArrayList<Char>() //--A--
 
     init {
         chargeStrings()

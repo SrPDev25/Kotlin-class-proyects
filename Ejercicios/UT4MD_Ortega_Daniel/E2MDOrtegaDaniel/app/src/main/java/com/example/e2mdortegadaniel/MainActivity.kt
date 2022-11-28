@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
             operation = -1
             isStarted = false//Indica si hay algun número insertado o hay 0
             isCommed = false
-            binding.numberTextView.text="0";
+            binding.numberTextView.text="0"
             markOperation()//Solo se pueden llamar los métodos de arriba a abajo
         }
 
