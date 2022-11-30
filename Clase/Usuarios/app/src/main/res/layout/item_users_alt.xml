@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/common_padding_min"
+    android:layout_marginEnd="@dimen/common_padding_min"
+    android:layout_marginTop="@dimen/common_padding_min">
+
+    >
+
+<!-- el equipo de google recomienda para cuando tenemos una imagen y una sola linea
+una altura de 56dp para altura del padre-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/card_height"
+    >
+    <!-- tools :text  unicamente este texto se va a ver en tiempo de desarrollo
+    esto significa que cuando se compile esta propiedad no va ir en el app final
+    -->
+   <ImageView
+       android:id="@+id/imgPhoto"
+       android:layout_width="@dimen/card_img_size"
+       android:layout_height="@dimen/card_img_size"
+       android:contentDescription="@string/description_user_photo"
+       android:layout_margin="@dimen/common_padding_min"
+       app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintBottom_toBottomOf="parent"/>
+<!-- textAparenceCaption esta recomendado para subtitulos o
+pequeñas referencias-->
+    <TextView
+        android:id="@+id/tvOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="1"
+        android:textAppearance="?attr/textAppearanceCaption"
+        android:layout_marginEnd="@dimen/common_padding_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <!-- cuando queremos poner un subtitulo pero que resalte mas
+    ponemos textApparenceSubtitle1 o 2-->
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="0dp"
+        tools:text="NombreCompleto"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceSubtitle2"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
+        app:layout_constraintStart_toEndOf="@+id/imgPhoto"
+        app:layout_constraintEnd_toStartOf="@+id/tvOrder"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
