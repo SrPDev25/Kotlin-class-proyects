@@ -15,10 +15,13 @@ class StartActivity : AppCompatActivity(),Events {
         super.onCreate(savedInstanceState)
         binding=ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.recyclerLogo.adapter=ListenerAdapter(this)
-        linearLayout = LinearLayoutManager(this)//this, se
-        binding.recyclerLogo.layoutManager = linearLayout//
-        binding.recyclerLogo.setHasFixedSize(true)//no se, supongo que es para prevenir bugs visuales
+        binding.imgLogo.setOnClickListener(){
+            val myIntent = Intent(this, MainActivity::class.java)
+            startActivity(myIntent)
+        }
+        //Crea el metodo de long click y no hace nada
+        //devuelve true para indicar que existe el método y que lo tenga en cuenta
+        binding.imgLogo.setOnLongClickListener { true }
         //Cargar imagen
         Glide.with(this)
             .load("https://digitalhospital.com.sg/wp-content/uploads/2020/05/cropped-Digital-Hospital-Logo-FavIcon-2.png")
