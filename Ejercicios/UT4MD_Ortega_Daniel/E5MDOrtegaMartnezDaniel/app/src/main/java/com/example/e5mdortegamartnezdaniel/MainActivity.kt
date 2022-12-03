@@ -14,5 +14,8 @@ class MainActivity : AppCompatActivity() {
         Glide.with(this)
             .load("https://digitalhospital.com.sg/wp-content/uploads/2020/05/cropped-Digital-Hospital-Logo-FavIcon-2.png")
             .into(binding.imgLogo)
+        //TODO posible "error": si vuelves e inicias otra vez este activity se resetea la colección
+        binding.imgLogo.setOnClickListener {finish()}
+
     }
 }

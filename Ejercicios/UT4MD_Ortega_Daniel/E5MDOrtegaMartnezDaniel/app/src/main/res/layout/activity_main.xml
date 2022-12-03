@@ -4,109 +4,208 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/white">
+    android:background="#EFEFEF"
+    tools:context=".MainActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="match_parent">
 
-            >
             <ImageView
+                android:id="@+id/img_logo"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:id="@+id/img_logo"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="Registro de nuevo candidato"
                 android:textSize="24sp"
-                app:layout_constraintLeft_toRightOf="@id/img_logo"
-                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="#6E6E6E"
                 app:layout_constraintBottom_toTopOf="@id/form"
-                />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/img_logo"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/form"
                 android:layout_width="match_parent"
                 android:layout_height="500dp"
-                android:id="@+id/form"
-                app:layout_constraintTop_toBottomOf="@id/img_logo"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                >
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/img_logo"
+                app:layout_constraintVertical_bias="0.0">
+                <!--DNI-->
                 <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/DNILayout"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     app:layout_constraintBottom_toTopOf="@id/nombreLayout"
-                    >
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/dniText"
-                        android:hint="N.I.F."
-                        android:maxLength="9"/>
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/nombreLayout"
-                    app:layout_constraintTop_toBottomOf="@id/DNILayout"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/apellidosLayout"
-                    >
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/nombreText"
-                        android:hint="Nombre"
-                        android:maxLength="9"/>
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/apellidosLayout"
-                    app:layout_constraintTop_toBottomOf="@id/nombreLayout"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/titulacionLayout">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/apellidosText"
-                        android:hint="Apellidos."
-                        android:maxLength="9"/>
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/titulacionLayout"
-                    app:layout_constraintTop_toBottomOf="@id/apellidosLayout"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/titulacionText"
-                        android:hint="Año de titulación"
-                        android:maxLength="9"/>
-                </com.google.android.material.textfield.TextInputLayout>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:endIconMode="clear_text">
 
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/dniText"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:hint="N.I.F."
+                        android:maxLength="9" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <!--Nombre-->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/nombreLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@id/apellidosLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/DNILayout"
+                    app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/nombreText"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Nombre" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <!--Apellidos-->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/apellidosLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@id/titulacionLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/nombreLayout"
+                    app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/apellidosText"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Apellidos."/>
+                </com.google.android.material.textfield.TextInputLayout>
+                <!--Titulación-->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/titulacionLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@id/especialidadLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/apellidosLayout"
+                    app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/titulacionText"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Año de titulación"
+                        android:inputType="number"
+                        android:maxLength="4" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <!--Especialidad-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/especialidadLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@id/buttonLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/titulacionLayout">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/codeLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/especialidadView"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/especialidadText"
+                            android:layout_width="70dp"
+                            android:layout_height="50dp"
+                            android:inputType="number"
+                            android:maxLength="2" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        android:id="@+id/especialidadView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Especifica especialidad"
+                        android:textColor="#6E6E6E"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/codeLayout"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <!--Boton del recycler view-->
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/especialidadButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/flecha_join"
+                    app:layout_constraintStart_toEndOf="@id/especialidadLayout"
+                    app:layout_constraintTop_toTopOf="@id/especialidadLayout"
+                    app:layout_constraintBottom_toBottomOf="@id/especialidadLayout"
+                    />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/buttonLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@id/exitButton"
+                    app:layout_constraintTop_toBottomOf="@id/especialidadLayout">
+
+                    <Button
+                        android:id="@+id/cancelarButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:text="Cancelar"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/registrarButton"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/registrarButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:text="Registrar"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/cancelarButton"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <Button
+                    android:id="@+id/exitButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="Salir"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/buttonLayout" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -114,7 +213,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
-    
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
