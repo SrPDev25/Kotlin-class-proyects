@@ -6,17 +6,20 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.e5mdortegamartnezdaniel.control.Control
 import com.example.e5mdortegamartnezdaniel.databinding.ActivityStartBinding
 
-class StartActivity : AppCompatActivity(),Events {
+class StartActivity : AppCompatActivity() {
     lateinit var binding: ActivityStartBinding
     lateinit var linearLayout: LinearLayoutManager
+    var control= Control()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.imgLogo.setOnClickListener(){
             val myIntent = Intent(this, MainActivity::class.java)
+            myIntent.putExtra("baseDatos",control)
             startActivity(myIntent)
         }
         //Crea el metodo de long click y no hace nada
@@ -30,12 +33,5 @@ class StartActivity : AppCompatActivity(),Events {
 
     }
 
-    override fun shortKeyStroke() {
-
-    }
-
-    override fun longKeyStroke(): Boolean {
-        return false
-    }
 
 }
