@@ -1,8 +1,7 @@
-package com.example.e5mdortegamartnezdaniel
+package com.example.e5mdortegamartnezdaniel.vista
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -21,6 +20,8 @@ class StartActivity : AppCompatActivity() {
             val myIntent = Intent(this, MainActivity::class.java)
             myIntent.putExtra("baseDatos",control)
             startActivity(myIntent)
+            // Caller
+
         }
         //Crea el metodo de long click y no hace nada
         //devuelve true para indicar que existe el método y que lo tenga en cuenta

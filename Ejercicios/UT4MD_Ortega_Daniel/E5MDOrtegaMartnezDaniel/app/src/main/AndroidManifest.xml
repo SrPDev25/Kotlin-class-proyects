@@ -14,7 +14,7 @@
         android:theme="@style/Theme.E5MDOrtegaMartínezDaniel"
         tools:targetApi="31">
         <activity
-            android:name=".StartActivity"
+            android:name=".vista.StartActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +27,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".vista.MainActivity"
             android:exported="true">
 
             <meta-data
@@ -35,7 +35,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".InformationActivity"
+            android:name=".vista.InformationActivity"
             android:exported="true">
 
             <meta-data

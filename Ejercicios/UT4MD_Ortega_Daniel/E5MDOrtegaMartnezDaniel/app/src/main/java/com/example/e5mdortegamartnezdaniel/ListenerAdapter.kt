@@ -49,7 +49,6 @@ class ListenerAdapter(private val especialidades:List<Especialidad>, private val
                 //Inserta un set listener a cada uno de los "holders"
                 setListener(especialidades.get(position).codigo)
             }
-            //TODO eliminar el que tiene 0 empleados
 
         }
     }

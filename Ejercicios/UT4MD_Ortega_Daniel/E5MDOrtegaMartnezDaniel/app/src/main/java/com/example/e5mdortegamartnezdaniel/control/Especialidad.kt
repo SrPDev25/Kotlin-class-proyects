@@ -2,12 +2,10 @@ package com.example.e5mdortegamartnezdaniel.control
 
 import android.os.Parcel
 import android.os.Parcelable
-import kotlinx.android.parcel.Parceler
 
+//TODO IndexOf
 
 class Especialidad(): Parcelable {
-
-
 
     var codigo=0
         get(){
@@ -23,17 +21,15 @@ class Especialidad(): Parcelable {
         }
 
 
-
-    init{
-
-    }
-    constructor(parcel: Parcel) : this(){
-
-    }
-    fun start(codigo: Int, nombre: String, numPlazasDisponibles:Int){
+    constructor(codigo: Int, nombre: String, numPlazasDisponibles:Int) : this() {
         this.codigo=codigo
         this.nombre=nombre
         this.numPlazasDisponibles=numPlazasDisponibles
+    }
+
+    //Constructor obligatorio de Parcelable
+    constructor(parcel: Parcel) : this(){
+
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -41,7 +37,7 @@ class Especialidad(): Parcelable {
     }
 
     override fun describeContents(): Int {
-        return 0
+        return 0//No hay descripcion
     }
 
     companion object CREATOR : Parcelable.Creator<Especialidad> {
@@ -53,8 +49,6 @@ class Especialidad(): Parcelable {
             return arrayOfNulls(size)
         }
     }
-
-
 
 
 }

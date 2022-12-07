@@ -9,7 +9,7 @@ import android.os.Parcelable
  */
 
 class Control():Parcelable {
-
+    //TODO map de inscritos y clase inscritos
     var especialidades=mutableListOf<Especialidad>()
     init{
         chargeEspecialidades()
@@ -26,31 +26,31 @@ class Control():Parcelable {
      */
     fun chargeEspecialidades(){
         especialidades= mutableListOf<Especialidad>()
-        especialidades.add(Especialidad())
-        especialidades.get(0).start(
+        especialidades.add(Especialidad(12,
+            "Urologo",
+            5))
+        /*especialidades.get(0).start(
             12,
             "Urologo",
             5
-        )
-        especialidades.add(Especialidad())
-        especialidades.get(1).start(
+        )*/
+        especialidades.add(Especialidad(
             13,
             "Cardiologo",
-            1
-        )
-        especialidades.add(Especialidad())
-        especialidades.get(2).start(
+            1))
+
+        especialidades.add(Especialidad(
             3,
             "Prueba3",
             1
-        )
+        ))
 
-        especialidades.add(Especialidad())
-        especialidades.get(3).start(
+        especialidades.add(Especialidad(
             1,
             "Prueba1",
             0
-        )
+        ))
+
     }
 
     /**
