@@ -20,8 +20,8 @@ class ListenerAdapter(private val especialidades:List<Especialidad>, private val
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = bind(view)
         fun setListener(codigo:Int){
-            binding.root.setOnClickListener(){//Cuando se de clic a cualquier parte del View
-                listener.shortKeyStroke(codigo)
+            binding.root.setOnLongClickListener(){//Cuando se de clic a cualquier parte del View
+                listener.longKeyStroke(codigo)
             }
 
         }

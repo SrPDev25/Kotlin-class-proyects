@@ -19,23 +19,34 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/img_logo"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/title"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Registro de nuevo candidato"
-                android:textSize="24sp"
-                android:textColor="#6E6E6E"
                 app:layout_constraintBottom_toTopOf="@id/form"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/img_logo"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                >
+
+                <ImageView
+                    android:id="@+id/img_logo"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Registro de nuevo\n candidato"
+                    android:textColor="#6E6E6E"
+                    android:textSize="24sp"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/img_logo"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/form"
@@ -45,18 +56,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/img_logo"
+                app:layout_constraintTop_toBottomOf="@id/title"
                 app:layout_constraintVertical_bias="0.0">
                 <!--DNI-->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/DNILayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:endIconMode="clear_text"
                     app:layout_constraintBottom_toTopOf="@id/nombreLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:endIconMode="clear_text">
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/dniText"
@@ -70,11 +81,11 @@
                     android:id="@+id/nombreLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:endIconMode="clear_text"
                     app:layout_constraintBottom_toTopOf="@id/apellidosLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/DNILayout"
-                    app:endIconMode="clear_text">
+                    app:layout_constraintTop_toBottomOf="@id/DNILayout">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/nombreText"
@@ -87,28 +98,28 @@
                     android:id="@+id/apellidosLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:endIconMode="clear_text"
                     app:layout_constraintBottom_toTopOf="@id/titulacionLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/nombreLayout"
-                    app:endIconMode="clear_text">
+                    app:layout_constraintTop_toBottomOf="@id/nombreLayout">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/apellidosText"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
-                        android:hint="Apellidos."/>
+                        android:hint="Apellidos." />
                 </com.google.android.material.textfield.TextInputLayout>
                 <!--Titulación-->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/titulacionLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:endIconMode="clear_text"
                     app:layout_constraintBottom_toTopOf="@id/especialidadLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/apellidosLayout"
-                    app:endIconMode="clear_text">
+                    app:layout_constraintTop_toBottomOf="@id/apellidosLayout">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/titulacionText"
@@ -128,46 +139,49 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/titulacionLayout">
 
-                    <com.google.android.material.textfield.TextInputLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/codeLayout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:layout_height="44dp"
                         android:layout_marginEnd="20dp"
+                        android:background="#C8C8C8"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/especialidadView"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        >
+                        app:layout_constraintTop_toTopOf="parent">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <TextView
                             android:id="@+id/especialidadText"
-                            android:layout_width="70dp"
-                            android:layout_height="50dp"
-                            android:inputType="number"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:text=""
                             android:maxLength="2" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
                     <TextView
                         android:id="@+id/especialidadView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Especifica especialidad"
                         android:textColor="#6E6E6E"
-                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/codeLayout"
-                        />
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <!--Boton del recycler view-->
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/especialidadButton"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:background="@drawable/flecha_join"
-                    app:layout_constraintStart_toEndOf="@id/especialidadLayout"
-                    app:layout_constraintTop_toTopOf="@id/especialidadLayout"
+                    android:contentDescription="@string/autor"
                     app:layout_constraintBottom_toBottomOf="@id/especialidadLayout"
-                    />
+                    app:layout_constraintStart_toEndOf="@id/especialidadLayout"
+                    app:layout_constraintTop_toTopOf="@id/especialidadLayout" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/buttonLayout"
