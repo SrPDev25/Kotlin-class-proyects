@@ -11,6 +11,7 @@ import android.os.Parcelable
 class Control():Parcelable {
     //TODO map de inscritos y clase inscritos
     var especialidades=mutableListOf<Especialidad>()
+    var usuarios=mutableListOf<String>()
     init{
         chargeEspecialidades()
         eliminarEspecialidadesVacias()
@@ -20,7 +21,20 @@ class Control():Parcelable {
         chargeEspecialidades()
         eliminarEspecialidadesVacias()
     }
+    //-----------------------------------Usuario
+    /**
+     * Comprueba que el usuairo existe
+     */
+    fun checkUsuario(dni: String):Int{
+        return usuarios.indexOf(dni)
+    }
 
+    fun addUsuario(dni:String){
+        usuarios.add(dni)
+    }
+
+    //----------------------------------Especialidades
+    //-------------Carga
     /**
      * Carga las epecialidades cargadas por defecto
      */
@@ -64,18 +78,19 @@ class Control():Parcelable {
         }
     }
 
+    //----------Control
     /**
      * Elimina la plaza indicada, si la especialidad pasa a 0 plazas, es eliminada
      */
     fun eliminarPlaza(numEspecialidad:Int){
-        for(i in especialidades)
-            if (i.codigo==numEspecialidad) {
-                i.numPlazasDisponibles--
-                //Si pasa a 0 plazas la especialidad es eliminada
-                if (i.numPlazasDisponibles==0){
-                    especialidades.remove(i)
-                }
-            }
+        val especialidadToChange=especialidades.get(
+            especialidades.indexOf(
+                Especialidad(numEspecialidad)))
+        especialidadToChange.numPlazasDisponibles--
+        //Si se acaban las plazas se elimina la especialidad
+        if (especialidadToChange.numPlazasDisponibles==0)
+            especialidades.remove(especialidadToChange)
+
     }
 
     /**
@@ -96,6 +111,8 @@ class Control():Parcelable {
     override fun describeContents(): Int {
         return 0
     }
+
+    //-------------------------------Parcelamiento
 
     override fun writeToParcel(p0: Parcel, p1: Int) {
         p0.writeList(especialidades)

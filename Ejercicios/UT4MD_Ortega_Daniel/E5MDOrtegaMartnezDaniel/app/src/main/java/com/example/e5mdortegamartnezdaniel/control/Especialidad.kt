@@ -3,7 +3,6 @@ package com.example.e5mdortegamartnezdaniel.control
 import android.os.Parcel
 import android.os.Parcelable
 
-//TODO IndexOf
 
 class Especialidad(): Parcelable {
 
@@ -20,6 +19,9 @@ class Especialidad(): Parcelable {
             return field
         }
 
+    constructor(codigo:Int):this(){
+        this.codigo=codigo
+    }
 
     constructor(codigo: Int, nombre: String, numPlazasDisponibles:Int) : this() {
         this.codigo=codigo
@@ -38,6 +40,21 @@ class Especialidad(): Parcelable {
 
     override fun describeContents(): Int {
         return 0//No hay descripcion
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Especialidad
+
+        if (codigo != other.codigo) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return codigo
     }
 
     companion object CREATOR : Parcelable.Creator<Especialidad> {
