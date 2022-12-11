@@ -2,21 +2,23 @@ package com.example.e5mdortegamartnezdaniel.vista
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
+import android.media.CamcorderProfile.get
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.e5mdortegamartnezdaniel.control.Control
 import com.example.e5mdortegamartnezdaniel.databinding.ActivityMainBinding
+import java.lang.reflect.Array.get
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var control: Control
-    var problemExist=true//Está pendiente que todos los textos están correctos
+    var problemExist=arrayOf(true,true,true,true,true)//Está pendiente que todos los textos están correctos
     companion object{
         const val NO_ERROR=-1
         const val ERROR_NO_NUMBERS=-3
@@ -31,14 +33,37 @@ class MainActivity : AppCompatActivity() {
         Glide.with(this)
             .load("https://digitalhospital.com.sg/wp-content/uploads/2020/05/cropped-Digital-Hospital-Logo-FavIcon-2.png")
             .into(binding.imgLogo)
-        //TODO hacer comprobaciones de los text
+
         binding.imgLogo.setOnClickListener { finish() }
         binding.especialidadButton.setOnClickListener() {
             information()
 
         }
+        binding.registrarButton.setOnClickListener(){
+            isEspecialidadEscogida()
+            var problem=false
+            var count=0
+            while (!problem && count<5) {
+                if (problemExist[count])
+                    problem = false
+                count++
+            }
+            if (!problem){
 
-        binding.dniText.addTextChangedListener(watcher)
+                control.eliminarPlaza(binding.especialidadText.text.toString().toInt())
+                control.addUsuario(binding.dniText.text.toString())
+                clean()
+            }
+
+        }
+
+
+
+        //-------Watchers
+        binding.dniText.addTextChangedListener(watcherDNI)
+        binding.titulacionText.addTextChangedListener(watcherTitulacion)
+        binding.nombreText.addTextChangedListener(watcherNombre)
+        binding.apellidosText.addTextChangedListener(watcherApellido)
     }
 
     /**
@@ -81,7 +106,7 @@ class MainActivity : AppCompatActivity() {
         }
         //Comprueba que la letra es la que devería ser
         if (isFine!=ERROR_NO_NUMBERS){
-            val dniLetter= dni[8]
+            val dniLetter= dni[8].uppercaseChar()
             var dniNumber=""
             for (i in 0..7)
                 dniNumber+=dni[i]
@@ -96,9 +121,20 @@ class MainActivity : AppCompatActivity() {
         return isFine
     }
 
+    fun isEspecialidadEscogida(){
+        problemExist[4]= binding.especialidadText.text.toString().toInt()<=0
+    }
+
+    fun clean(){
+        binding.dniText.text?.clear()
+        binding.nombreText.text?.clear()
+        binding.apellidosText.text?.clear()
+        binding.titulacionText.text?.clear()
+    }
+
     //------------------------------------Watchers
 
-    val watcher: TextWatcher = object : TextWatcher {
+    val watcherDNI: TextWatcher = object : TextWatcher {
         override fun beforeTextChanged(
             s: CharSequence?,
             start: Int,
@@ -119,27 +155,120 @@ class MainActivity : AppCompatActivity() {
                 val error=calcularDNI(text)
                 if (error== ERROR_NO_NUMBERS) {
                     binding.DNILayout.error = "No se cumple el formato 11111111A"
-                    problemExist=true
+                    problemExist[0]=true
                 }
                 else if(error== ERROR_LETTER) {
                     binding.DNILayout.error = "DNI incorrecto"
-                    problemExist=true
+                    problemExist[0]=true
                 }
                 else if(error== ERROR_USER_EXIST) {
                     binding.DNILayout.error = "Usuario ya registrado"
-                    problemExist=true
+                    problemExist[0]=true
                 }
                 else if(error==NO_ERROR) {
                     binding.DNILayout.error = ""
-                    problemExist=false
+                    problemExist[0]=false
                 }
 
+            }else{
+                problemExist[0]=true
             }
 
         }
 
     }
 
+    val watcherNombre: TextWatcher = object : TextWatcher {
+        override fun beforeTextChanged(
+            s: CharSequence?,
+            start: Int,
+            count: Int,
+            after: Int
+        ) {
+
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+            val textNombre=binding.nombreText.text.toString()
+
+            if (textNombre.length==0){
+                binding.nombreLayout.error="Campo obligatorio"
+                problemExist[1]=true
+            }else{
+                binding.nombreLayout.error=""
+                problemExist[1]=false
+            }
+
+        }
+
+    }
+
+    val watcherApellido: TextWatcher = object : TextWatcher {
+        override fun beforeTextChanged(
+            s: CharSequence?,
+            start: Int,
+            count: Int,
+            after: Int
+        ) {
+
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+            val text=binding.apellidosText.text.toString()
+
+            if (text.length==0){
+                binding.apellidosLayout.error="Campo obligatorio"
+                problemExist[2]=true
+            }else{
+                binding.apellidosLayout.error=""
+                problemExist[2]=false
+            }
+
+        }
+
+    }
+
+    val watcherTitulacion: TextWatcher = object : TextWatcher {
+        override fun beforeTextChanged(
+            s: CharSequence?,
+            start: Int,
+            count: Int,
+            after: Int
+        ) {
+
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+            val text=binding.titulacionText.text.toString()
+            val anno=Calendar.YEAR
+            var annoTitulacion=0
+            if (text.length!=0)
+                annoTitulacion=text.toInt()
+
+            if (annoTitulacion<1900&&annoTitulacion>anno) {
+                binding.titulacionLayout.error = "Año no váliodo"
+                problemExist[3]=true
+            }else{
+                binding.titulacionLayout.error = ""
+                problemExist[3]=false
+            }
+
+
+        }
+
+    }
 
 
 }

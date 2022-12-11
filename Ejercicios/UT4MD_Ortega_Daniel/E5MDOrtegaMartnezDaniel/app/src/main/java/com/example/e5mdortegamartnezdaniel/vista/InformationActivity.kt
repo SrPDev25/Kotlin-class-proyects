@@ -32,13 +32,12 @@ class InformationActivity: AppCompatActivity(), Events {
 
 
     override fun longKeyStroke(code: Int): Boolean {
-        //TODO aun no devuelve
         //Log.d("intent","valor")
         var myIntent= Intent()
             .putExtra("code",code)
         setResult(Activity.RESULT_OK,myIntent)
         //Obligatorio para el long click
-        finish()
+        finishAffinity()
         return true
     }
 
