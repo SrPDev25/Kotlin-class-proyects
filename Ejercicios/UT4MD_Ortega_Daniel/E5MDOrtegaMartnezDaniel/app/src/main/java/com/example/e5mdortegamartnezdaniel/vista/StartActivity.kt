@@ -17,11 +17,11 @@ class StartActivity : AppCompatActivity() {
         binding=ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.imgLogo.setOnClickListener(){
+            //TODO si vuelves al menu start no se resetea el control
             val myIntent = Intent(this, MainActivity::class.java)
             myIntent.putExtra("baseDatos",control)
             startActivity(myIntent)
             // Caller
-
         }
         //Crea el metodo de long click y no hace nada
         //devuelve true para indicar que existe el método y que lo tenga en cuenta

@@ -9,7 +9,6 @@ import android.os.Parcelable
  */
 
 class Control():Parcelable {
-    //TODO map de inscritos y clase inscritos
     var especialidades=mutableListOf<Especialidad>()
     var usuarios=mutableListOf<String>()
     init{

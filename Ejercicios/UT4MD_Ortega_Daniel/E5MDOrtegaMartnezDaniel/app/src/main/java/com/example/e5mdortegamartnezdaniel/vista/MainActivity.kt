@@ -40,21 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         }
         binding.registrarButton.setOnClickListener(){
-            isEspecialidadEscogida()
-            var problem=false
-            var count=0
-            while (!problem && count<5) {
-                if (problemExist[count])
-                    problem = false
-                count++
-            }
-            if (!problem){
-
-                control.eliminarPlaza(binding.especialidadText.text.toString().toInt())
-                control.addUsuario(binding.dniText.text.toString())
-                clean()
-            }
-
+            ejecutarRegistro()
         }
 
 
@@ -67,9 +53,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
+     * Ejecuta las diferentes comprobaciónes necesarias para comprobar que el formaulario es válido
+     */
+    private fun ejecutarRegistro() {
+        isEspecialidadEscogida()
+        var problem = false
+        var count = 0
+        //Comprueba que ninguno de los 5 textos tengan problemas
+        while (!problem && count < 5) {
+            if (problemExist[count])
+                problem = true
+            count++
+        }
+        //Si no hay problemas se ejecuta el formulario
+        if (!problem) {
+            control.eliminarPlaza(binding.especialidadText.text.toString().toInt())
+            control.addUsuario(binding.dniText.text.toString())
+            clean()
+        }
+        //TODO podrias poner un toas en el else
+    }
+
+    /**
      * Nueva forma que sustituye al startForResult
      */
     private fun MainActivity.information() {
+        //TODO cuando vuelves a ejecutar el recycler se envia el control sin actualizar
         //Crea el intent que pasa la base de datos (donde está el conjunto de especialidades)
         val myIntent = Intent(this, InformationActivity::class.java)
             .putExtra("dataBase", control)
@@ -93,12 +102,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Calcula si el DNI es válido
+     */
     fun calcularDNI(dni:String):Int{
         var isFine = NO_ERROR
         var letters= arrayOf('T','R','W','A','G','Y','F','O','D','X','B','N','J','Z','S','Q','V','H','L','C','K')
         var count=0
         //Comprueba que los 8 primeros caracteres no sean letras
-        while(count<8&&isFine==0) {
+        while(count<8&&isFine==NO_ERROR) {
             if (dni[count].isLetter()) {
                 isFine = ERROR_NO_NUMBERS
             }
@@ -112,7 +124,7 @@ class MainActivity : AppCompatActivity() {
                 dniNumber+=dni[i]
             val number:Int =(dniNumber.toInt()%23)-1
             if (letters[number] != dniLetter.toChar())
-                isFine=-2
+                isFine= ERROR_LETTER
         }
         //Comprueba si el usuario ya existe
         if (isFine== NO_ERROR){
@@ -122,7 +134,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun isEspecialidadEscogida(){
-        problemExist[4]= binding.especialidadText.text.toString().toInt()<=0
+        var text =binding.especialidadText.text.toString()
+        problemExist[4]=  text.length==0
     }
 
     fun clean(){
@@ -130,6 +143,7 @@ class MainActivity : AppCompatActivity() {
         binding.nombreText.text?.clear()
         binding.apellidosText.text?.clear()
         binding.titulacionText.text?.clear()
+        binding.especialidadText.text=""
     }
 
     //------------------------------------Watchers

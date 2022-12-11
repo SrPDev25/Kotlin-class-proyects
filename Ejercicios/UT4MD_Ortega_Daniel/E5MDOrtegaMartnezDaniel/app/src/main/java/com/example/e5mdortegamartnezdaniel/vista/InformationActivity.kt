@@ -37,7 +37,7 @@ class InformationActivity: AppCompatActivity(), Events {
             .putExtra("code",code)
         setResult(Activity.RESULT_OK,myIntent)
         //Obligatorio para el long click
-        finishAffinity()
+        finish()
         return true
     }
 
