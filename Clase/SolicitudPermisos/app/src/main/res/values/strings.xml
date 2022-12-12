@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SolicitudPermisos</string>
+    <string name="button_webpage">Abrir una página web</string>
+    <string name="button_callphone">Realizar una llamada telefónica</string>
+    <string name="button_callphone2">Realizar una llamada telefónica POR CONTRATO</string>
+
+</resources>
