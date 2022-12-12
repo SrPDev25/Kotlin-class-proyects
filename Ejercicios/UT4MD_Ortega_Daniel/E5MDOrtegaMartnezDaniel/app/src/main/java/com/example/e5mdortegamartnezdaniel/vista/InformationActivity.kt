@@ -2,8 +2,10 @@ package com.example.e5mdortegamartnezdaniel.vista
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.e5mdortegamartnezdaniel.Events
@@ -32,12 +34,11 @@ class InformationActivity: AppCompatActivity(), Events {
 
 
     override fun longKeyStroke(code: Int): Boolean {
-        //Log.d("intent","valor")
         var myIntent= Intent()
             .putExtra("code",code)
         setResult(Activity.RESULT_OK,myIntent)
-        //Obligatorio para el long click
         finish()
+        //Obligatorio para el long click
         return true
     }
 

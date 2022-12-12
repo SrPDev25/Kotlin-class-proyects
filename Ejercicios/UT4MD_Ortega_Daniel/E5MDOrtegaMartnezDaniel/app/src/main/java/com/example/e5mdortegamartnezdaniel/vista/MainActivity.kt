@@ -2,7 +2,6 @@ package com.example.e5mdortegamartnezdaniel.vista
 
 import android.app.Activity
 import android.content.Intent
-import android.media.CamcorderProfile.get
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,9 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.e5mdortegamartnezdaniel.control.Control
 import com.example.e5mdortegamartnezdaniel.databinding.ActivityMainBinding
-import java.lang.reflect.Array.get
 import java.util.*
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -37,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         binding.imgLogo.setOnClickListener { finish() }
         binding.especialidadButton.setOnClickListener() {
             information()
-
         }
         binding.registrarButton.setOnClickListener(){
             ejecutarRegistro()
@@ -81,7 +77,8 @@ class MainActivity : AppCompatActivity() {
         //TODO cuando vuelves a ejecutar el recycler se envia el control sin actualizar
         //Crea el intent que pasa la base de datos (donde está el conjunto de especialidades)
         val myIntent = Intent(this, InformationActivity::class.java)
-            .putExtra("dataBase", control)
+            .putExtra("dataBase", control)//Problema en el Parcelable
+        myIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP//---------------------------------------------No tiene por que servir
         //Ejecuta un registerForActivity result, con el nuevo método .launch
         startForResult.launch(myIntent)
     }
@@ -144,6 +141,11 @@ class MainActivity : AppCompatActivity() {
         binding.apellidosText.text?.clear()
         binding.titulacionText.text?.clear()
         binding.especialidadText.text=""
+    }
+    //---------------------------------------------No tiene por que servir
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        setIntent(intent)
     }
 
     //------------------------------------Watchers
