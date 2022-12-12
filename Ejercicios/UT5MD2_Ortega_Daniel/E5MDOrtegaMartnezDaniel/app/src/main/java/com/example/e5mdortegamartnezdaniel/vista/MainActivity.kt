@@ -11,10 +11,11 @@ import com.bumptech.glide.Glide
 import com.example.e5mdortegamartnezdaniel.control.Control
 import com.example.e5mdortegamartnezdaniel.databinding.ActivityMainBinding
 import java.util.*
+import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
-    lateinit var control: Control
+    private lateinit var control: Control
     var problemExist=arrayOf(true,true,true,true,true)//Está pendiente que todos los textos están correctos
     companion object{
         const val NO_ERROR=-1
@@ -32,10 +33,13 @@ class MainActivity : AppCompatActivity() {
             .into(binding.imgLogo)
 
         binding.imgLogo.setOnClickListener { finish() }
-        binding.especialidadButton.setOnClickListener() {information()}
-        binding.registrarButton.setOnClickListener(){ejecutarRegistro()}
-        binding.cancelarButton.setOnClickListener(){clean()}
-        binding.exitButton.setOnClickListener(){System.exit(-1)}
+        binding.especialidadButton.setOnClickListener {information()}
+        binding.registrarButton.setOnClickListener{ejecutarRegistro()}
+        binding.cancelarButton.setOnClickListener{clean()}
+        binding.exitButton.setOnClickListener{
+            exitProcess(0)
+
+        }
 
 
         //-------Watchers
@@ -63,13 +67,12 @@ class MainActivity : AppCompatActivity() {
             control.addUsuario(binding.dniText.text.toString())
             clean()
         }
-        //TODO podrias poner un toas en el else
     }
 
     /**
      * Nueva forma que sustituye al startForResult
      */
-    private fun MainActivity.information() {
+    private fun information() {
         //Crea el intent que pasa la base de datos (donde está el conjunto de especialidades)
         val myIntent = Intent(this, InformationActivity::class.java)
             .putExtra("dataBase", control)//Problema en el Parcelable
@@ -82,7 +85,7 @@ class MainActivity : AppCompatActivity() {
      * Valor de tipo ActivityResultContracts, clase que controla los los permisos y los datos
      * que se reciben de un activity o aplicación llamada
      */
-    val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             result->
         //Comprueba que si hay resultado, el intent tiene el codigo RESULT_OK
         //si salta un error no lo devuelve
@@ -114,7 +117,7 @@ class MainActivity : AppCompatActivity() {
             for (i in 0..7)
                 dniNumber+=dni[i]
             val number:Int =(dniNumber.toInt()%23)-1
-            if (letters[number] != dniLetter.toChar())
+            if (letters[number] != dniLetter)
                 isFine= ERROR_LETTER
         }
         //Comprueba si el usuario ya existe
@@ -124,12 +127,12 @@ class MainActivity : AppCompatActivity() {
         return isFine
     }
 
-    fun isEspecialidadEscogida(){
+    private fun isEspecialidadEscogida(){
         val text =binding.especialidadText.text.toString()
-        problemExist[4]=  text.length==0
+        problemExist[4]= text.isEmpty()
     }
 
-    fun clean(){
+    private fun clean(){
         binding.dniText.text?.clear()
         binding.nombreText.text?.clear()
         binding.apellidosText.text?.clear()
@@ -144,7 +147,7 @@ class MainActivity : AppCompatActivity() {
 
     //------------------------------------Watchers
 
-    val watcherDNI: TextWatcher = object : TextWatcher {
+    private val watcherDNI: TextWatcher = object : TextWatcher {
         override fun beforeTextChanged(
             s: CharSequence?,
             start: Int,
@@ -162,22 +165,23 @@ class MainActivity : AppCompatActivity() {
             val text=binding.dniText.text.toString()
 
             if (text.length==9) {
-                val error=calcularDNI(text)
-                if (error== ERROR_NO_NUMBERS) {
-                    binding.DNILayout.error = "No se cumple el formato 11111111A"
-                    problemExist[0]=true
-                }
-                else if(error== ERROR_LETTER) {
-                    binding.DNILayout.error = "DNI incorrecto"
-                    problemExist[0]=true
-                }
-                else if(error== ERROR_USER_EXIST) {
-                    binding.DNILayout.error = "Usuario ya registrado"
-                    problemExist[0]=true
-                }
-                else if(error==NO_ERROR) {
-                    binding.DNILayout.error = ""
-                    problemExist[0]=false
+                when (calcularDNI(text)) {
+                    ERROR_NO_NUMBERS -> {
+                        binding.DNILayout.error = "No se cumple el formato 11111111A"
+                        problemExist[0]=true
+                    }
+                    ERROR_LETTER -> {
+                        binding.DNILayout.error = "DNI incorrecto"
+                        problemExist[0]=true
+                    }
+                    ERROR_USER_EXIST -> {
+                        binding.DNILayout.error = "Usuario ya registrado"
+                        problemExist[0]=true
+                    }
+                    NO_ERROR -> {
+                        binding.DNILayout.error = ""
+                        problemExist[0]=false
+                    }
                 }
 
             }else{
@@ -188,7 +192,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    val watcherNombre: TextWatcher = object : TextWatcher {
+    private val watcherNombre: TextWatcher = object : TextWatcher {
         override fun beforeTextChanged(
             s: CharSequence?,
             start: Int,
@@ -205,7 +209,7 @@ class MainActivity : AppCompatActivity() {
         override fun afterTextChanged(s: Editable?) {
             val textNombre=binding.nombreText.text.toString()
 
-            if (textNombre.length==0){
+            if (textNombre.isEmpty()){
                 binding.nombreLayout.error="Campo obligatorio"
                 problemExist[1]=true
             }else{
@@ -217,7 +221,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    val watcherApellido: TextWatcher = object : TextWatcher {
+    private val watcherApellido: TextWatcher = object : TextWatcher {
         override fun beforeTextChanged(
             s: CharSequence?,
             start: Int,
@@ -234,7 +238,7 @@ class MainActivity : AppCompatActivity() {
         override fun afterTextChanged(s: Editable?) {
             val text=binding.apellidosText.text.toString()
 
-            if (text.length==0){
+            if (text.isEmpty()){
                 binding.apellidosLayout.error="Campo obligatorio"
                 problemExist[2]=true
             }else{
@@ -246,7 +250,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    val watcherTitulacion: TextWatcher = object : TextWatcher {
+    private val watcherTitulacion: TextWatcher = object : TextWatcher {
         override fun beforeTextChanged(
             s: CharSequence?,
             start: Int,
@@ -262,12 +266,15 @@ class MainActivity : AppCompatActivity() {
 
         override fun afterTextChanged(s: Editable?) {
             val text=binding.titulacionText.text.toString()
-            val anno=Calendar.YEAR
+            val calendar=Calendar.getInstance()
+            val anno=calendar.get(Calendar.YEAR)
             var annoTitulacion=0
-            if (text.length!=0)
-                annoTitulacion=text.toInt()
+            if (text.isNotEmpty()) {
+                annoTitulacion = text.toInt()
+                problemExist[3]=true
+            }
 
-            if (annoTitulacion<1900&&annoTitulacion>anno) {
+            if (annoTitulacion<1900||annoTitulacion>anno) {
                 binding.titulacionLayout.error = "Año no váliodo"
                 problemExist[3]=true
             }else{

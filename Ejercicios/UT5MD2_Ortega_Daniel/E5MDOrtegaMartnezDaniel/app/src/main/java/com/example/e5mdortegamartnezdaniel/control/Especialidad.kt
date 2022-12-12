@@ -7,21 +7,8 @@ import android.os.Parcelable
 class Especialidad(): Parcelable {
 
     var codigo=0
-        get(){
-            return field
-        }
     var nombre=""
-        get(){
-            return field
-        }
     var numPlazasDisponibles=0
-        get(){
-            return field
-        }
-
-    constructor(codigo:Int):this(){
-        this.codigo=codigo
-    }
 
     constructor(codigo: Int, nombre: String, numPlazasDisponibles:Int) : this() {
         this.codigo=codigo

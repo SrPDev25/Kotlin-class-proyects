@@ -2,4 +2,14 @@
     <string name="app_name">E5MDOrtegaMartínezDaniel</string>
     <string name="logo_hospital">logo hospital</string>
     <string name="autor">Daniel Ortega Martínez</string>
+    <string name="logo_description">Logo</string>
+    <string name="titulo_layout">Registro de nuevo\n candidato</string>
+    <string name="n_i_f">N.I.F.</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="titulation_text">Año de titulación</string>
+    <string name="especialidad_text">Especifica especialidad</string>
+    <string name="cancel_button">Cancelar</string>
+    <string name="registrar_button">Registrar</string>
+    <string name="exit_button">Salir</string>
 </resources>

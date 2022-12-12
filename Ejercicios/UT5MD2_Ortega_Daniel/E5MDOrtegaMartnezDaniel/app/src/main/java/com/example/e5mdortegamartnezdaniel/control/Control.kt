@@ -1,6 +1,5 @@
 package com.example.e5mdortegamartnezdaniel.control
 
-import android.content.Intent
 import android.os.Parcel
 import android.os.Parcelable
 
@@ -11,7 +10,7 @@ import android.os.Parcelable
 
 class Control():Parcelable {
     var especialidades = mutableListOf<Especialidad>()
-    var usuarios = mutableListOf<String>()
+    private var usuarios = mutableListOf<String>()
 
     init {
         chargeEspecialidades()
@@ -39,8 +38,8 @@ class Control():Parcelable {
     /**
      * Carga las epecialidades cargadas por defecto
      */
-    fun chargeEspecialidades() {
-        especialidades = mutableListOf<Especialidad>()
+    private fun chargeEspecialidades() {
+        especialidades = mutableListOf()
         especialidades.add(
             Especialidad(
                 12,
@@ -77,20 +76,13 @@ class Control():Parcelable {
     /**
      * Elimina las epecialidades vacías al cargar
      */
-    fun eliminarEspecialidadesVacias() {
+    private fun eliminarEspecialidadesVacias() {
         for (i in especialidades) {
             if (i.numPlazasDisponibles == 0) {
                 especialidades.remove(i)
             }
         }
     }
-
-    //----------Control
-
-    /**
-     * Recibe esa especialidad
-     */
-    fun getEspecialidad(pos: Int) = especialidades.get(pos)
 
 
     //-------------------------------Parcelamiento

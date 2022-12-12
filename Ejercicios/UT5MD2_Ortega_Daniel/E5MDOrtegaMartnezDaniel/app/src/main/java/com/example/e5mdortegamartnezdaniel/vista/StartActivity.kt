@@ -9,15 +9,13 @@ import com.example.e5mdortegamartnezdaniel.control.Control
 import com.example.e5mdortegamartnezdaniel.databinding.ActivityStartBinding
 
 class StartActivity : AppCompatActivity() {
-    lateinit var binding: ActivityStartBinding
-    lateinit var linearLayout: LinearLayoutManager
-    var control= Control()
+    private lateinit var binding: ActivityStartBinding
+    private var control= Control()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.imgLogo.setOnClickListener(){
-            //TODO si vuelves al menu start no se resetea el control
+        binding.imgLogo.setOnClickListener {
             val myIntent = Intent(this, MainActivity::class.java)
             myIntent.putExtra("baseDatos",control)
             startActivity(myIntent)
