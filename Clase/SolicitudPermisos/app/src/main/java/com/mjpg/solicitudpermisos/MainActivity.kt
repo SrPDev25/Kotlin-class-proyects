@@ -42,54 +42,10 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.btnCallphone2.setOnClickListener {
-            llamadaTelefono2ButtonAction()
+            llamadaTelefonoNuevoButtonAction()
         }
     }
 
-    private fun llamadaTelefono2ButtonAction() {
-        when {
-            ContextCompat.checkSelfPermission(
-                this@MainActivity,
-                Manifest.permission.CALL_PHONE
-            ) == PackageManager.PERMISSION_GRANTED -> {
-                val intent = Intent(
-                    Intent.ACTION_CALL,
-                    Uri.parse("tel:965555555")
-                )
-                startActivity(intent)
-            }
-
-            shouldShowRequestPermissionRationale(Manifest.permission.CALL_PHONE) -> {
-                Snackbar.make(
-                    binding.rootlayout, "POR CONTRATO Este permiso es peligroso" +
-                            "y es para poder llamar por teléfono",
-                    Snackbar.LENGTH_LONG
-                ).show()
-
-                val builder = Builder(this@MainActivity)
-                builder.setTitle("Permiso para llamar")
-                builder.setMessage("Puede resultar interesante indicar porqué.")
-
-                builder.setPositiveButton(android.R.string.ok) { _, _ ->
-                    Snackbar.make(
-                        binding.rootlayout,
-                        "Se acepta y se vuelve a pedir permiso",
-                        Snackbar.LENGTH_LONG
-                    ).show()
-
-
-                    requestPermissionLauncher.launch(Manifest.permission.CALL_PHONE)
-
-                }
-                builder.setNeutralButton(android.R.string.cancel, null)
-                builder.show()
-            }
-            else -> {
-
-                requestPermissionLauncher.launch(Manifest.permission.CALL_PHONE)
-            }
-        }
-    }
 
     private fun llamadaTelefono1ButtonAction() {
 
@@ -130,11 +86,13 @@ class MainActivity : AppCompatActivity() {
                     ).show()
                     //Solicitar el permiso
                     ActivityCompat.requestPermissions(
-                                    //En este arrayOf se pueden pedir varios permisos
-                        this, arrayOf(Manifest.permission.CALL_PHONE),//es aconsejable pedir de 1 en 1
+                        //En este arrayOf se pueden pedir varios permisos
+                        this,
+                        arrayOf(Manifest.permission.CALL_PHONE),//es aconsejable pedir de 1 en 1
                         PERMISOLLAMADA
                     )
                 }
+
 
                 builder.setNeutralButton(android.R.string.cancel, null)
                 builder.show()
@@ -145,6 +103,8 @@ class MainActivity : AppCompatActivity() {
                     binding.rootlayout, "No se da una explicación.",
                     Snackbar.LENGTH_LONG
                 ).show()
+
+                //Forma antigua importante
                 ActivityCompat.requestPermissions(
                     this, arrayOf(Manifest.permission.CALL_PHONE),
                     PERMISOLLAMADA
@@ -195,7 +155,9 @@ class MainActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         when (requestCode) {
+            //En caso de llamada
             PERMISOLLAMADA -> {
+
                 Log.d("DEBUG", "${grantResults[0]} ${permissions[0]}")
                 if ((grantResults.isNotEmpty() && grantResults[0]
                             == PackageManager.PERMISSION_GRANTED)
@@ -222,7 +184,62 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Formato nuevo para hacer llamadas
+     */
+    private fun llamadaTelefonoNuevoButtonAction() {
+        when {
+            ContextCompat.checkSelfPermission(
+                this@MainActivity,
+                Manifest.permission.CALL_PHONE
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                //Si está concedido el permiso llama directamente
+                val intent = Intent(
+                    //Intent.ACTION_DIAL,//Solo marca el número
+                    Intent.ACTION_CALL,//Llama directamente
+                    Uri.parse("tel:965555555")
+                )
+                startActivity(intent)
+            }
+
+            shouldShowRequestPermissionRationale(Manifest.permission.CALL_PHONE) -> {
+                Snackbar.make(
+                    binding.rootlayout, "POR CONTRATO Este permiso es peligroso" +
+                            "y es para poder llamar por teléfono",
+                    Snackbar.LENGTH_LONG
+                ).show()
+
+                val builder = Builder(this@MainActivity)
+                builder.setTitle("Permiso para llamar")
+                builder.setMessage("Puede resultar interesante indicar porqué.")
+
+                builder.setPositiveButton(android.R.string.ok) { _, _ ->
+                    Snackbar.make(
+                        binding.rootlayout,
+                        "Se acepta y se vuelve a pedir permiso",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+
+                    //Vesión nueva importante
+                    requestPermissionLauncher.launch(Manifest.permission.CALL_PHONE)
+
+                }
+                builder.setNeutralButton(android.R.string.cancel, null)
+                builder.show()
+            }
+            else -> {
+
+                requestPermissionLauncher.launch(Manifest.permission.CALL_PHONE)
+            }
+        }
+    }
+
+
+    /**
+     * Valor utilizado por el método nuevo de llamada
+     */
     private val requestPermissionLauncher =
+        //isGranted es el boolean que mira si tiene permisos
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
                 Snackbar.make(
