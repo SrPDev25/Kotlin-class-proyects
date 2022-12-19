@@ -7,6 +7,8 @@ data class Usuario(
     val estado: Int=-2
 ) {
 
+
+
     companion object {
         const val MECANICO = 0
         const val RECEPCIONISTA = 1

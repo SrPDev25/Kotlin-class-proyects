@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
             .into(binding.imgLogo)
         binding.whiteLayout.background.alpha=200
         binding.main.buttonCredits.background.alpha=0
+        val s ="asdf"
+        s.get(1)
 
 
 

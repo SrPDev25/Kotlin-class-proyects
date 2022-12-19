@@ -5,13 +5,12 @@ data class Vehiculo(
     var nombre:String,
     var email:String,
     var matricula:String,
-    val observaciones:String,
-
+    var modelo:String,
+    val observaciones:String="",
+    var estado:Boolean=false,
+    var fecha:String=""
 ) {
-    var estado:Boolean=false
-    get(){
-        return field
-    }
+
 
     /**
      * Cambia el estado, pero si ya está en true devuelve -1 y no cambia nada

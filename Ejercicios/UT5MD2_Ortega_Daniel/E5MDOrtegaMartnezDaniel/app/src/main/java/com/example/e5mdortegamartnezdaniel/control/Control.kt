@@ -9,7 +9,7 @@ import android.os.Parcelable
  */
 
 class Control():Parcelable {
-    var especialidades = mutableListOf<Especialidad>()
+    var especialidades = mutableListOf<Especialidad>    ()
     private var usuarios = mutableListOf<String>()
 
     init {
