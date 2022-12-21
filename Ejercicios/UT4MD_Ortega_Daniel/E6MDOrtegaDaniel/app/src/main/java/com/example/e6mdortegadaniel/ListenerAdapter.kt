@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.e6mdortegadaniel.control.Vehiculo
 import com.example.e6mdortegadaniel.databinding.ItemCochesRecyclerBinding.bind
 
-class ListenerAdapter(private val vehiculos:List<Vehiculo>, private val listener: CochesActivity):
+class ListenerAdapter(private val vehiculos:List<Vehiculo>, private val listener: Events):
     RecyclerView.Adapter<ListenerAdapter.ViewHolder>()
 {
     private lateinit var context: Context

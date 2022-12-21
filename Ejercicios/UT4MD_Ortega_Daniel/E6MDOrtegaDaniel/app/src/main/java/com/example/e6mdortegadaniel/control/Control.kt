@@ -2,7 +2,7 @@ package com.example.e6mdortegadaniel.control
 
 import android.os.Parcel
 import android.os.Parcelable
-
+//TODO, cambiar a plugin
 class Control() : Parcelable
 {
     var vehiculos=mutableListOf<Vehiculo>(
@@ -18,6 +18,7 @@ class Control() : Parcelable
     }
 
 
+    //
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeList(vehiculos)
     }
