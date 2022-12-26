@@ -6,8 +6,8 @@ data class Vehiculo(
     var email:String,
     var matricula:String,
     var modelo:String,
-    val observaciones:String="",
     var estado:Boolean=false,
+    val observaciones:String="",
     var fecha:String=""
 ) {
 

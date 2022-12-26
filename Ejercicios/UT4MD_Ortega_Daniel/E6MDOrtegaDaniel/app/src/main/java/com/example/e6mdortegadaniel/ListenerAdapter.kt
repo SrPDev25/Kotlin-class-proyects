@@ -1,6 +1,7 @@
 package com.example.e6mdortegadaniel
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.e6mdortegadaniel.control.Vehiculo
 import com.example.e6mdortegadaniel.databinding.ItemCochesRecyclerBinding.bind
 
-class ListenerAdapter(private val vehiculos:List<Vehiculo>, private val listener: CochesActivity):
+class ListenerAdapter(private val vehiculos:List<Vehiculo>, private val listener: Events):
     RecyclerView.Adapter<ListenerAdapter.ViewHolder>()
 {
     private lateinit var context: Context
@@ -37,7 +38,10 @@ class ListenerAdapter(private val vehiculos:List<Vehiculo>, private val listener
                 binding.matriculaTxt.text=vehiculos.get(position).matricula.toString()
                 binding.modeloTxt.text = vehiculos.get(position).modelo.toString()
                 binding.dniTxt.text=vehiculos.get(position).dni.toString()
-
+                if (vehiculos.get(position).estado)
+                    binding.seccion.setBackgroundColor(Color.GREEN)
+                else
+                    binding.seccion.setBackgroundColor(Color.BLUE)
                 //Inserta un set listener a cada uno de los "holders"
                 setListener(position)//pasa la posicion del vehiculo en la lista
 
@@ -48,4 +52,6 @@ class ListenerAdapter(private val vehiculos:List<Vehiculo>, private val listener
     override fun getItemCount(): Int {
         return vehiculos.size
     }
+
+
 }

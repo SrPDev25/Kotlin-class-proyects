@@ -13,7 +13,7 @@ import com.example.e5mdortegamartnezdaniel.databinding.ActivityInformationBindin
 class InformationActivity: AppCompatActivity(), Events {
     private lateinit var binding: ActivityInformationBinding
     private lateinit var linearLayout: LinearLayoutManager
-    private lateinit var control: Control
+    private     lateinit var control: Control
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityInformationBinding.inflate(layoutInflater)

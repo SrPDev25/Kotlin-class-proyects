@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:id="@+id/cosa"
+        android:id="@+id/seccion"
         >
         <!-- cuando queremos poner un subtitulo pero que resalte mas
         ponemos textApparenceSubtitle1 o 2-->
