@@ -1,5 +1,6 @@
 package com.example.e6mdortegadaniel.control
 
+//Todo hacer parcelable el vehiculo
 data class Vehiculo(
     var dni:String,
     var nombre:String,

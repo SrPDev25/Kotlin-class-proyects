@@ -47,7 +47,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/dniText"
                     android:layout_width="200dp"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
                     android:hint="DNI"
                     android:maxLength="9" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -64,7 +64,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/nombreText"
                     android:layout_width="200dp"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
                     android:hint="NOMBRE Y APELLIDOS" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,7 +80,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/emailText"
                     android:layout_width="200dp"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
                     android:hint="EMAIL" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,7 +96,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/matriculaText"
                     android:layout_width="200dp"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
                     android:hint="MATRICULA" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -112,7 +112,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/modeloText"
                     android:layout_width="200dp"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
                     android:hint="MODELO" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -129,7 +129,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/observacionesText"
                     android:layout_width="200dp"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
                     android:hint="OBSERVACIONES" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -140,6 +140,7 @@
                 android:text="Fecha de entrega"
                 android:textColor="@color/black"
                 android:textSize="20sp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/observacionesLayout" />

@@ -1,8 +1,9 @@
-package com.example.e6mdortegadaniel
+package com.example.e6mdortegadaniel.activitys
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.e6mdortegadaniel.activitys.CochesActivity
 import com.example.e6mdortegadaniel.control.Usuario
 import com.example.e6mdortegadaniel.databinding.ActivityLoginBinding
 
@@ -25,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
             if (estado >= 0) {
                 binding.passText.text?.clear()
                 binding.userLayout.error = ""
-                val myIntent= Intent(this,CochesActivity::class.java)
+                val myIntent= Intent(this, CochesActivity::class.java)
                 startActivity(myIntent)
 
             } else {

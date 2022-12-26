@@ -1,4 +1,4 @@
-package com.example.e6mdortegadaniel
+package com.example.e6mdortegadaniel.activitys
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -41,14 +41,14 @@ class AddCocheActivity : AppCompatActivity() {
         val letters= arrayOf('T','R','W','A','G','Y','F','O','D','X','B','N','J','Z','S','Q','V','H','L','C','K')
         var count=0
         //Comprueba que los 8 primeros caracteres no sean letras
-        while(count<8&&isFine==NO_ERROR) {
+        while(count<8&&isFine== NO_ERROR) {
             if (dni[count].isLetter()) {
                 isFine = ERROR_NO_NUMBERS
             }
             count++
         }
         //Comprueba que la letra es la que devería ser
-        if (isFine!=ERROR_NO_NUMBERS){
+        if (isFine!= ERROR_NO_NUMBERS){
             val dniLetter= dni[8].uppercaseChar()
             var dniNumber=""
             for (i in 0..7)

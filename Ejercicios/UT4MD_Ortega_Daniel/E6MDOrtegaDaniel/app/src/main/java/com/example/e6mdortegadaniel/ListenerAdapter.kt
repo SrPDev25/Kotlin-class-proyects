@@ -19,7 +19,9 @@ class ListenerAdapter(private val vehiculos:List<Vehiculo>, private val listener
             binding.root.setOnLongClickListener(){//Cuando se de clic a cualquier parte del View
                 listener.longClick(codigo)
             }
-
+            binding.root.setOnClickListener(){
+                listener.shortClick(codigo)
+            }
         }
 
     }
@@ -38,10 +40,10 @@ class ListenerAdapter(private val vehiculos:List<Vehiculo>, private val listener
                 binding.matriculaTxt.text=vehiculos.get(position).matricula.toString()
                 binding.modeloTxt.text = vehiculos.get(position).modelo.toString()
                 binding.dniTxt.text=vehiculos.get(position).dni.toString()
-                if (vehiculos.get(position).estado)
-                    binding.seccion.setBackgroundColor(Color.GREEN)
+                if (!vehiculos.get(position).estado)
+                    binding.seccion.setBackgroundColor(Color.parseColor("#FFFFFF"))
                 else
-                    binding.seccion.setBackgroundColor(Color.BLUE)
+                    binding.seccion.setBackgroundColor(Color.parseColor("#52FA85"))
                 //Inserta un set listener a cada uno de los "holders"
                 setListener(position)//pasa la posicion del vehiculo en la lista
 
