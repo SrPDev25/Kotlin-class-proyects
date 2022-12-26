@@ -3,6 +3,7 @@ package com.example.e6mdortegadaniel.activitys
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import androidx.activity.result.contract.ActivityResultContracts
@@ -36,10 +37,10 @@ class CochesActivity : AppCompatActivity(), Events {
 
     override fun longClick(pos: Int): Boolean {
 
-        if (!control.vehiculos.get(pos).estado){
-            control.vehiculos.get(pos).estado=true
+        if (!control.vehiculos[pos].estado){
+            control.vehiculos[pos].estado=true
             chargeRecycler()
-
+            enviarEmail(pos)
         }
         return true
     }
@@ -53,6 +54,28 @@ class CochesActivity : AppCompatActivity(), Events {
 
     override fun shortClick(pos: Int) {
 
+    }
+
+    /**
+     * En via un correo rellenando el mail, el asunto y el contenido
+     * Psdt: No funciona con Gmail de mi movil
+     * todo pelearse con el gmail
+     */
+    fun enviarEmail(pos:Int) {
+        val vehiculo=control.vehiculos.get(pos)
+        val address= vehiculo.email
+        val mensaje= "Hola, ${vehiculo.nombre}\n\n" +
+                "Le mando este mensaje del taller de coches para informarle que su vehiculo" +
+                " ${vehiculo.modelo} con matricula ${vehiculo.matricula} ha sido reparado y está " +
+                "listo para ser recogido." +
+                "\nUn saludo, Taller San Vicente"
+        val intent = Intent(Intent.ACTION_SENDTO)
+        intent.data = Uri.parse("mailto:$address") // Llama a la aplicación de correo
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Reparación")
+        intent.putExtra(Intent.EXTRA_TEXT,mensaje)
+
+        //Llama al intent indicado
+        startActivity(intent)
     }
 
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {

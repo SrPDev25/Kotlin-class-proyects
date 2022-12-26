@@ -10,8 +10,8 @@ import com.example.e6mdortegadaniel.databinding.ActivityLoginBinding
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private var usuario = mutableListOf(
-        Usuario("usuario1", "password1", Usuario.RECEPCIONISTA),
-        Usuario("usuario2", "password2", Usuario.MECANICO)
+        Usuario("1", "1", Usuario.RECEPCIONISTA),
+        Usuario("2", "2", Usuario.MECANICO)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
