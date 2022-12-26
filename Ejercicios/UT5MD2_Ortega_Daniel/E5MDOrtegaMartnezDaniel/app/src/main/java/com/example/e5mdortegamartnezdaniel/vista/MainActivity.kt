@@ -96,36 +96,36 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Calcula si el DNI es válido
-     */
-    fun calcularDNI(dni:String):Int{
-        var isFine = NO_ERROR
-        val letters= arrayOf('T','R','W','A','G','Y','F','O','D','X','B','N','J','Z','S','Q','V','H','L','C','K')
-        var count=0
-        //Comprueba que los 8 primeros caracteres no sean letras
-        while(count<8&&isFine==NO_ERROR) {
-            if (dni[count].isLetter()) {
-                isFine = ERROR_NO_NUMBERS
+        /**
+         * Calcula si el DNI es válido
+         */
+        fun calcularDNI(dni:String):Int{
+            var isFine = NO_ERROR
+            val letters= arrayOf('T','R','W','A','G','Y','F','O','D','X','B','N','J','Z','S','Q','V','H','L','C','K')
+            var count=0
+            //Comprueba que los 8 primeros caracteres no sean letras
+            while(count<8&&isFine==NO_ERROR) {
+                if (dni[count].isLetter()) {
+                    isFine = ERROR_NO_NUMBERS
+                }
+                count++
             }
-            count++
+            //Comprueba que la letra es la que devería ser
+            if (isFine!=ERROR_NO_NUMBERS){
+                val dniLetter= dni[8].uppercaseChar()
+                var dniNumber=""
+                for (i in 0..7)
+                    dniNumber+=dni[i]
+                val number:Int =(dniNumber.toInt()%23)-1
+                if (letters[number] != dniLetter)
+                    isFine= ERROR_LETTER
+            }
+            //Comprueba si el usuario ya existe
+            if (isFine== NO_ERROR){
+                isFine=control.checkUsuario(dni)
+            }
+            return isFine
         }
-        //Comprueba que la letra es la que devería ser
-        if (isFine!=ERROR_NO_NUMBERS){
-            val dniLetter= dni[8].uppercaseChar()
-            var dniNumber=""
-            for (i in 0..7)
-                dniNumber+=dni[i]
-            val number:Int =(dniNumber.toInt()%23)-1
-            if (letters[number] != dniLetter)
-                isFine= ERROR_LETTER
-        }
-        //Comprueba si el usuario ya existe
-        if (isFine== NO_ERROR){
-            isFine=control.checkUsuario(dni)
-        }
-        return isFine
-    }
 
     private fun isEspecialidadEscogida(){
         val text =binding.especialidadText.text.toString()
