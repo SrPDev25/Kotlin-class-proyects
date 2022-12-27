@@ -1,6 +1,10 @@
 package com.example.e6mdortegadaniel.control
 
-//Todo hacer parcelable el vehiculo
+import android.os.Parcelable
+import androidx.versionedparcelable.ParcelField
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Vehiculo(
     var dni:String,
     var nombre:String,
@@ -10,7 +14,7 @@ data class Vehiculo(
     var estado:Boolean=false,
     val observaciones:String="",
     var fecha:String=""
-) {
+) : Parcelable {
 
 
     /**

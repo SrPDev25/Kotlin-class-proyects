@@ -1,9 +1,12 @@
 package com.example.e6mdortegadaniel.activitys
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.e6mdortegadaniel.control.Control
+import com.example.e6mdortegadaniel.control.Vehiculo
 import com.example.e6mdortegadaniel.databinding.ActivityAddCocheBinding
 import java.util.Date
 
@@ -20,7 +23,15 @@ class AddCocheActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddCocheBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        var date=Date()
+
+        binding.addButton.setOnClickListener(){
+            val myIntent= Intent()
+                .putExtra("vehiculo", Vehiculo("112233S","Pepa","fdsa@gmail.com","118545237CDS","Stopa"))
+            setResult(Activity.RESULT_OK,myIntent)
+            finish()
+        }
+
+
 
     }
 

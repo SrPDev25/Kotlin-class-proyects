@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
             llamadaTelefonoNuevoButtonAction()
         }
         binding.btnMail.setOnClickListener{
-            composeEmail()
+            composeEmail2()
         }
     }
 
@@ -268,15 +268,35 @@ class MainActivity : AppCompatActivity() {
      * En via un correo rellenando el mail, el asunto y el contenido
      * Psdt: No funciona con Gmail de mi movil
      */
-    fun composeEmail() {
-        val address= "queso@gmail.com"
-        val mensaje= mutableListOf("Hola", "que", "tal")
+    fun composeEmail2() {
+        val address= arrayOf<String>("juanito@gmail.com")
+        val mensaje= "asdf"
         val subject="Asuntito"
         val intent = Intent(Intent.ACTION_SENDTO)
-        intent.data = Uri.parse("mailto:"+address) // Llama a la aplicación de correo
+        intent.data = Uri.parse("mailto:") // Llama a la aplicación de correo
+        intent.putExtra(Intent.EXTRA_EMAIL,address)
         intent.putExtra(Intent.EXTRA_TEXT,"addresses"+"asdf")
         //intent.putExtra(Intent.EXTRA_BCC, addresses)//Para enviar a multiples correos
         intent.putExtra(Intent.EXTRA_SUBJECT, subject)//Funciona
+
+
+
+            startActivity(intent)
+    }
+
+    fun composeEmail() {
+        val address= "queso@gmail.com"
+        val mensaje= "holiwis"
+        val subject="Asuntito"
+        val uri=Uri.parse("mailtio:")
+            .buildUpon()
+            .appendQueryParameter("email",address)
+            .appendQueryParameter("subject",subject)
+            .appendQueryParameter("body",mensaje)
+            .build()
+
+        val intent = Intent(Intent.ACTION_SENDTO,uri)
+
 
         startActivity(intent)
     }

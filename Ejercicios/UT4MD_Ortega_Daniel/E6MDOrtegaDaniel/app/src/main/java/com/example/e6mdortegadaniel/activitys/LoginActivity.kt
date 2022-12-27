@@ -1,10 +1,12 @@
 package com.example.e6mdortegadaniel.activitys
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.e6mdortegadaniel.activitys.CochesActivity
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.e6mdortegadaniel.control.Usuario
+import com.example.e6mdortegadaniel.control.Vehiculo
 import com.example.e6mdortegadaniel.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -22,11 +24,12 @@ class LoginActivity : AppCompatActivity() {
         binding.buttonLogin.setOnClickListener() {
             val user = binding.userText.text.toString()
             val pass = binding.passText.text.toString()
-            val estado = getUserEstado(user, pass)
-            if (estado >= 0) {
+            val pos = getUserEstado(user, pass)
+            if (pos >= 0) {
                 binding.passText.text?.clear()
                 binding.userLayout.error = ""
                 val myIntent= Intent(this, CochesActivity::class.java)
+                myIntent.putExtra("tipo",usuario[pos].estado)
                 startActivity(myIntent)
 
             } else {
@@ -36,6 +39,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
     }
+
 
     /**
      * Devuelve el estado del usuario,
