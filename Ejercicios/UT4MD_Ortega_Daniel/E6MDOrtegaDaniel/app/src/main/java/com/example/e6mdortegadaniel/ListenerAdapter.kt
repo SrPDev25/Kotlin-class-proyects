@@ -41,7 +41,7 @@ class ListenerAdapter(private val vehiculos:List<Vehiculo>, private val listener
                 binding.modeloTxt.text = vehiculos.get(position).modelo.toString()
                 binding.dniTxt.text=vehiculos.get(position).dni.toString()
                 if (!vehiculos.get(position).estado)
-                    binding.seccion.setBackgroundColor(Color.parseColor("#FFFFFF"))
+                    binding.seccion.setBackgroundColor(Color.parseColor("#0011FF"))
                 else
                     binding.seccion.setBackgroundColor(Color.parseColor("#52FA85"))
                 //Inserta un set listener a cada uno de los "holders"

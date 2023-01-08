@@ -9,6 +9,7 @@ import android.os.Parcelable
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.e6mdortegadaniel.Events
 import com.example.e6mdortegadaniel.ListenerAdapter
@@ -29,6 +30,9 @@ class CochesActivity : AppCompatActivity(), Events {
         setContentView(binding.root)
         chargeRecycler()
         estado=intent.getIntExtra("tipo",-2)
+
+        if (estado==Usuario.MECANICO)
+            binding.buttonAdd.isVisible=false
 
         binding.buttonAdd.setOnClickListener(){
             val myIntent = Intent(this, AddCocheActivity::class.java)
