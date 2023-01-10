@@ -13,6 +13,7 @@ import androidx.core.app.ActivityCompat
 
 
 import android.content.pm.PackageManager
+import android.provider.MediaStore
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog.Builder
 
@@ -44,8 +45,11 @@ class MainActivity : AppCompatActivity() {
         binding.btnCallphone2.setOnClickListener {
             llamadaTelefonoNuevoButtonAction()
         }
-        binding.btnMail.setOnClickListener{
+        binding.btnMail.setOnClickListener {
             composeEmail2()
+        }
+        binding.btnCamera.setOnClickListener {
+            camera()
         }
     }
 
@@ -269,38 +273,44 @@ class MainActivity : AppCompatActivity() {
      * Psdt: No funciona con Gmail de mi movil
      */
     fun composeEmail2() {
-        val address= arrayOf<String>("juanito@gmail.com")
-        val mensaje= "asdf"
-        val subject="Asuntito"
+        val address = arrayOf<String>("juanito@gmail.com")
+        val mensaje = "asdf"
+        val subject = "Asuntito"
         val intent = Intent(Intent.ACTION_SENDTO)
         intent.data = Uri.parse("mailto:") // Llama a la aplicación de correo
-        intent.putExtra(Intent.EXTRA_EMAIL,address)
-        intent.putExtra(Intent.EXTRA_TEXT,"addresses"+"asdf")
+        intent.putExtra(Intent.EXTRA_EMAIL, address)
+        intent.putExtra(Intent.EXTRA_TEXT, "addresses" + "asdf")
         //intent.putExtra(Intent.EXTRA_BCC, addresses)//Para enviar a multiples correos
         intent.putExtra(Intent.EXTRA_SUBJECT, subject)//Funciona
-
-
-
-            startActivity(intent)
+        startActivity(intent)
     }
 
     fun composeEmail() {
-        val address= "queso@gmail.com"
-        val mensaje= "holiwis"
-        val subject="Asuntito"
-        val uri=Uri.parse("mailtio:")
+        val address = "queso@gmail.com"
+        val mensaje = "holiwis"
+        val subject = "Asuntito"
+        val uri = Uri.parse("mailtio:")
             .buildUpon()
-            .appendQueryParameter("email",address)
-            .appendQueryParameter("subject",subject)
-            .appendQueryParameter("body",mensaje)
+            .appendQueryParameter("email", address)
+            .appendQueryParameter("subject", subject)
+            .appendQueryParameter("body", mensaje)
             .build()
 
-        val intent = Intent(Intent.ACTION_SENDTO,uri)
+        val intent = Intent(Intent.ACTION_SENDTO, uri)
 
 
         startActivity(intent)
     }
 
+    fun camera() {
 
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+            putExtra(MediaStore.EXTRA_OUTPUT, Uri.withAppendedPath(locationForPhotos, targetFilename))
+        }
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivityForResult(intent, 1)
+        }
+
+    }
 
 }

@@ -28,7 +28,7 @@ class ListenerAdapter(private val vehiculos:List<Vehiculo>, private val listener
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        context=parent.context//El context es una interfaz que nos da acceso a determinados recursos y clases del sistema
+        context=parent.context//    El context es una interfaz que nos da acceso a determinados recursos y clases del sistema
         val view= LayoutInflater.from(context)
             .inflate((R.layout.item_coches_recycler), parent, false)
         return  ViewHolder(view)
@@ -41,9 +41,9 @@ class ListenerAdapter(private val vehiculos:List<Vehiculo>, private val listener
                 binding.modeloTxt.text = vehiculos.get(position).modelo.toString()
                 binding.dniTxt.text=vehiculos.get(position).dni.toString()
                 if (!vehiculos.get(position).estado)
-                    binding.seccion.setBackgroundColor(Color.parseColor("#0011FF"))
+                    binding.seccion.setBackgroundColor(Color.parseColor("#FFFFFF"))
                 else
-                    binding.seccion.setBackgroundColor(Color.parseColor("#52FA85"))
+                    binding.seccion.setBackgroundColor(Color.parseColor("#BFFFC9"))
                 //Inserta un set listener a cada uno de los "holders"
                 setListener(position)//pasa la posicion del vehiculo en la lista
 

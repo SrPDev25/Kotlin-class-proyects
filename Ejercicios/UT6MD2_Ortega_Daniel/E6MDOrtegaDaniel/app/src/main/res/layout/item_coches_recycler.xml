@@ -21,6 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Matricula"
+            android:textColor="@color/black"
             android:textAppearance="?attr/textAppearanceCaption"
             android:layout_marginStart="10dp"
             app:layout_constraintStart_toStartOf="parent"

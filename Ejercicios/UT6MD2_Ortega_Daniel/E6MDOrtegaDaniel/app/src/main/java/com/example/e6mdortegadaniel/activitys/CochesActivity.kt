@@ -22,13 +22,18 @@ import com.example.e6mdortegadaniel.databinding.ActivityCochesBinding
 class CochesActivity : AppCompatActivity(), Events {
     private lateinit var binding: ActivityCochesBinding
     private lateinit var linearLayout: LinearLayoutManager
-    private var control= Control()
+    private lateinit var control:Control
     private var estado:Int=-2
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCochesBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        chargeRecycler()
+        control= intent.getParcelableExtra("controlUp")!!
+        if(control!=null)
+            chargeRecycler()
+        else
+            binding.buttonAdd.isEnabled=false
+
         estado=intent.getIntExtra("tipo",-2)
 
         if (estado==Usuario.MECANICO)
@@ -39,6 +44,14 @@ class CochesActivity : AppCompatActivity(), Events {
             startForResult.launch(myIntent)
         }
 
+    }
+
+    //Controla que hace cuando el usuario vuelve hacia atras
+    override fun onBackPressed() {
+        var myIntent=Intent()
+            .putExtra("controlDown", control)
+        setResult(Activity.RESULT_OK,myIntent)
+        finish()
     }
 
     override fun longClick(pos: Int): Boolean {
@@ -54,9 +67,11 @@ class CochesActivity : AppCompatActivity(), Events {
     override fun shortClick(pos: Int) {
         if (control.vehiculos[pos].estado && estado== Usuario.RECEPCIONISTA){
             control.vehiculos.remove(control.vehiculos[pos])
-            chargeRecycler()
+            binding.recyclerview.adapter?.notifyItemRemoved(pos)
         }
     }
+
+
 
     /** Carga el recyclerView para actualizar los nuevos cambios
      */
