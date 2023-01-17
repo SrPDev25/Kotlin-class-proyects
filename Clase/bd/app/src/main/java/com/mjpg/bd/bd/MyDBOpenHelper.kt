@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
 
+//Crea y es la base de datos
 class MyDBOpenHelper(
     context: Context,
     name: String?,
@@ -15,7 +16,7 @@ class MyDBOpenHelper(
     /**
      * Constantes estaticas
      */
-    companion object {
+        companion object {
         val DATABASE_VERSION = 1
         val DATABASE_NAME = "enero.db"
 
