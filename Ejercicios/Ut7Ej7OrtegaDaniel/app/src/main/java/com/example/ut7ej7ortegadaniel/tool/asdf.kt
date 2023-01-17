@@ -5,13 +5,12 @@ import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
 import java.io.InputStream
-
 //Ni idea, es un nulo que nunca cambia
 private val ns: String? = null
-class StackOverflowXmlParser {
+class asdf {
     //Posibles errores los deja para quien llame a la funcion
     @Throws(XmlPullParserException::class, IOException::class)
-    fun parse(inputStream: InputStream): List<*> {
+    fun parse(inputStream: InputStream): Centro? {
         //Stream
         inputStream.use { inputStream ->
             val parser: XmlPullParser = Xml.newPullParser()
@@ -22,9 +21,9 @@ class StackOverflowXmlParser {
         }
     }
 
-    private fun readFeed(parser: XmlPullParser): List<Centro> {
+    private fun readFeed(parser: XmlPullParser): Centro? {
         //Entry es
-        val entries = mutableListOf<Centro>()
+        var entries: Centro? =null
         //Marca la raiz
         parser.require(XmlPullParser.START_TAG, ns, "resources")
         //Si el siguiente no existe se rompe el bucle
@@ -35,7 +34,7 @@ class StackOverflowXmlParser {
             }
             // Starts by looking for the entry tag
             if (parser.name == "Data") {
-                entries.add(readEntry(parser))
+                entries=readEntry(parser)
             } else {
                 //skip(parser)//No la comprendo muy bien, no la pongo
             }

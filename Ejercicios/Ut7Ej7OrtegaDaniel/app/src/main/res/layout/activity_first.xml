@@ -28,6 +28,7 @@
            app:layout_constraintTop_toTopOf="parent"
            app:layout_constraintStart_toStartOf="parent"
            app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintBottom_toTopOf="@id/centroTxt"
            android:layout_margin="15dp"
            android:layout_marginBottom="0dp"
            />
@@ -37,10 +38,24 @@
             android:layout_height="wrap_content"
             android:text="Centro predeterminado"
             android:textColor="@color/black"
+            android:textAlignment="center"
             app:layout_constraintTop_toBottomOf="@id/logo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="8dp"
+            />
+        <TextView
+            android:id="@+id/direccion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dirección:"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/direccionTxt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/centroTxt"
             />
         <TextView
             android:id="@+id/direccionTxt"
@@ -48,10 +63,23 @@
             android:layout_height="wrap_content"
             android:text="Dirección predeterminado"
             android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/centroTxt"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@id/direccion"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="8dp"
+            />
+        <TextView
+            android:id="@+id/denominacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quien somos:"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/denominacionTxt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/direccionTxt"
             />
         <TextView
             android:id="@+id/denominacionTxt"
@@ -59,6 +87,7 @@
             android:layout_height="wrap_content"
             android:text="Denominación predeterminado"
             android:textColor="@color/black"
+            android:textAlignment="center"
             app:layout_constraintTop_toBottomOf="@id/direccionTxt"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

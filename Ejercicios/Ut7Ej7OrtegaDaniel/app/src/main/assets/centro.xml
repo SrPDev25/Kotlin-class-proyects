@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <Data>
+        <!--Denominacion,Direccion,Centro-->
+        <Centro>Autoescuela One Piece</Centro>
+        <Denominacion>Autoescuela de conducción para el permiso A, B, Nautico</Denominacion>
+        <Direccion>Tambacan, Tanjay City, 6204, Filipinas</Direccion>
+    </Data>
+</resources>
