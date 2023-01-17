@@ -1,14 +1,13 @@
-package com.example.ut7ej7ortegadaniel
+package com.example.ut7ej7ortegadaniel.layout
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.example.ut7ej7ortegadaniel.R
 
-class MainActivity : AppCompatActivity() {
+class FirstActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        
 
     }
-
 }
