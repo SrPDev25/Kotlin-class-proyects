@@ -21,18 +21,28 @@ class MyDBOpenHelper(
         val DATABASE_NAME = "centro.db"
 
         val TABLA_PROFESORES = "usuarios"
-        val COL_DNI = "dni"
-        val COL_LOGIN = "login"
-        val COL_CONTRA = "contra"
-        val COL_NOMBRE_PROFESOR = "nombre_apellido"
+        val COL_CODIGO_PROF = "codigo_profesor"//int NN PK
+        val COL_LOGIN = "login"//txt NN
+        val COL_CONTRA = "contra"//txt NN
+        val COL_NOMBRE_PROFESOR = "nombre_apellido"//txt NN
 
         val TABLA_ALUMNOS = "alumnos"
-        val COL_CODIGO = "codigo_alumno"
-        val COL_NOMBRE_ALUMNO = "nombre_apellido"
+        val COL_CODIGO_ALU = "codigo_alumno"//int NN PK
+        val COL_NOMBRE_ALUMNO = "nombre_apellido" //txt NN
 
-        val TABLA_PROFESOR_ALUMNO = "usuarios"
-        val COL_LOGIN = "login"
-        val COL_CONTRA = "contra"
+        val TABLA_PROFESOR_ALUMNO = "profesor_alumno"
+        val COL_CODIGO_RELACION = "cod_relacion" //int NN PK
+        //CODIGO ALUMNO//txt NN
+        //CODIGO PROFESOR//txt NN
+
+        val TABLA_FALTAS = "faltas"
+        val COL_CODIGO_FALTAS = "login"
+        //CODIGO ALUMNO//TXT NN
+        //CODIGO PROFESOR/TXT NN
+        val COL_FECHA = "contra"//TXT NN
+        val COL_HORA = "contra"//TXT NN
+        val COL_JUSTIFICADA = "contra"//BOOL PREDEF:FALSE
+        val COL_OBSERVACIONES = "contra"//TXT
 
     }
 
@@ -43,9 +53,9 @@ class MyDBOpenHelper(
         try {
             //Crea la tabla con una String de MySQL
             val crearTablaUsuarios =
-                "CREATE TABLE $TABLA_USUARIOS (" +
-                        "$COL_LOGIN TEXT PRIMARY KEY , " +
-                        "$COL_CONTRA TEXT)"
+                "CREATE TABLE $TABLA_ALUMNOS (" +
+                        "$COL_CODIGO_ALU TEXT PRIMARY KEY , " +
+                        "$COL_NOMBRE_ALUMNO TEXT)"
             //Si no es null, ejecuta la linea SQL
             db!!.execSQL(crearTablaUsuarios)
 
