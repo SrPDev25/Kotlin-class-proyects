@@ -54,7 +54,7 @@ class MyXMLReader {
                 continue
             }
             when (parser.name) {
-                "Centro" -> centro = readCentro(parser)
+                "Telefono" -> centro = readTelefono(parser)
                 "Direccion" -> direccion = readDireccion(parser)
                 "Denominacion" -> denominacion = readDenominacion(parser)
                 //else -> skip(parser)
@@ -89,10 +89,10 @@ class MyXMLReader {
         return direccion
     }
 
-    private fun readCentro(parser: XmlPullParser): String {
-        parser.require(XmlPullParser.START_TAG, ns, "Centro")
+    private fun readTelefono(parser: XmlPullParser): String {
+        parser.require(XmlPullParser.START_TAG, ns, "Telefono")
         val centro = readText(parser)
-        parser.require(XmlPullParser.END_TAG, ns, "Centro")
+        parser.require(XmlPullParser.END_TAG, ns, "Telefono")
         return centro
     }
 }

@@ -2,8 +2,8 @@
 <resources>
     <Data>
         <!--Denominacion,Direccion,Centro-->
-        <Centro>Autoescuela One Piece</Centro>
-        <Denominacion>Autoescuela de conducción para el permiso A, B, Nautico</Denominacion>
+        <Telefono>768958741</Telefono>
+        <Denominacion>Autoescuela One Piece</Denominacion>
         <Direccion>Tambacan, Tanjay City, 6204, Filipinas</Direccion>
     </Data>
 </resources>
