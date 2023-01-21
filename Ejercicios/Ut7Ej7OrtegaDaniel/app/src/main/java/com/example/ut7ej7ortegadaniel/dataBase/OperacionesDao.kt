@@ -28,22 +28,6 @@ class OperacionesDao(contexto: Context) {
 
 
 
-    fun getUsuario(login: String, contrasena: String): Profesor? {
-        var usuarioEncontrado: Profesor? = null
-        val cursor: Cursor = mBD.rawQuery(
-            "SELECT * FROM ${MyDBOpenHelper.TABLA_PROFESORES} " +
-                    "WHERE ${MyDBOpenHelper.COL_LOGIN} = '$login' " +
-                    "AND ${MyDBOpenHelper.COL_CONTRA} = '$contrasena'",
-            null
-        )
-
-        if (!cursor.isClosed)
-            cursor.close()
-
-        return usuarioEncontrado
-    }
-
-
 
 
 
