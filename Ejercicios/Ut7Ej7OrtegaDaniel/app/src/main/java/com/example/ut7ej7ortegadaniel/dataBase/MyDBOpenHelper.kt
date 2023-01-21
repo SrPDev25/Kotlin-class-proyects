@@ -63,9 +63,25 @@ class MyDBOpenHelper(
                 "create table $TABLA_ALUMNOS(" +
                         "$COL_CODIGO_ALU INTEGER primary key AUTOINCREMENT," +
                         "$COL_NOMBRE_ALUMNO TEXT)"
+            val crearTablaRelacion=
+                "create table $TABLA_PROFESOR_ALUMNO(" +
+                        "$COL_CODIGO_RELACION INTEGER primary key AUTOINCREMENT," +
+                        "$COL_CODIGO_ALU INTEGER," +
+                        "$COL_CODIGO_PROF INTEGER)"
+            val crearTablaFaltas=
+                "create table $TABLA_FALTAS(" +
+                        "$COL_CODIGO_RELACION INTEGER primary key AUTOINCREMENT," +
+                        "$COL_CODIGO_ALU INTEGER," +
+                        "$COL_CODIGO_PROF INTEGER," +
+                        "$COL_FECHA TEXT," +
+                        "$COL_HORA TEXT," +
+                        "$COL_JUSTIFICADA INTEGER," +
+                        "$COL_OBSERVACIONES TEXT)"
             //Si no es null, ejecuta la linea SQL
             db!!.execSQL(crearTablaAlumnos)
             db.execSQL(crearTablaProfesores)
+            db.execSQL(crearTablaRelacion)
+            db.execSQL(crearTablaFaltas)
 
 
 
