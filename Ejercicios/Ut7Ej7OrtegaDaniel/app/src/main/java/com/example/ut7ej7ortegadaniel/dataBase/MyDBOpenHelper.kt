@@ -52,6 +52,10 @@ class MyDBOpenHelper(
     override fun onCreate(db: SQLiteDatabase?) {
         try {
             //Crea la tabla con una String de MySQL
+            val crearTablaUsuarios =
+                "CREATE TABLE usuarios (" +
+                        "$COL_LOGIN TEXT PRIMARY KEY , " +
+                        "$COL_CONTRA TEXT)"
             val crearTablaAlumnos =
                 "CREATE TABLE $TABLA_ALUMNOS (" +
                         "$COL_CODIGO_ALU INT PRIMARY KEY AUTOINCREMENT  , " +
@@ -63,10 +67,9 @@ class MyDBOpenHelper(
                         "$COL_NOMBRE_PROFESOR TEXT," +
                         "$COL_CONTRA TEXT)"
 
-            val query=crearTablaAlumnos+";"+crearTablaProfesores
-
             //Si no es null, ejecuta la linea SQL
-            db!!.execSQL(query)
+            db!!.execSQL(crearTablaUsuarios)
+            //db.execSQL(crearTablaProfesores)
 
 
 

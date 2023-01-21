@@ -36,8 +36,13 @@ class MyDBOpenHelper(
                 "CREATE TABLE $TABLA_USUARIOS (" +
                         "$COL_LOGIN TEXT PRIMARY KEY , " +
                         "$COL_CONTRA TEXT)"
+            val crearOtraTabla=
+                "create table hola(" +
+                        "columna text primary key)"
             //Si no es null, ejecuta la linea SQL
-            db!!.execSQL(crearTablaUsuarios)
+            db!!.execSQL(crearOtraTabla)
+            db.execSQL(crearTablaUsuarios)
+
 
 
         } catch (e: SQLiteException) {
