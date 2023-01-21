@@ -4,10 +4,10 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import com.example.ut7ej7ortegadaniel.control.Profesor
 import com.mjpg.basedatos.bd.MyDBOpenHelper
 
 
-import com.mjpg.bd.modelo.Usuario
 
 //Tiene los metodos para manejarla
 class OperacionesDao(contexto: Context) {
@@ -26,45 +26,24 @@ class OperacionesDao(contexto: Context) {
         mBD = estructura.writableDatabase
     }
 
-    fun addUsuario(usuario: Usuario) {
-        val values = ContentValues()
 
-        values.put(MyDBOpenHelper.COL_LOGIN, usuario.login)
-        values.put(MyDBOpenHelper.COL_CONTRA, usuario.contra)
-        mBD.insert(MyDBOpenHelper.TABLA_USUARIOS, null, values)
-    }
 
-    fun getUsuario(login: String, contrasena: String): Usuario? {
-        var usuarioEncontrado: Usuario? = null
+    fun getUsuario(login: String, contrasena: String): Profesor? {
+        var usuarioEncontrado: Profesor? = null
         val cursor: Cursor = mBD.rawQuery(
-            "SELECT * FROM ${MyDBOpenHelper.TABLA_USUARIOS} " +
+            "SELECT * FROM ${MyDBOpenHelper.TABLA_PROFESORES} " +
                     "WHERE ${MyDBOpenHelper.COL_LOGIN} = '$login' " +
                     "AND ${MyDBOpenHelper.COL_CONTRA} = '$contrasena'",
             null
         )
-        if (cursor.moveToFirst()) {
-            usuarioEncontrado = Usuario(
-                cursor.getString(cursor.getColumnIndexOrThrow(MyDBOpenHelper.COL_LOGIN)),
-                cursor.getString(cursor.getColumnIndexOrThrow(MyDBOpenHelper.COL_CONTRA))
-            )
 
-        }
         if (!cursor.isClosed)
             cursor.close()
 
         return usuarioEncontrado
     }
 
-    fun tablaVaciaUsuarios(): Boolean {
-        val vacia: Boolean
-        val cursor: Cursor = mBD.query(
-            MyDBOpenHelper.TABLA_USUARIOS, null, null,
-            null, null, null, null
-        )
-        vacia = !cursor.moveToFirst()
-        cursor.close()
-        return vacia
-    }
+
 
 
 

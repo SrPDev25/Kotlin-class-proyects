@@ -20,7 +20,7 @@ class FirstActivity : AppCompatActivity() {
 
         binding.centroTxt.text=centro?.denominacion
         binding.direccionTxt.text=centro?.direccion
-        binding.denominacionTxt.text=centro?.telefono
+        binding.telefonoTxt.text=centro?.telefono
 
         var hilo=Thread{
             Thread.sleep(3*1000)

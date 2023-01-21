@@ -20,7 +20,7 @@ class MyDBOpenHelper(
         val DATABASE_VERSION = 1
         val DATABASE_NAME = "centro.db"
 
-        val TABLA_PROFESORES = "usuarios"
+        val TABLA_PROFESORES = "profesores"
         val COL_CODIGO_PROF = "codigo_profesor"//int NN PK
         val COL_LOGIN = "login"//txt NN
         val COL_CONTRA = "contra"//txt NN
@@ -36,13 +36,13 @@ class MyDBOpenHelper(
         //CODIGO PROFESOR//txt NN
 
         val TABLA_FALTAS = "faltas"
-        val COL_CODIGO_FALTAS = "login"
+        val COL_CODIGO_FALTAS = "codigo_falta"
         //CODIGO ALUMNO//TXT NN
         //CODIGO PROFESOR/TXT NN
-        val COL_FECHA = "contra"//TXT NN
-        val COL_HORA = "contra"//TXT NN
-        val COL_JUSTIFICADA = "contra"//BOOL PREDEF:FALSE
-        val COL_OBSERVACIONES = "contra"//TXT
+        val COL_FECHA = "fecha"//TXT NN
+        val COL_HORA = "hora"//TXT NN
+        val COL_JUSTIFICADA = "justificada"//BOOL PREDEF:FALSE
+        val COL_OBSERVACIONES = "observaciones"//TXT
 
     }
 
@@ -52,12 +52,22 @@ class MyDBOpenHelper(
     override fun onCreate(db: SQLiteDatabase?) {
         try {
             //Crea la tabla con una String de MySQL
-            val crearTablaUsuarios =
+            val crearTablaAlumnos =
                 "CREATE TABLE $TABLA_ALUMNOS (" +
-                        "$COL_CODIGO_ALU TEXT PRIMARY KEY , " +
+                        "$COL_CODIGO_ALU INT PRIMARY KEY AUTOINCREMENT  , " +
                         "$COL_NOMBRE_ALUMNO TEXT)"
+            val crearTablaProfesores =
+                "CREATE TABLE $TABLA_PROFESORES (" +
+                        "$COL_CODIGO_PROF INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "$COL_LOGIN TEXT NOT NULL," +
+                        "$COL_NOMBRE_PROFESOR TEXT," +
+                        "$COL_CONTRA TEXT)"
+
+            val query=crearTablaAlumnos+";"+crearTablaProfesores
+
             //Si no es null, ejecuta la linea SQL
-            db!!.execSQL(crearTablaUsuarios)
+            db!!.execSQL(query)
+
 
 
         } catch (e: SQLiteException) {
