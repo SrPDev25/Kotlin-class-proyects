@@ -18,12 +18,16 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         var db=OperacionesDao(this)
 
-        /*db.addProfesor(Profesor(
+        db.addProfesor(Profesor(
             "1",
             "1",
             "",
             "Pepe"
-        ))*/
+        ))
+
+        db.addFalta(-1, 1,"1/1/1","6")
+        db.addObservacion("1/1/1", "6",-1,1)
+        db.switchJustificada(1)
         binding.whiteLayout.background.alpha = 200
         binding.buttonLogin.setOnClickListener() {
             val user = binding.userText.text.toString()

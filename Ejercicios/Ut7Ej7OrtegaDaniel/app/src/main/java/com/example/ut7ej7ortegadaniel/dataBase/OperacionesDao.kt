@@ -46,6 +46,82 @@ class OperacionesDao(contexto: Context) {
         return profesor
     }
 
+    fun addObservacion(fecha:String,
+                       hora:String,
+                       codigoAlu:Int,
+                        codigoProf: Int){
+        var value=ContentValues()
+        value.put(MyDBOpenHelper.COL_OBSERVACIONES,getProfesorName(codigoProf))
+        var profesor=getProfesorName(codigoProf)
+        var query="update ${MyDBOpenHelper.TABLA_FALTAS}" +
+                " set  ${MyDBOpenHelper.COL_OBSERVACIONES} = '$profesor'" +
+                " where ${MyDBOpenHelper.COL_FECHA}= '$fecha' " +
+                "and ${MyDBOpenHelper.COL_HORA}= $hora " +
+                "and ${MyDBOpenHelper.COL_CODIGO_ALU}= $codigoAlu"
+
+
+        mBD.execSQL(query)
+    }
+
+    fun switchJustificada(codFalta:Int){
+        var query="select ${MyDBOpenHelper.COL_JUSTIFICADA} " +
+                "from ${MyDBOpenHelper.TABLA_FALTAS} " +
+                "where ${MyDBOpenHelper.COL_CODIGO_FALTAS}= $codFalta "
+        var cursor:Cursor=mBD.rawQuery(query,null)
+        cursor.moveToFirst()
+        var isJustificada=cursor.getString(0)
+        if (isJustificada=="0"){
+            query="update ${MyDBOpenHelper.TABLA_FALTAS} " +
+                    "set ${MyDBOpenHelper.COL_JUSTIFICADA} = 1 " +
+                    "where ${MyDBOpenHelper.COL_CODIGO_FALTAS} = $codFalta"
+        }else{
+            query="update ${MyDBOpenHelper.TABLA_FALTAS} " +
+                    "set ${MyDBOpenHelper.COL_JUSTIFICADA} = 0 " +
+                    "where ${MyDBOpenHelper.COL_CODIGO_FALTAS} = $codFalta"
+        }
+
+        mBD.execSQL(query)
+
+    }
+
+    fun getProfesorName(codigoProf: Int):String{
+        var nombre=""
+        var cursor:Cursor=mBD.rawQuery("select ${MyDBOpenHelper.COL_NOMBRE_PROFESOR} " +
+                "from ${MyDBOpenHelper.TABLA_PROFESORES} " +
+                "where ${MyDBOpenHelper.COL_CODIGO_PROF}='$codigoProf'",
+            null)
+        if (cursor.moveToFirst())
+            nombre=cursor.getString(0)
+
+        return nombre
+    }
+    fun addFalta(codigoAlu:Int
+                 ,codigoProf:Int
+                 ,fecha:String,
+                 hora:String,
+        ):Long{
+        var value= ContentValues()
+        value.put(MyDBOpenHelper.COL_CODIGO_PROF, codigoProf)
+        value.put(MyDBOpenHelper.COL_CODIGO_ALU, codigoAlu)
+        value.put(MyDBOpenHelper.COL_FECHA, fecha)
+        value.put(MyDBOpenHelper.COL_HORA, hora)
+        return mBD.insert(MyDBOpenHelper.TABLA_FALTAS, null, value)
+
+
+    }
+
+    fun isFaltaExistente(codigoAlu: Int, fecha: String, hora: String):Boolean{
+
+        val cursor:Cursor=mBD.rawQuery(
+            "Select * from ${MyDBOpenHelper.TABLA_FALTAS} " +
+                    "where ${MyDBOpenHelper.COL_CODIGO_ALU} = '$codigoAlu'" +
+                    "and ${MyDBOpenHelper.COL_FECHA} = '$fecha' " +
+                    "and ${MyDBOpenHelper.COL_HORA}= '$hora'"
+            ,null)
+
+        return cursor.moveToFirst()
+    }
+
     fun addProfesor(profesor: Profesor) {
         val values = ContentValues()
         values.put(MyDBOpenHelper.COL_LOGIN, profesor.login)
