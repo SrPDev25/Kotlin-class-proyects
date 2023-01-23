@@ -1,14 +1,13 @@
 package com.example.ut7ej7ortegadaniel.layout
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.e6mdortegadaniel.Events
-import com.example.ut7ej7ortegadaniel.ListenerAdapter
-import com.example.ut7ej7ortegadaniel.R
-import com.example.ut7ej7ortegadaniel.databinding.ActivityFirstBinding
+import com.example.ut7ej7ortegadaniel.ListenerAdapterAlumnos
+import com.example.ut7ej7ortegadaniel.databinding.ActivityFaltasBinding
 import com.example.ut7ej7ortegadaniel.databinding.ActivityMainBinding
-import com.example.ut7ej7ortegadaniel.tool.MyXMLReader
 import com.mjpg.basedatos.dao.OperacionesDao
 
 class MainActivity : AppCompatActivity(), Events {
@@ -35,7 +34,7 @@ class MainActivity : AppCompatActivity(), Events {
     }
 
     private fun chargeRecycler(db:OperacionesDao) {
-        binding.recyclerview.adapter = ListenerAdapter(db.getAlumnos(profesor), this)
+        binding.recyclerview.adapter = ListenerAdapterAlumnos(db.getAlumnos(profesor), this)
         linearLayout = LinearLayoutManager(this)
         binding.recyclerview.layoutManager = linearLayout
         binding.recyclerview.setHasFixedSize(true)
@@ -44,7 +43,9 @@ class MainActivity : AppCompatActivity(), Events {
 
 
     override fun shortClick(pos: Int) {
-        //todo Hacer clic para ver faltas
+        val myIntent=Intent(this,FaltasActivity::class.java)
+            .putExtra("alumno",pos)
+        startActivity(myIntent)
     }
 
 }

@@ -71,6 +71,7 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <!--todo meter el datapicker plegable, mira el plegable del primer activity de ejemplo-->
+        <!--meter hora 1-6-->
         <DatePicker
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -1,10 +1,12 @@
 package com.mjpg.basedatos.dao
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import com.example.ut7ej7ortegadaniel.control.Alumno
+import com.example.ut7ej7ortegadaniel.control.Falta
 import com.example.ut7ej7ortegadaniel.control.Profesor
 import com.mjpg.basedatos.bd.MyDBOpenHelper
 
@@ -120,17 +122,94 @@ class OperacionesDao(contexto: Context) {
         return alumnos
     }
 
+    /**
+     * Obtengo las observaciones para luego ir sumando quien intenta crear la misma falta
+     */
+    fun getObservaciones(hora:String, fecha:String, alumno:Int):String{
+        var observaciones=""
+        var cursor:Cursor=mBD.rawQuery("select ${MyDBOpenHelper.COL_OBSERVACIONES} " +
+                "from ${MyDBOpenHelper.TABLA_FALTAS} " +
+                "where ${MyDBOpenHelper.COL_FECHA}= $hora " +
+                "and ${MyDBOpenHelper.COL_FECHA}=$fecha " +
+                "and ${MyDBOpenHelper.COL_CODIGO_ALU} = $alumno"
+            ,null)
+        if (cursor.moveToFirst())
+            observaciones=cursor.getString(0)
+        return observaciones
+    }
+
+    /**
+     * Comprueba si la falta existe
+     */
+    fun getFaltaExistente(hora:String, fecha:String, alumno:Int): Falta? {
+        var falta=null
+        var cursor:Cursor=mBD.rawQuery("select * " +
+                "from ${MyDBOpenHelper.TABLA_FALTAS} " +
+                "where ${MyDBOpenHelper.COL_FECHA}= $hora " +
+                "and ${MyDBOpenHelper.COL_FECHA}=$fecha " +
+                "and ${MyDBOpenHelper.COL_CODIGO_ALU} = $alumno"
+            ,null)
+        if (cursor.moveToFirst()){
+            Falta(
+                cursor.getString(6),
+                cursor.getInt(0)
+            )
+        }
+        return falta
+    }
+
+    /**
+     * Returna todas las faltas de un alumno
+     */
+    fun getFaltas(alumno:Int):MutableList<Falta>{
+        val faltas= mutableListOf<Falta>()
+        val cursor:Cursor=mBD.rawQuery("select * " +
+                "from ${MyDBOpenHelper.TABLA_FALTAS} " +
+                "where ${MyDBOpenHelper.COL_CODIGO_ALU} = $alumno"
+                , null)
+        while (cursor.moveToNext()){
+            faltas.add(Falta(
+                cursor.getString(6),
+                cursor.getInt(0),
+                cursor.getInt(1),
+                cursor.getInt(2),
+                cursor.getString(3),
+                cursor.getString(4),
+                cursor.getInt(5)
+            ))
+        }
+
+        return  faltas
+    }
+
+    /**
+     * Inserta una falta a la base de datos
+     * (No se hacen comprobaciones)
+     */
+    fun insertarFalta(falta:Falta){
+        var value=ContentValues()
+        value.put(MyDBOpenHelper.COL_CODIGO_ALU,falta.codigoAlumno)
+        value.put(MyDBOpenHelper.COL_CODIGO_PROF,falta.codigoProfesor)
+        value.put(MyDBOpenHelper.COL_FECHA,falta.fecha)
+        value.put(MyDBOpenHelper.COL_HORA,falta.hora)
+        value.put(MyDBOpenHelper.COL_JUSTIFICADA,falta.justificada)
+        value.put(MyDBOpenHelper.COL_OBSERVACIONES,"")
+        mBD.insert(MyDBOpenHelper.TABLA_FALTAS,null,value)
+    }
+
 
     fun addFalta(codigoAlu:Int
                  ,codigoProf:Int
                  ,fecha:String,
                  hora:String,
+                 justificada:Int
         ):Long{
         var value= ContentValues()
         value.put(MyDBOpenHelper.COL_CODIGO_PROF, codigoProf)
         value.put(MyDBOpenHelper.COL_CODIGO_ALU, codigoAlu)
         value.put(MyDBOpenHelper.COL_FECHA, fecha)
         value.put(MyDBOpenHelper.COL_HORA, hora)
+        value.put(MyDBOpenHelper.COL_JUSTIFICADA, justificada)
         return mBD.insert(MyDBOpenHelper.TABLA_FALTAS, null, value)
 
 
@@ -227,7 +306,17 @@ class OperacionesDao(contexto: Context) {
         addRelacion(5,1)
 
 
-        addFalta(-1, 1,"1/1/1","6")
+        addFalta(1, 1,"23/01/2023","6",1)
+        addFalta(1, 2,"22/01/2023","1",0)
+        addFalta(1, 2,"25/01/2023","3",0)
+        addFalta(2, 1,"26/01/2023","6",1)
+        addFalta(3, 1,"23/01/2023","6",1)
+        addFalta(3, 2,"23/01/2023","1",0)
+        addFalta(3, 2,"21/01/2023","3",0)
+        addFalta(4, 1,"23/01/2023","6",1)
+        addFalta(4, 2,"27/01/2023","1",0)
+        addFalta(4, 2,"23/01/2023","3",1)
+
 
     }
 
