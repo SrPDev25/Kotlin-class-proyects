@@ -4,82 +4,177 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background">
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/whiteLayout"
+
+    <ScrollView
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/whiteLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="50dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="AÑADIR NUEVA FALTA"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textoCodigo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Codigo alumno: "
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                app:layout_constraintEnd_toStartOf="@id/btnSeleccionarAlumno"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/codigoAlumno" />
+
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Justificada"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toTopOf="@id/btnSeleccionarAlumno"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/codigoAlumno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="59dp"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                app:layout_constraintStart_toEndOf="@id/textoCodigo"
+                app:layout_constraintTop_toBottomOf="@id/title" />
+
+            <Button
+                android:id="@+id/btnSeleccionarAlumno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="Alumno"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/codigoAlumno"
+                app:layout_constraintTop_toBottomOf="@id/title" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/buttonLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnSeleccionarAlumno">
+
+                <TextView
+                    android:id="@+id/tituloBotones"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HORA FALTADA"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button1"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@color/white"
+                    android:text="1"
+                    android:tag="1"
+                    app:layout_constraintEnd_toStartOf="@id/button2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tituloBotones" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button2"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@color/white"
+                    android:text="2"
+                    app:layout_constraintEnd_toStartOf="@id/button3"
+                    app:layout_constraintStart_toEndOf="@id/button1"
+                    app:layout_constraintTop_toBottomOf="@id/tituloBotones" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button3"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@color/white"
+                    android:text="3"
+                    app:layout_constraintEnd_toStartOf="@id/button4"
+                    app:layout_constraintStart_toEndOf="@id/button2"
+                    app:layout_constraintTop_toBottomOf="@id/tituloBotones" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button4"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@color/white"
+                    android:text="4"
+                    app:layout_constraintEnd_toStartOf="@id/button5"
+                    app:layout_constraintStart_toEndOf="@id/button3"
+                    app:layout_constraintTop_toBottomOf="@id/tituloBotones" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button5"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@color/white"
+                    android:text="5"
+                    app:layout_constraintEnd_toStartOf="@id/button6"
+                    app:layout_constraintStart_toEndOf="@id/button4"
+                    app:layout_constraintTop_toBottomOf="@id/tituloBotones" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button6"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@color/white"
+                    android:text="6"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/button5"
+                    app:layout_constraintTop_toBottomOf="@id/tituloBotones" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--todo meter el datapicker plegable, mira el plegable del primer activity de ejemplo-->
+            <!--meter hora 1-6-->
+            <DatePicker
+                android:id="@+id/dataPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/buttonLayout"
+
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+    <Button
+        android:id="@+id/buttonAnadir"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="50dp"
-        android:background="@color/white"
+        android:text="AÑADIR"
+        android:layout_margin="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="AÑADIR NUEVA FALTA"
-            android:textColor="@color/black"
-            android:textSize="25sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <TextView
-            android:id="@+id/textoCodigo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Codigo alumno: "
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toTopOf="@id/codigoAlumno"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnSeleccionarAlumno"/>
-
-        <CheckBox
-            android:id="@+id/checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Justificada"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toTopOf="@id/btnSeleccionarAlumno"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-        <TextView
-            android:id="@+id/codigoAlumno"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_marginTop="59dp"
-            android:text="0"
-            android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            app:layout_constraintStart_toEndOf="@id/textoCodigo"
-            />
-        <Button
-            android:id="@+id/btnSeleccionarAlumno"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Alumno"
-            android:layout_marginTop="50dp"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            app:layout_constraintStart_toEndOf="@id/codigoAlumno"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <!--todo meter el datapicker plegable, mira el plegable del primer activity de ejemplo-->
-        <!--meter hora 1-6-->
-        <DatePicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnSeleccionarAlumno" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,41 +1,36 @@
 package com.example.ut7ej7ortegadaniel.layout
 
+import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.e6mdortegadaniel.Events
 import com.example.ut7ej7ortegadaniel.ListenerAdapterAlumnos
-import com.example.ut7ej7ortegadaniel.databinding.ActivityFaltasBinding
-import com.example.ut7ej7ortegadaniel.databinding.ActivityMainBinding
+import com.example.ut7ej7ortegadaniel.databinding.ActivityAlumnosBinding
 import com.mjpg.basedatos.dao.OperacionesDao
 
-class MainActivity : AppCompatActivity(), Events {
-    private lateinit var binding: ActivityMainBinding
+class AlumnosActivity: AppCompatActivity(), Events {
+    private lateinit var binding: ActivityAlumnosBinding
     private lateinit var linearLayout: LinearLayoutManager
     private var profesor=-1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        profesor=intent.getIntExtra("Profesor",-1)
         chargeLayout()
-
-        binding.buttonAdd.setOnClickListener(){
-            var myIntent=Intent(this, AddFaltasActivity::class.java)
-                .putExtra("Profesor",profesor)
-            startActivity(myIntent)
-        }
 
     }
 
     //Para que esté más ordenadito
     private fun chargeLayout() {
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityAlumnosBinding.inflate(layoutInflater)
         setContentView(binding.root)
         var db = OperacionesDao(this)
         profesor = intent.getIntExtra("Profesor", -1)
         chargeRecycler(db)
     }
 
-    private fun chargeRecycler(db:OperacionesDao) {
+    private fun chargeRecycler(db: OperacionesDao) {
         binding.recyclerview.adapter = ListenerAdapterAlumnos(db.getAlumnos(profesor), this)
         linearLayout = LinearLayoutManager(this)
         binding.recyclerview.layoutManager = linearLayout
@@ -45,9 +40,9 @@ class MainActivity : AppCompatActivity(), Events {
 
 
     override fun shortClick(pos: Int) {
-        val myIntent=Intent(this,FaltasActivity::class.java)
+        var myIntent=Intent()
             .putExtra("alumno",pos)
-        startActivity(myIntent)
+        setResult(Activity.RESULT_OK, myIntent)
+        finish()
     }
-
 }
