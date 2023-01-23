@@ -4,12 +4,14 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import com.example.ut7ej7ortegadaniel.control.Alumno
 import com.example.ut7ej7ortegadaniel.control.Profesor
 import com.mjpg.basedatos.bd.MyDBOpenHelper
 
 
 
 //Tiene los metodos para manejarla
+
 class OperacionesDao(contexto: Context) {
 
     //Clase SQLite
@@ -24,7 +26,10 @@ class OperacionesDao(contexto: Context) {
             MyDBOpenHelper.DATABASE_VERSION//The version
         )
         mBD = estructura.writableDatabase
+        if(tablasVacias())
+            insertarDatos()
     }
+
 
     fun verificar(login:String, pass:String): Profesor? {
         var profesor:Profesor?=null
@@ -34,12 +39,12 @@ class OperacionesDao(contexto: Context) {
                     "and ${MyDBOpenHelper.COL_CONTRA}='$pass'",
                     null
         )
-        if(cursor.moveToFirst()){//como el .Next de java
-            profesor=Profesor(
-                cursor.getString(cursor.getColumnIndexOrThrow(MyDBOpenHelper.COL_LOGIN)),
-                cursor.getString(cursor.getColumnIndexOrThrow(MyDBOpenHelper.COL_CONTRA))
-            )
-        }
+        //como el .Next de java
+        if(cursor.moveToFirst()) profesor=Profesor(
+            cursor.getString(cursor.getColumnIndexOrThrow(MyDBOpenHelper.COL_LOGIN)),
+            cursor.getString(cursor.getColumnIndexOrThrow(MyDBOpenHelper.COL_CONTRA)),
+            cursor.getString(cursor.getColumnIndexOrThrow(MyDBOpenHelper.COL_NOMBRE_PROFESOR)),
+            cursor.getInt(cursor.getColumnIndexOrThrow(MyDBOpenHelper.COL_CODIGO_PROF)))
         if(!cursor.isClosed)
             cursor.close()//Cerrar base de datos?
 
@@ -91,10 +96,30 @@ class OperacionesDao(contexto: Context) {
                 "where ${MyDBOpenHelper.COL_CODIGO_PROF}='$codigoProf'",
             null)
         if (cursor.moveToFirst())
-            nombre=cursor.getString(0)
+            nombre=cursor.getString(3)
 
         return nombre
     }
+
+    fun getAlumnos(codigoProf: Int):MutableList<Alumno>{
+        var alumnos= mutableListOf<Alumno>()
+        var cursor:Cursor=mBD.rawQuery("select * " +
+                "from ${MyDBOpenHelper.TABLA_ALUMNOS} as a , ${MyDBOpenHelper.TABLA_PROFESOR_ALUMNO} as p " +
+                "where p.${MyDBOpenHelper.COL_CODIGO_ALU}= a.${MyDBOpenHelper.COL_CODIGO_ALU} " +
+                "and p.${MyDBOpenHelper.COL_CODIGO_PROF} = $codigoProf"
+            ,null)
+        while (cursor.moveToNext()){
+            alumnos.add(
+                Alumno(
+                    cursor.getString(1),
+                    cursor.getInt(0)
+            ))
+        }
+
+        return alumnos
+    }
+
+
     fun addFalta(codigoAlu:Int
                  ,codigoProf:Int
                  ,fecha:String,
@@ -130,6 +155,20 @@ class OperacionesDao(contexto: Context) {
         mBD.insert(MyDBOpenHelper.TABLA_PROFESORES, null, values)
     }
 
+    fun addAlumno(alumno: Alumno) {
+        val values = ContentValues()
+        values.put(MyDBOpenHelper.COL_NOMBRE_ALUMNO, alumno.nombre)
+        mBD.insert(MyDBOpenHelper.TABLA_ALUMNOS, null, values)
+    }
+
+    fun addRelacion(alumno:Int,profesor:Int){
+        val values=ContentValues()
+        values.put(MyDBOpenHelper.COL_CODIGO_PROF, profesor)
+        values.put(MyDBOpenHelper.COL_CODIGO_ALU, alumno)
+        mBD.insert(MyDBOpenHelper.TABLA_PROFESOR_ALUMNO,null ,values)
+    }
+
+
     //Evita que el programa vaya al pete
     //Comprueba si las tablas tienen datos
     fun tablasVacias(): Boolean {
@@ -138,32 +177,59 @@ class OperacionesDao(contexto: Context) {
             MyDBOpenHelper.TABLA_PROFESORES, null, null,
             null, null, null, null
         )
-        vacia = !cursor.moveToFirst()
-        if (vacia)
-            return vacia
-        cursor= mBD.query(
-        MyDBOpenHelper.TABLA_PROFESORES, null, null,
-        null, null, null, null
-        )
-        vacia = !cursor.moveToFirst()
-        if (vacia)
-            return vacia
-        cursor= mBD.query(
-        MyDBOpenHelper.TABLA_PROFESORES, null, null,
-        null, null, null, null
-        )
-        vacia = !cursor.moveToFirst()
-        if (vacia)
-            return vacia
-        cursor= mBD.query(
-        MyDBOpenHelper.TABLA_PROFESORES, null, null,
-        null, null, null, null
-        )
-        if (vacia)
-            return vacia
+        vacia=!cursor.moveToFirst()
         cursor.close()
         return vacia
     }
+
+    fun insertarDatos(){
+        addProfesor(Profesor(
+            "1",
+            "1",
+            "Pepe"
+        ))
+        addProfesor(Profesor(
+            "2",
+            "2",
+            "Juan"
+        ))
+
+        addAlumno(Alumno(
+            "David"
+        ))
+        addAlumno(Alumno(
+            "Antonio"
+        ))
+        addAlumno(Alumno(
+            "Rosa"
+        ))
+        addAlumno(Alumno(
+            "Maria Antonieta"
+        ))
+        addAlumno(Alumno(
+            "Alumno"
+        ))
+        addAlumno(Alumno(
+            "Si"
+        ))
+        addAlumno(Alumno(
+            "Nombre"
+        ))
+
+        addRelacion(1,2)
+        addRelacion(1,1)
+        addRelacion(3,2)
+        addRelacion(2,1)
+        addRelacion(5,2)
+        addRelacion(6,2)
+        addRelacion(7,1)
+        addRelacion(5,1)
+
+
+        addFalta(-1, 1,"1/1/1","6")
+
+    }
+
 
 
 }

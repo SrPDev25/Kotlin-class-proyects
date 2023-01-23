@@ -6,13 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".layout.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        tools:listitem="@layout/item_alumnos_recycler"
+        layout_constraintStart_toStartOf="parent"
+        layout_constraintEnd_toEndOf="parent"
+        layout_constraintTop_toTopOf="parent"
+        />
+
+    <Button
+        android:id="@+id/buttonAdd"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="16dp"
+        android:text="AÑADIR FALTA"
+        android:foregroundGravity="fill"
+        app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

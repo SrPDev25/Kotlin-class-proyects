@@ -1,4 +1,7 @@
 package com.example.ut7ej7ortegadaniel.control
 
-class Alumno {
+data class Alumno(
+    var nombre:String,
+    var codigo:Int=0
+) {
 }

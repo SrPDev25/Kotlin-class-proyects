@@ -31,22 +31,26 @@ class LoginActivity : AppCompatActivity() {
         )
         binding.whiteLayout.background.alpha = 200
         binding.buttonLogin.setOnClickListener() {
-            val user = binding.userText.text.toString()
-            val pass = binding.passText.text.toString()
-            val pos = getUserEstado(user, pass)
-            if (pos >= 0) {
-                binding.passText.text?.clear()
-                binding.userLayout.error = ""
-                val myIntent = Intent(this, CochesActivity::class.java)
-                myIntent.putExtra("tipo", usuario[pos].estado)
-                myIntent.putExtra("controlUp", control)
-                startForResult.launch(myIntent)
-            } else {
-                binding.passText.text?.clear()
-                binding.userLayout.error = "Usuario o contraseña incorrectos"
-            }
+            verificar()//Algo que tuve que haber hecho en su momento
         }
 
+    }
+
+    private fun verificar() {
+        val user = binding.userText.text.toString()
+        val pass = binding.passText.text.toString()
+        val pos = getUserEstado(user, pass)
+        if (pos >= 0) {
+            binding.passText.text?.clear()
+            binding.userLayout.error = ""
+            val myIntent = Intent(this, CochesActivity::class.java)
+            myIntent.putExtra("tipo", usuario[pos].estado)
+            myIntent.putExtra("controlUp", control)
+            startForResult.launch(myIntent)
+        } else {
+            binding.passText.text?.clear()
+            binding.userLayout.error = "Usuario o contraseña incorrectos"
+        }
     }
 
     private val startForResult =

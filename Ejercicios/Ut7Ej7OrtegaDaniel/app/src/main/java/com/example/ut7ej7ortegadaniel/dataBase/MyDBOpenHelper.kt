@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
 
 //Crea y es la base de datos
+
 class MyDBOpenHelper(
     context: Context,
     name: String?,
