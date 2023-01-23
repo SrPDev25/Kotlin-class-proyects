@@ -11,7 +11,7 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/item_alumnos_recycler"
+        tools:listitem="@layout/item_recycler"
         layout_constraintStart_toStartOf="parent"
         layout_constraintEnd_toEndOf="parent"
         layout_constraintTop_toTopOf="parent"

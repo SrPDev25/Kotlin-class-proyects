@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.e6mdortegadaniel.Events
 import com.example.ut7ej7ortegadaniel.control.Alumno
-import com.example.ut7ej7ortegadaniel.databinding.ItemAlumnosRecyclerBinding.bind
+import com.example.ut7ej7ortegadaniel.databinding.ItemRecyclerBinding.bind
 
 
 class ListenerAdapterAlumnos(private val alumnos:List<Alumno>, private val listener: Events):
@@ -28,7 +28,7 @@ class ListenerAdapterAlumnos(private val alumnos:List<Alumno>, private val liste
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         context=parent.context//    El context es una interfaz que nos da acceso a determinados recursos y clases del sistema
         val view= LayoutInflater.from(context)
-            .inflate((R.layout.item_alumnos_recycler), parent, false)
+            .inflate((R.layout.item_recycler), parent, false)
         return  ViewHolder(view)
     }
 
