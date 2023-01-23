@@ -106,7 +106,8 @@ class OperacionesDao(contexto: Context) {
         var cursor:Cursor=mBD.rawQuery("select * " +
                 "from ${MyDBOpenHelper.TABLA_ALUMNOS} as a , ${MyDBOpenHelper.TABLA_PROFESOR_ALUMNO} as p " +
                 "where p.${MyDBOpenHelper.COL_CODIGO_ALU}= a.${MyDBOpenHelper.COL_CODIGO_ALU} " +
-                "and p.${MyDBOpenHelper.COL_CODIGO_PROF} = $codigoProf"
+                "and p.${MyDBOpenHelper.COL_CODIGO_PROF} = $codigoProf " +
+                "order by ${MyDBOpenHelper.COL_NOMBRE_ALUMNO} asc"
             ,null)
         while (cursor.moveToNext()){
             alumnos.add(

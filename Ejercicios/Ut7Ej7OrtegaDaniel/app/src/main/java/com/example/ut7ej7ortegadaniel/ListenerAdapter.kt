@@ -18,9 +18,6 @@ class ListenerAdapter(private val alumnos:List<Alumno>, private val listener: Ev
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = bind(view)
         fun setListener(codigo:Int){
-            binding.root.setOnLongClickListener(){//Cuando se de clic a cualquier parte del View
-                listener.longClick(codigo)
-            }
             binding.root.setOnClickListener(){
                 listener.shortClick(codigo)
             }

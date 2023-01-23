@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".layout.MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -18,12 +19,12 @@
 
     <Button
         android:id="@+id/buttonAdd"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="AÑADIR FALTA"
-        android:foregroundGravity="fill"
         app:fabSize="mini"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

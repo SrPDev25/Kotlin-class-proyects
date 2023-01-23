@@ -17,12 +17,21 @@ class MainActivity : AppCompatActivity(), Events {
     private var profesor=-1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        var db=OperacionesDao(this)
-        profesor=intent.getIntExtra("Profesor",-1)
-        chargeRecycler(db)
+        chargeLayout()
 
+        binding.buttonAdd.setOnClickListener(){
+
+        }
+
+    }
+
+    //Para que esté más ordenadito
+    private fun chargeLayout() {
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        var db = OperacionesDao(this)
+        profesor = intent.getIntExtra("Profesor", -1)
+        chargeRecycler(db)
     }
 
     private fun chargeRecycler(db:OperacionesDao) {
@@ -32,12 +41,10 @@ class MainActivity : AppCompatActivity(), Events {
         binding.recyclerview.setHasFixedSize(true)
     }
 
-    override fun longClick(pos: Int): Boolean {
-        TODO("Not yet implemented")
-    }
+
 
     override fun shortClick(pos: Int) {
-        TODO("Not yet implemented")
+        //todo Hacer clic para ver faltas
     }
 
 }
