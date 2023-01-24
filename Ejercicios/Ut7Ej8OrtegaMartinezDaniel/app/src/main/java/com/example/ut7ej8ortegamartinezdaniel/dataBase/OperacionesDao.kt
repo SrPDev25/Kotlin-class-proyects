@@ -1,13 +1,12 @@
 package com.example.ut7ej7ortegadaniel.dataBase
 
-import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import com.example.ut7ej7ortegadaniel.control.Alumno
-import com.example.ut7ej7ortegadaniel.control.Falta
-import com.example.ut7ej7ortegadaniel.control.Profesor
+import com.example.ut7ej8ortegamartinezdaniel.control.Evento
+import com.example.ut7ej8ortegamartinezdaniel.control.Usuario
+import java.util.*
 
 
 //Tiene los metodos para manejarla
@@ -31,299 +30,130 @@ class OperacionesDao(contexto: Context) {
     }
 
 
-    fun verificar(login: String, pass: String): Profesor? {
-        var profesor: Profesor? = null
+    fun verificar(login: String, pass: String): Usuario? {
+        var usuario: Usuario? = null
         val cursor: Cursor = mBD.rawQuery(
-            "Select * from ${MyDBOpenHelper.TABLA_PROFESORES}" +
+            "Select * from ${MyDBOpenHelper.TABLA_USUARIO}" +
                     " WHERE ${MyDBOpenHelper.COL_LOGIN}='$login'" +
                     "and ${MyDBOpenHelper.COL_CONTRA}='$pass'",
             null
         )
         //como el .Next de java
-        if (cursor.moveToFirst()) profesor = Profesor(
+        if (cursor.moveToFirst()) usuario = Usuario(
             cursor.getString(cursor.getColumnIndexOrThrow(MyDBOpenHelper.COL_LOGIN)),
             cursor.getString(cursor.getColumnIndexOrThrow(MyDBOpenHelper.COL_CONTRA)),
-            cursor.getString(cursor.getColumnIndexOrThrow(MyDBOpenHelper.COL_NOMBRE_PROFESOR)),
-            cursor.getInt(cursor.getColumnIndexOrThrow(MyDBOpenHelper.COL_CODIGO_PROF))
+            cursor.getString(cursor.getColumnIndexOrThrow(MyDBOpenHelper.COL_PERFIL)),
+            cursor.getInt(cursor.getColumnIndexOrThrow(MyDBOpenHelper.COL_ID_USUARIO))
         )
         if (!cursor.isClosed)
             cursor.close()//Cerrar base de datos?
 
-        return profesor
+        return usuario
     }
 
 
-    @SuppressLint("Recycle")
-    fun switchJustificada(codFalta: Int) {
-        var query = "select ${MyDBOpenHelper.COL_JUSTIFICADA} " +
-                "from ${MyDBOpenHelper.TABLA_FALTAS} " +
-                "where ${MyDBOpenHelper.COL_CODIGO_FALTAS}= $codFalta "
-        val cursor: Cursor = mBD.rawQuery(query, null)
-        cursor.moveToFirst()
-        val isJustificada = cursor.getString(0)
-        query = if (isJustificada == "0") {
-            "update ${MyDBOpenHelper.TABLA_FALTAS} " +
-                    "set ${MyDBOpenHelper.COL_JUSTIFICADA} = 1 " +
-                    "where ${MyDBOpenHelper.COL_CODIGO_FALTAS} = $codFalta"
-        } else {
-            "update ${MyDBOpenHelper.TABLA_FALTAS} " +
-                    "set ${MyDBOpenHelper.COL_JUSTIFICADA} = 0 " +
-                    "where ${MyDBOpenHelper.COL_CODIGO_FALTAS} = $codFalta"
-        }
 
-        mBD.execSQL(query)
 
-    }
-
-    private fun getProfesorName(codigoProf: Int): String {
-        var nombre = ""
+    fun getEventos(): MutableList<Evento> {
+        val eventos = mutableListOf<Evento>()
+        var evento:Evento?=null
         val cursor: Cursor = mBD.rawQuery(
-            "select ${MyDBOpenHelper.COL_NOMBRE_PROFESOR} " +
-                    "from ${MyDBOpenHelper.TABLA_PROFESORES} " +
-                    "where ${MyDBOpenHelper.COL_CODIGO_PROF}='$codigoProf'",
+            "select * from ${MyDBOpenHelper.TABLA_EVENTOS} ",
             null
         )
-        if (cursor.moveToFirst())
-            nombre = cursor.getString(0)
-
-        if (!cursor.isClosed)
-            cursor.close()
-        return nombre
-    }
-
-    fun getAlumnos(codigoProf: Int): MutableList<Alumno> {
-        val alumnos = mutableListOf<Alumno>()
-        val cursor: Cursor = mBD.rawQuery(
-            "select * " +
-                    "from ${MyDBOpenHelper.TABLA_ALUMNOS} as a , ${MyDBOpenHelper.TABLA_PROFESOR_ALUMNO} as p " +
-                    "where p.${MyDBOpenHelper.COL_CODIGO_ALU}= a.${MyDBOpenHelper.COL_CODIGO_ALU} " +
-                    "and p.${MyDBOpenHelper.COL_CODIGO_PROF} = $codigoProf " +
-                    "order by ${MyDBOpenHelper.COL_NOMBRE_ALUMNO} asc", null
-        )
         while (cursor.moveToNext()) {
-            alumnos.add(
-                Alumno(
-                    cursor.getString(1),
-                    cursor.getInt(0)
-                )
+            evento=Evento(cursor.getString(1),
+                cursor.getString(2),
+                cursor.getString(3),
+                cursor.getString(4),
+                cursor.getInt(0)
             )
+            if (!isPasado(evento.fecha,evento.hora))//Se purgan eventos pasados
+                eventos.add(evento)
         }
 
         if (!cursor.isClosed)
             cursor.close()
-        return alumnos
+        return eventos
     }
 
     /**
-     * Obtengo el código del profesor que ha creado la falta
+     * Comprueba si la fecha ya ocurrio transformando la fecha pasada en Date
      */
-    fun getCodProfesorFalta(hora: String, fecha: String, alumno: Int): Int {
-        var codigo = -1
-        val cursor: Cursor = mBD.rawQuery(
-            "select ${MyDBOpenHelper.COL_CODIGO_PROF} " +
-                    "from ${MyDBOpenHelper.TABLA_FALTAS} " +
-                    "where ${MyDBOpenHelper.COL_HORA}= $hora " +
-                    "and ${MyDBOpenHelper.COL_FECHA}='$fecha' " +
-                    "and ${MyDBOpenHelper.COL_CODIGO_ALU} = $alumno", null
-        )
-        if (cursor.moveToFirst())
-            codigo = cursor.getInt(0)
-        if (!cursor.isClosed)
-            cursor.close()
-        return codigo
-
+    fun isPasado(fecha:String, hora:String):Boolean{
+        var isPasado=false
+        val peaces=fecha.split("/")
+        var date= Date(peaces[2].toInt(),peaces[1].toInt(),peaces[0].toInt())
+        return date.time<System.currentTimeMillis()//Se transforma la fecha en milisegundos deslde el año 0
     }
 
-    fun getFaltas(alumno: Int): MutableList<Falta> {
-        val faltas = mutableListOf<Falta>()
-        val cursor: Cursor = mBD.rawQuery(
-            "select * " +
-                    "from ${MyDBOpenHelper.TABLA_FALTAS} " +
-                    "where ${MyDBOpenHelper.COL_CODIGO_ALU} = $alumno", null
-        )
-        while (cursor.moveToNext()) {
-            faltas.add(
-                Falta(
-                    cursor.getString(6),
-                    cursor.getInt(0),
-                    cursor.getInt(1),
-                    cursor.getInt(2),
-                    cursor.getString(3),
-                    cursor.getString(4),
-                    cursor.getInt(5)
-                )
-            )
+    fun getEventosOrdenados():MutableList<Evento>{
+        var eventos=getEventos()
+        var eventosOrdenados= mutableListOf<Evento>()
+        var currentMaxFecha=0L
+        var n=0L
+        var pos=0
+        var posToDelete=0
+        var date: Date? =null
+        var fecha:List<String>?=null
+
+
+        while(eventos.size!=0){
+            currentMaxFecha=0
+            pos=0
+            while (pos < eventos.size){
+                fecha=eventos.get(pos).fecha.split("/")
+                n=Date(fecha[2].toInt(),fecha[1].toInt(),fecha[0].toInt()).time
+                if (n>currentMaxFecha){
+                    currentMaxFecha=n
+                    posToDelete=pos
+                }
+                pos++
+            }
+            eventosOrdenados.add(eventos.get(posToDelete))
+            eventos.removeAt(posToDelete)
         }
-        return faltas
-    }
 
-
-    /**
-     * Returna todas las faltas de un alumno
-     */
-    @SuppressLint("Recycle")
-    fun isFaltaExistente(codigoAlu: Int, fecha: String, hora: String): Boolean {
-
-        val cursor: Cursor = mBD.rawQuery(
-            "Select * from ${MyDBOpenHelper.TABLA_FALTAS} " +
-                    "where ${MyDBOpenHelper.COL_CODIGO_ALU} = '$codigoAlu'" +
-                    "and ${MyDBOpenHelper.COL_FECHA} = '$fecha' " +
-                    "and ${MyDBOpenHelper.COL_HORA}= '$hora'", null
-        )
-
-        return cursor.moveToFirst()
+        return eventosOrdenados
     }
 
     /**
-     * Añade una falta
+     * Añade un nuevo evento en la base de datos
      */
-    fun addFalta(
-        codigoAlu: Int, codigoProf: Int, fecha: String,
-        hora: String,
-        justificada: Int
-    ): Long {
-        val value = ContentValues()
-        value.put(MyDBOpenHelper.COL_CODIGO_PROF, codigoProf)
-        value.put(MyDBOpenHelper.COL_CODIGO_ALU, codigoAlu)
-        value.put(MyDBOpenHelper.COL_FECHA, fecha)
-        value.put(MyDBOpenHelper.COL_HORA, hora)
-        value.put(MyDBOpenHelper.COL_JUSTIFICADA, justificada)
-        return mBD.insert(MyDBOpenHelper.TABLA_FALTAS, null, value)
-
-
+    fun addEvento(fecha:String, hora:String,titulo:String,descripcion:String){
+        val values = ContentValues()
+        values.put(MyDBOpenHelper.COL_FECHA_EVENTO, fecha)
+        values.put(MyDBOpenHelper.COL_HORA, hora)
+        values.put(MyDBOpenHelper.COL_TITULO, titulo)
+        values.put(MyDBOpenHelper.COL_DESCRIPCION, descripcion)
+        mBD.insert(MyDBOpenHelper.TABLA_EVENTOS, null, values)
     }
 
     /**
-     *
+     * añade un nuevo usuario a la base de datos
      */
-    fun addObservacion(
-        fecha: String,
-        hora: String,
-        codigoAlu: Int,
-        codigoProf: Int
-    ) {
-
-        val profesor = getProfesorName(codigoProf)
-        val query = "update ${MyDBOpenHelper.TABLA_FALTAS}" +
-                " set  ${MyDBOpenHelper.COL_OBSERVACIONES} = '$profesor'" +
-                " where ${MyDBOpenHelper.COL_FECHA}= '$fecha' " +
-                "and ${MyDBOpenHelper.COL_HORA}= $hora " +
-                "and ${MyDBOpenHelper.COL_CODIGO_ALU}= $codigoAlu"
-
-
-        mBD.execSQL(query)
-    }
-
-    private fun addProfesor(profesor: Profesor) {
+    fun addUsuario(login:String, contra:String, perfil:String){
         val values = ContentValues()
-        values.put(MyDBOpenHelper.COL_LOGIN, profesor.login)
-        values.put(MyDBOpenHelper.COL_CONTRA, profesor.pass)
-        values.put(MyDBOpenHelper.COL_NOMBRE_PROFESOR, profesor.nombre)
-        mBD.insert(MyDBOpenHelper.TABLA_PROFESORES, null, values)
+        values.put(MyDBOpenHelper.COL_LOGIN, login)
+        values.put(MyDBOpenHelper.COL_CONTRA, contra)
+        values.put(MyDBOpenHelper.COL_PERFIL, perfil)
+        mBD.insert(MyDBOpenHelper.TABLA_USUARIO, null, values)
     }
 
-    private fun addAlumno(alumno: Alumno) {
+    /**
+     * Añade un nuevo evento-usuario a la base de datos
+     */
+    fun addEventosUsuario(idUsuario:Int, idEvento:Int){
         val values = ContentValues()
-        values.put(MyDBOpenHelper.COL_NOMBRE_ALUMNO, alumno.nombre)
-        mBD.insert(MyDBOpenHelper.TABLA_ALUMNOS, null, values)
+        values.put(MyDBOpenHelper.COL_ID_USUARIO, idUsuario)
+        values.put(MyDBOpenHelper.COL_ID_EVENTO, idEvento)
+        mBD.insert(MyDBOpenHelper.TABLA_USUARIO, null, values)
     }
 
-    private fun addRelacion(alumno: Int, profesor: Int) {
-        val values = ContentValues()
-        values.put(MyDBOpenHelper.COL_CODIGO_PROF, profesor)
-        values.put(MyDBOpenHelper.COL_CODIGO_ALU, alumno)
-        mBD.insert(MyDBOpenHelper.TABLA_PROFESOR_ALUMNO, null, values)
+    fun tablasVacias():Boolean{
+        
     }
 
-
-    //Evita que el programa vaya al pete
-    //Comprueba si las tablas tienen datos
-    private fun tablasVacias(): Boolean {
-        val vacia: Boolean
-        val cursor: Cursor = mBD.query(
-            MyDBOpenHelper.TABLA_PROFESORES, null, null,
-            null, null, null, null
-        )
-        vacia = !cursor.moveToFirst()
-        cursor.close()
-        return vacia
-    }
-
-    private fun insertarDatos() {
-        addProfesor(
-            Profesor(
-                "1",
-                "1",
-                "Pepe"
-            )
-        )
-        addProfesor(
-            Profesor(
-                "2",
-                "2",
-                "Juan"
-            )
-        )
-
-        addAlumno(
-            Alumno(
-                "David"
-            )
-        )
-        addAlumno(
-            Alumno(
-                "Antonio"
-            )
-        )
-        addAlumno(
-            Alumno(
-                "Rosa"
-            )
-        )
-        addAlumno(
-            Alumno(
-                "Maria Antonieta"
-            )
-        )
-        addAlumno(
-            Alumno(
-                "Alumno"
-            )
-        )
-        addAlumno(
-            Alumno(
-                "Si"
-            )
-        )
-        addAlumno(
-            Alumno(
-                "Nombre"
-            )
-        )
-
-        addRelacion(1, 2)
-        addRelacion(1, 1)
-        addRelacion(3, 2)
-        addRelacion(2, 1)
-        addRelacion(5, 2)
-        addRelacion(6, 2)
-        addRelacion(7, 1)
-        addRelacion(5, 1)
-
-
-        addFalta(1, 1, "23/01/2023", "6", 1)
-        addFalta(1, 2, "22/01/2023", "1", 0)
-        addFalta(1, 2, "25/01/2023", "3", 0)
-        addFalta(2, 1, "26/01/2023", "6", 1)
-        addFalta(3, 1, "23/01/2023", "6", 1)
-        addFalta(3, 2, "23/01/2023", "1", 0)
-        addFalta(3, 2, "21/01/2023", "3", 0)
-        addFalta(4, 1, "23/01/2023", "6", 1)
-        addFalta(4, 2, "27/01/2023", "1", 0)
-        addFalta(4, 2, "23/01/2023", "3", 1)
-
-
-    }
 
 
 }

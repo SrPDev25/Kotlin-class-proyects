@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <usuario>
+        <login>1</login>
+        <contra>1</contra>
+        <perfil>A</perfil>
+    </usuario>
+    <usuario>
+        <login>a</login>
+        <contra>a</contra>
+        <perfil>A</perfil>
+    </usuario>
+    <usuario>
+        <login>2</login>
+        <contra>2</contra>
+        <perfil>U</perfil>
+    </usuario>
+    <usuario>
+        <login>a</login>
+        <contra>a</contra>
+        <perfil>U</perfil>
+    </usuario>
+</resources>

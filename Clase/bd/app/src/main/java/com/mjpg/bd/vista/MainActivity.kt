@@ -9,6 +9,8 @@ import com.mjpg.basedatos.dao.OperacionesDao
 import com.mjpg.bd.databinding.ActivityMainBinding
 import com.mjpg.bd.modelo.Usuario
 import com.mjpg.bd.vista.Consulta
+import java.sql.Time
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,6 +30,9 @@ class MainActivity : AppCompatActivity() {
         if (tablaUsuariosVacia) {
             insertarDatosUsuarios()
         }
+
+        val date= Date(2023,1,1)
+        binding.texto.text=date.time.toString()
 
         binding.btIniciar.setOnClickListener {
             comprobar()

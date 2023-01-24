@@ -20,32 +20,28 @@ class MyDBOpenHelper(
      */
     companion object {
 
-            const val DATABASE_VERSION = 1
-        const val DATABASE_NAME = "centro.db"
+        const val DATABASE_VERSION = 1
+        const val DATABASE_NAME = "organizacion.db"
 
-        const val TABLA_PROFESORES = "profesores"
-        const val COL_CODIGO_PROF = "codigo_profesor"//int NN PK
-        const val COL_LOGIN = "login"//txt NN
-        const val COL_CONTRA = "contra"//txt NN
-        const val COL_NOMBRE_PROFESOR = "nombre_apellido"//txt NN
+        const val TABLA_EVENTOS = "eventos"
+        const val COL_ID_EVENTO = "id_evento"//Integer PRIMARY KEY AUTOINCREMENT
+        const val COL_FECHA_EVENTO = "fecha"//TEXTO
+        const val COL_HORA = "hora"//TEXTO
+        const val COL_TITULO = "titulo"//TEXTO
+        const val COL_DESCRIPCION = "descripcion"//TEXTO
 
-        const val TABLA_ALUMNOS = "alumnos"
-        const val COL_CODIGO_ALU = "codigo_alumno"//int NN PK
-        const val COL_NOMBRE_ALUMNO = "nombre_apellido" //txt NN
+        const val TABLA_EVENTOS_USUARIO = "eventos-usuario"
+        const val COL_ID_RELACION="id_evento_usuario"
+        //const val COL_ID_USUARIO = "id_usuario"//int NN PK
+        //const val COL_ID_EVENTO = "id_evento"
 
-        const val TABLA_PROFESOR_ALUMNO = "profesor_alumno"
-        const val COL_CODIGO_RELACION = "cod_relacion" //int NN PK
-            //CODIGO ALUMNO//txt NN
-            //CODIGO PROFESOR//txt NN
 
-        const val TABLA_FALTAS = "faltas"
-        const val COL_CODIGO_FALTAS = "codigo_falta"
-            //CODIGO ALUMNO//TXT NN
-            //CODIGO PROFESOR/TXT NN
-            const val COL_FECHA = "fecha"//TXT NN
-        const val COL_HORA = "hora"//TXT NN
-        const val COL_JUSTIFICADA = "justificada"//BOOL PREDEF:FALSE
-        const val COL_OBSERVACIONES = "observaciones"//TXT
+        const val TABLA_USUARIO = "usuarios"
+        const val COL_ID_USUARIO = "id_usuario"//int NN PK
+        const val COL_LOGIN = "login" //TEXT
+        const val COL_CONTRA = "contraseña" //TEXT
+        const val COL_PERFIL = "perfil"//TEXT
+
     }
 
     /**
@@ -54,36 +50,29 @@ class MyDBOpenHelper(
     override fun onCreate(db: SQLiteDatabase?) {
         try {
             //Crea la tabla con una String de MySQL
-            val crearTablaProfesores =
-                "CREATE TABLE $TABLA_PROFESORES (" +
-                        "$COL_CODIGO_PROF INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "$COL_NOMBRE_PROFESOR TEXT," +
+            val crearTablaUsuarios =
+                "CREATE TABLE $TABLA_USUARIO (" +
+                        "$COL_ID_USUARIO INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         "$COL_CONTRA TEXT," +
-                        "$COL_LOGIN TEXT)"
-            val crearTablaAlumnos=
-                "create table $TABLA_ALUMNOS(" +
-                        "$COL_CODIGO_ALU INTEGER primary key AUTOINCREMENT," +
-                        "$COL_NOMBRE_ALUMNO TEXT)"
-            val crearTablaRelacion=
-                "create table $TABLA_PROFESOR_ALUMNO(" +
-                        "$COL_CODIGO_RELACION INTEGER primary key AUTOINCREMENT," +
-                        "$COL_CODIGO_ALU INTEGER," +
-                        "$COL_CODIGO_PROF INTEGER)"
-            val crearTablaFaltas=
-                "create table $TABLA_FALTAS(" +
-                        "$COL_CODIGO_FALTAS INTEGER primary key AUTOINCREMENT," +
-                        "$COL_CODIGO_ALU INTEGER," +
-                        "$COL_CODIGO_PROF INTEGER," +
-                        "$COL_FECHA TEXT," +
-                        "$COL_HORA TEXT," +
-                        "$COL_JUSTIFICADA INTEGER default 0," +
-                        "$COL_OBSERVACIONES TEXT default '')"
-            //Si no es null, ejecuta la linea SQL
-            db!!.execSQL(crearTablaAlumnos)
-            db.execSQL(crearTablaProfesores)
-            db.execSQL(crearTablaRelacion)
-            db.execSQL(crearTablaFaltas)
+                        "$COL_LOGIN TEXT," +
+                        "$COL_PERFIL TEXT)"
+            val crearTablaEventos =
+                "create TABLe $TABLA_EVENTOS(" +
+                        "$COL_ID_EVENTO INTEGER primary key AUTOINCREMENT, " +
+                        "$COL_FECHA_EVENTO TEXT," +
+                        "$COL_HORA TEXT, " +
+                        "$COL_TITULO TEXT," +
+                        "$COL_DESCRIPCION TEXT)"
+            val crearTablaRelacion =
+                "create table $TABLA_EVENTOS_USUARIO(" +
+                        "$COL_ID_RELACION INTEGER primary key AUTOINCREMENT," +
+                        "$COL_ID_EVENTO INTEGER," +
+                        "$COL_ID_USUARIO INTEGER)"
 
+            //Si no es null, ejecuta la linea SQL
+            db!!.execSQL(crearTablaEventos)
+            db.execSQL(crearTablaUsuarios)
+            db.execSQL(crearTablaRelacion)
 
 
         } catch (_: SQLiteException) {
