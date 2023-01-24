@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.e6mdortegadaniel.Events
 import com.example.ut7ej7ortegadaniel.ListenerAdapterAlumnos
 import com.example.ut7ej7ortegadaniel.databinding.ActivityAlumnosBinding
-import com.mjpg.basedatos.dao.OperacionesDao
+import com.example.ut7ej7ortegadaniel.dataBase.OperacionesDao
 
 class AlumnosActivity: AppCompatActivity(), Events {
     private lateinit var binding: ActivityAlumnosBinding
@@ -25,7 +25,7 @@ class AlumnosActivity: AppCompatActivity(), Events {
     private fun chargeLayout() {
         binding = ActivityAlumnosBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        var db = OperacionesDao(this)
+        val db = OperacionesDao(this)
         profesor = intent.getIntExtra("Profesor", -1)
         chargeRecycler(db)
     }
@@ -40,7 +40,7 @@ class AlumnosActivity: AppCompatActivity(), Events {
 
 
     override fun shortClick(pos: Int) {
-        var myIntent=Intent()
+        val myIntent=Intent()
             .putExtra("alumno",pos)
         setResult(Activity.RESULT_OK, myIntent)
         finish()

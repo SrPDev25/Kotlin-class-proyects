@@ -1,4 +1,4 @@
-package com.mjpg.basedatos.bd
+package com.example.ut7ej7ortegadaniel.dataBase
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -20,32 +20,32 @@ class MyDBOpenHelper(
      */
     companion object {
 
-            val DATABASE_VERSION = 1
-            val DATABASE_NAME = "centro.db"
+            const val DATABASE_VERSION = 1
+        const val DATABASE_NAME = "centro.db"
 
-            val TABLA_PROFESORES = "profesores"
-            val COL_CODIGO_PROF = "codigo_profesor"//int NN PK
-            val COL_LOGIN = "login"//txt NN
-            val COL_CONTRA = "contra"//txt NN
-            val COL_NOMBRE_PROFESOR = "nombre_apellido"//txt NN
+        const val TABLA_PROFESORES = "profesores"
+        const val COL_CODIGO_PROF = "codigo_profesor"//int NN PK
+        const val COL_LOGIN = "login"//txt NN
+        const val COL_CONTRA = "contra"//txt NN
+        const val COL_NOMBRE_PROFESOR = "nombre_apellido"//txt NN
 
-            val TABLA_ALUMNOS = "alumnos"
-            val COL_CODIGO_ALU = "codigo_alumno"//int NN PK
-            val COL_NOMBRE_ALUMNO = "nombre_apellido" //txt NN
+        const val TABLA_ALUMNOS = "alumnos"
+        const val COL_CODIGO_ALU = "codigo_alumno"//int NN PK
+        const val COL_NOMBRE_ALUMNO = "nombre_apellido" //txt NN
 
-            val TABLA_PROFESOR_ALUMNO = "profesor_alumno"
-            val COL_CODIGO_RELACION = "cod_relacion" //int NN PK
+        const val TABLA_PROFESOR_ALUMNO = "profesor_alumno"
+        const val COL_CODIGO_RELACION = "cod_relacion" //int NN PK
             //CODIGO ALUMNO//txt NN
             //CODIGO PROFESOR//txt NN
 
-            val TABLA_FALTAS = "faltas"
-            val COL_CODIGO_FALTAS = "codigo_falta"
+        const val TABLA_FALTAS = "faltas"
+        const val COL_CODIGO_FALTAS = "codigo_falta"
             //CODIGO ALUMNO//TXT NN
             //CODIGO PROFESOR/TXT NN
-            val COL_FECHA = "fecha"//TXT NN
-            val COL_HORA = "hora"//TXT NN
-            val COL_JUSTIFICADA = "justificada"//BOOL PREDEF:FALSE
-            val COL_OBSERVACIONES = "observaciones"//TXT
+            const val COL_FECHA = "fecha"//TXT NN
+        const val COL_HORA = "hora"//TXT NN
+        const val COL_JUSTIFICADA = "justificada"//BOOL PREDEF:FALSE
+        const val COL_OBSERVACIONES = "observaciones"//TXT
     }
 
     /**
@@ -86,7 +86,7 @@ class MyDBOpenHelper(
 
 
 
-        } catch (e: SQLiteException) {
+        } catch (_: SQLiteException) {
         }
     }
 

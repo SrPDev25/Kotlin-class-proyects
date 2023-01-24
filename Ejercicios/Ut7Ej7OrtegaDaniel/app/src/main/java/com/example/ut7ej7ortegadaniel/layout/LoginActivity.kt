@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.ut7ej7ortegadaniel.databinding.ActivityLoginBinding
 import com.google.android.material.snackbar.Snackbar
-import com.mjpg.basedatos.dao.OperacionesDao
+import com.example.ut7ej7ortegadaniel.dataBase.OperacionesDao
 
 
 class LoginActivity : AppCompatActivity() {
@@ -16,7 +16,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        var db=OperacionesDao(this)
+        val db= OperacionesDao(this)
 
 
 
@@ -24,9 +24,9 @@ class LoginActivity : AppCompatActivity() {
         binding.buttonLogin.setOnClickListener() {
             val user = binding.userText.text.toString()
             val pass = binding.passText.text.toString()
-            var profesor=db.verificar(user, pass)
+            val profesor=db.verificar(user, pass)
             if(profesor!=null){
-                var myIntent= Intent(this,MainActivity::class.java)
+                val myIntent= Intent(this,MainActivity::class.java)
                     .putExtra("Profesor",profesor.codigo)
                 startActivity(myIntent)
             }else{

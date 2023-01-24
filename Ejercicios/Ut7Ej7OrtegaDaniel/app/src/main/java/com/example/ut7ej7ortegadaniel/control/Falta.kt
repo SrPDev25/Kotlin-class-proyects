@@ -10,5 +10,4 @@ data class Falta(
     var justificada: Int=-1,//No existe booleano en SQLlite,
 
 
-) {
-}
+)

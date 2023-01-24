@@ -6,12 +6,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.e6mdortegadaniel.Events
 import com.example.ut7ej7ortegadaniel.ListenerAdapterFaltas
 import com.example.ut7ej7ortegadaniel.databinding.ActivityFaltasBinding
-import com.mjpg.basedatos.dao.OperacionesDao
+import com.example.ut7ej7ortegadaniel.dataBase.OperacionesDao
 
 class FaltasActivity : AppCompatActivity(), Events {
     private lateinit var binding: ActivityFaltasBinding
     private lateinit var linearLayout: LinearLayoutManager
-    private lateinit var db:OperacionesDao
+    private lateinit var db: OperacionesDao
     private var alumno=-1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

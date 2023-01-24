@@ -14,17 +14,17 @@ class FirstActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.whiteLayout.background.alpha=200
-        var xmlReader = MyXMLReader()
-        var context = applicationContext.assets.open("centro.xml")
-        var centro=xmlReader.parse(context)
+        val xmlReader = MyXMLReader()
+        val context = applicationContext.assets.open("centro.xml")
+        val centro=xmlReader.parse(context)
 
         binding.centroTxt.text=centro?.denominacion
         binding.direccionTxt.text=centro?.direccion
         binding.telefonoTxt.text=centro?.telefono
 
-        var hilo=Thread{
+        val hilo=Thread{
             Thread.sleep(3*1000)
-            var myIntent= Intent(this, LoginActivity::class.java)
+            val myIntent= Intent(this, LoginActivity::class.java)
             startActivity(myIntent)
         }
         hilo.start()
