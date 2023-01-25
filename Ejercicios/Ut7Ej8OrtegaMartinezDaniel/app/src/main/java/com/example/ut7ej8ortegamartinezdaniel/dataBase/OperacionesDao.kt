@@ -5,7 +5,9 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import com.example.ut7ej8ortegamartinezdaniel.control.Evento
+import com.example.ut7ej8ortegamartinezdaniel.control.MyXMLReader
 import com.example.ut7ej8ortegamartinezdaniel.control.Usuario
+import java.io.InputStream
 import java.util.*
 
 
@@ -28,6 +30,7 @@ class OperacionesDao(contexto: Context) {
         if (tablasVacias())
             insertarDatos()
     }
+
 
 
     fun verificar(login: String, pass: String): Usuario? {
@@ -154,8 +157,24 @@ class OperacionesDao(contexto: Context) {
         val values = ContentValues()
         values.put(MyDBOpenHelper.COL_ID_USUARIO, idUsuario)
         values.put(MyDBOpenHelper.COL_ID_EVENTO, idEvento)
-        mBD.insert(MyDBOpenHelper.TABLA_USUARIO, null, values)
+        mBD.insert(MyDBOpenHelper.TABLA_EVENTOS_USUARIO, null, values)
     }
+
+    fun isEventoUsuarioExist(idUsuario: Int, idEvento: Int):Boolean{
+        var cursor:Cursor=mBD.rawQuery("select * from ${MyDBOpenHelper.TABLA_EVENTOS_USUARIO}" +
+                " where ${MyDBOpenHelper.COL_ID_USUARIO}= $idUsuario" +
+                " and ${MyDBOpenHelper.COL_ID_EVENTO}= $idEvento" ,null)
+        return cursor.moveToFirst()
+    }
+
+    fun removeEventosUsuario(idUsuario: Int, idEvento: Int){
+        mBD.delete(MyDBOpenHelper.TABLA_EVENTOS_USUARIO,"${MyDBOpenHelper.COL_ID_USUARIO}= $idUsuario and ${MyDBOpenHelper.COL_ID_EVENTO}= $idEvento",null )
+        //                " and ${MyDBOpenHelper.COL_ID_USUARIO}= $idEvento")
+        //"delete from ${MyDBOpenHelper.TABLA_EVENTOS_USUARIO}" +
+        //                " where ${MyDBOpenHelper.COL_ID_USUARIO}= $idUsuario" +
+        //                " and ${MyDBOpenHelper.COL_ID_USUARIO}= $idEvento",null
+    }
+
 
     fun tablasVacias():Boolean{
         val cursor:Cursor=mBD.rawQuery("Select * from" +
@@ -166,12 +185,26 @@ class OperacionesDao(contexto: Context) {
         return isVacia
     }
 
+
+
+    fun insertUsuarios(xml:InputStream){
+        var xmlReader=MyXMLReader()
+        var usuarios=xmlReader.parse(xml)
+        //var usuarios=xmlReader.parse(assets.)
+        for(i in usuarios){
+            addUsuario(i.login,i.contra,i.perfil)
+        }
+    }
+
     fun insertarDatos(){
         addEvento("15/2/2023","15:30","Ejemplo1","Evento default")
-        addEvento("24/2/2022","15:30","Ejemplo1","Evento default")
-        addEvento("15/4/2023","15:30","Ejemplo1","Evento default")
-        addEvento("15/7/2023","15:30","Ejemplo1","Evento default")
-        addEvento("15/12/2023","15:30","Ejemplo1","Evento default")
+        addEvento("24/2/2022","15:30","Ejemplo2","Evento default")
+        addEvento("15/4/2023","15:30","Ejemplo3","Evento default")
+        addEvento("15/7/2023","15:30","Ejemplo4","Evento default")
+        addEvento("15/12/2023","15:30","Ejemplo5","Evento default")
+
+        addEventosUsuario(1,1)
+        addEventosUsuario(1,3)
     }
 
 

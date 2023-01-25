@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Ut7Ej8OrtegaMartinezDaniel</string>
+    <string name="descripci_n_de_evento">Descripción de evento</string>
+    <string name="nombre_de_evento">Nombre de evento</string>
+    <string name="a_adir">AÑADIR</string>
+    <string name="guardar">guardar</string>
+    <string name="salir">salir</string>
 </resources>

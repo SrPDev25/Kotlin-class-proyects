@@ -11,18 +11,36 @@ import com.example.ut7ej8ortegamartinezdaniel.databinding.ActivityEventosBinding
 class EventosActivity : AppCompatActivity(), Events {
     private lateinit var binding: ActivityEventosBinding
     private lateinit var linearLayout: LinearLayoutManager
+    private lateinit var bd:OperacionesDao
+    private var usuario:Int=-1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEventosBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val bd=OperacionesDao(this)
-        binding.recycler.adapter= ListenerAdapterAlumnos(bd.getEventosOrdenados(),this)
-        linearLayout=LinearLayoutManager(this)
-        binding.recycler.layoutManager=linearLayout
+        usuario=1
+
+
+        bd=OperacionesDao(this)
+        //bd.insertUsuarios(applicationContext.assets.open("usuarios.xml"))
+        chargeRecycler()
+
+
+    }
+
+    private fun chargeRecycler() {
+        binding.recycler.adapter =
+            ListenerAdapterAlumnos(bd.getEventosOrdenados(), usuario, this, this)
+        linearLayout = LinearLayoutManager(this)
+        binding.recycler.layoutManager = linearLayout
         binding.recycler.setHasFixedSize(true)
     }
 
     override fun shortClick(pos: Int) {
-        TODO("Not yet implemented")
+        if (bd.isEventoUsuarioExist(usuario,pos))
+            bd.removeEventosUsuario(usuario,pos)
+        else
+            bd.addEventosUsuario(usuario,pos)
+
+        chargeRecycler()
     }
 }

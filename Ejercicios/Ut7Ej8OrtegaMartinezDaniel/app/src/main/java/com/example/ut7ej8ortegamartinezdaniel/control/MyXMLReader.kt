@@ -45,7 +45,7 @@ class MyXMLReader {
 
 
     private fun readEntry(parser: XmlPullParser):Usuario {
-        parser.require(XmlPullParser.START_TAG, ns, "Data")
+        parser.require(XmlPullParser.START_TAG, ns, "usuario")
         var login: String = ""
         var contra: String = ""
         var perfil: String = ""
