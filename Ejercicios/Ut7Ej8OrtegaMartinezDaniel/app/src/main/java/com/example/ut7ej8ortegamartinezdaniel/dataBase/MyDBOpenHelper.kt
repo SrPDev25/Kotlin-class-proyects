@@ -30,7 +30,7 @@ class MyDBOpenHelper(
         const val COL_TITULO = "titulo"//TEXTO
         const val COL_DESCRIPCION = "descripcion"//TEXTO
 
-        const val TABLA_EVENTOS_USUARIO = "eventos-usuario"
+        const val TABLA_EVENTOS_USUARIO = "eventos_usuario"
         const val COL_ID_RELACION="id_evento_usuario"
         //const val COL_ID_USUARIO = "id_usuario"//int NN PK
         //const val COL_ID_EVENTO = "id_evento"

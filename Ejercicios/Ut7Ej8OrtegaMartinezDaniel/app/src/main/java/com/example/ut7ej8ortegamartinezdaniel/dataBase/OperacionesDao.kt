@@ -83,8 +83,11 @@ class OperacionesDao(contexto: Context) {
     fun isPasado(fecha:String, hora:String):Boolean{
         var isPasado=false
         val peaces=fecha.split("/")
-        var date= Date(peaces[2].toInt(),peaces[1].toInt(),peaces[0].toInt())
-        return date.time<System.currentTimeMillis()//Se transforma la fecha en milisegundos deslde el año 0
+        val hourPeaces=hora.split(":")
+        //Error en la clase date, los años van a aprtir del 1900
+        var date= Date(peaces[2].toInt()-1900,peaces[1].toInt(),peaces[0].toInt(),hourPeaces[0].toInt(),hourPeaces[1].toInt())
+        val resultado=date.time<System.currentTimeMillis()//Se transforma la fecha en milisegundos deslde el año 0
+        return resultado
     }
 
     fun getEventosOrdenados():MutableList<Evento>{
@@ -95,16 +98,20 @@ class OperacionesDao(contexto: Context) {
         var pos=0
         var posToDelete=0
         var date: Date? =null
-        var fecha:List<String>?=null
-
+        var fecha:List<String>
+        var hora:List<String>
 
         while(eventos.size!=0){
-            currentMaxFecha=0
+            currentMaxFecha=Long.MAX_VALUE
             pos=0
             while (pos < eventos.size){
                 fecha=eventos.get(pos).fecha.split("/")
-                n=Date(fecha[2].toInt(),fecha[1].toInt(),fecha[0].toInt()).time
-                if (n>currentMaxFecha){
+                hora=eventos.get(pos).hora.split(":")
+                //Transforma la fecha y hora en milisegundos
+                n=Date(fecha[2].toInt(),fecha[1].toInt(),fecha[0].toInt(),
+                    hora[0].toInt(),hora[1].toInt()).time
+                //Se van guardando la fecha más nueva
+                if (n<currentMaxFecha){
                     currentMaxFecha=n
                     posToDelete=pos
                 }
@@ -151,7 +158,20 @@ class OperacionesDao(contexto: Context) {
     }
 
     fun tablasVacias():Boolean{
-        
+        val cursor:Cursor=mBD.rawQuery("Select * from" +
+                " ${MyDBOpenHelper.TABLA_EVENTOS} ",null)
+        val isVacia=!cursor.moveToFirst()
+        if (!cursor.isClosed)
+            cursor.close()
+        return isVacia
+    }
+
+    fun insertarDatos(){
+        addEvento("15/2/2023","15:30","Ejemplo1","Evento default")
+        addEvento("24/2/2022","15:30","Ejemplo1","Evento default")
+        addEvento("15/4/2023","15:30","Ejemplo1","Evento default")
+        addEvento("15/7/2023","15:30","Ejemplo1","Evento default")
+        addEvento("15/12/2023","15:30","Ejemplo1","Evento default")
     }
 
 

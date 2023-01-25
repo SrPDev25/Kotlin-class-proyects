@@ -31,8 +31,9 @@ class MainActivity : AppCompatActivity() {
             insertarDatosUsuarios()
         }
 
-        val date= Date(2023,1,1)
-        binding.texto.text=date.time.toString()
+        val date= Date(123,1,1,2,4)
+        val hoy=Date(System.currentTimeMillis())
+        binding.texto.text=date.time.toString()+"------"+hoy
 
         binding.btIniciar.setOnClickListener {
             comprobar()
