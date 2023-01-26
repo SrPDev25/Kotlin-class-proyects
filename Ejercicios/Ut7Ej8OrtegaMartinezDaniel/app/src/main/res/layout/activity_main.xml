@@ -37,7 +37,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/buttonNewEvento"/>
         <Button
-            android:id="@+id/apuntarseEvento"
+            android:id="@+id/buttonApuntarseEvento"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="Apuntarse a evento"

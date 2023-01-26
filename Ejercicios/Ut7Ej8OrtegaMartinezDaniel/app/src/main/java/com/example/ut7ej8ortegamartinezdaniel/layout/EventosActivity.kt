@@ -17,11 +17,9 @@ class EventosActivity : AppCompatActivity(), Events {
         super.onCreate(savedInstanceState)
         binding = ActivityEventosBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        usuario=1
-
+        usuario=intent.getIntExtra("usuario",-1)
 
         bd=OperacionesDao(this)
-        //bd.insertUsuarios(applicationContext.assets.open("usuarios.xml"))
         chargeRecycler()
 
 

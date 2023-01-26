@@ -27,8 +27,7 @@ class OperacionesDao(contexto: Context) {
             MyDBOpenHelper.DATABASE_VERSION//The version
         )
         mBD = estructura.writableDatabase
-        if (tablasVacias())
-            insertarDatos()
+
     }
 
 
@@ -158,6 +157,15 @@ class OperacionesDao(contexto: Context) {
         values.put(MyDBOpenHelper.COL_ID_USUARIO, idUsuario)
         values.put(MyDBOpenHelper.COL_ID_EVENTO, idEvento)
         mBD.insert(MyDBOpenHelper.TABLA_EVENTOS_USUARIO, null, values)
+    }
+
+    fun changeEvento(date:Date,idEvento: Int){
+        val fecha=date.day+(date.month+1)+date.year
+        val hora="${date.hours} : ${date.minutes}"
+        val values=ContentValues()
+        values.put(MyDBOpenHelper.COL_FECHA_EVENTO,fecha)
+        values.put(MyDBOpenHelper.COL_HORA,hora)
+        mBD.update(MyDBOpenHelper.TABLA_EVENTOS,values,"${MyDBOpenHelper.COL_ID_EVENTO}=$idEvento",null)
     }
 
     fun isEventoUsuarioExist(idUsuario: Int, idEvento: Int):Boolean{

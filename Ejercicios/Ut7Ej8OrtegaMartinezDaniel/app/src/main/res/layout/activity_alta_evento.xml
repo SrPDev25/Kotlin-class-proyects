@@ -34,7 +34,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/nombreLayout"
                 android:layout_width="200dp"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:hint="@string/nombre_de_evento"
                 app:layout_constraintTop_toBottomOf="@id/title"
@@ -48,7 +48,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/descripcionLayout"
                 android:layout_width="200dp"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:hint="@string/descripci_n_de_evento"
                 app:layout_constraintTop_toBottomOf="@id/nombreLayout"
