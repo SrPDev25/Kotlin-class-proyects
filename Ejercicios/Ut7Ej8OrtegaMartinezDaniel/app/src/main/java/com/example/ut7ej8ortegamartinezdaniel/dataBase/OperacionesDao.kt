@@ -126,17 +126,7 @@ class OperacionesDao(contexto: Context) {
         return eventosOrdenados
     }
 
-    /**
-     * Añade un nuevo evento en la base de datos
-     */
-    fun addEvento(fecha:String, hora:String,titulo:String,descripcion:String){
-        val values = ContentValues()
-        values.put(MyDBOpenHelper.COL_FECHA_EVENTO, fecha)
-        values.put(MyDBOpenHelper.COL_HORA, hora)
-        values.put(MyDBOpenHelper.COL_TITULO, titulo)
-        values.put(MyDBOpenHelper.COL_DESCRIPCION, descripcion)
-        mBD.insert(MyDBOpenHelper.TABLA_EVENTOS, null, values)
-    }
+
 
     /**
      * añade un nuevo usuario a la base de datos
@@ -159,9 +149,18 @@ class OperacionesDao(contexto: Context) {
         mBD.insert(MyDBOpenHelper.TABLA_EVENTOS_USUARIO, null, values)
     }
 
-    fun changeEvento(date:Date,idEvento: Int){
-        val fecha=date.day+(date.month+1)+date.year
-        val hora="${date.hours} : ${date.minutes}"
+    /**
+     * Añade un nuevo evento en la base de datos
+     */
+    fun addEvento(fecha:String, hora:String,titulo:String,descripcion:String){
+        val values = ContentValues()
+        values.put(MyDBOpenHelper.COL_FECHA_EVENTO, fecha)
+        values.put(MyDBOpenHelper.COL_HORA, hora)
+        values.put(MyDBOpenHelper.COL_TITULO, titulo)
+        values.put(MyDBOpenHelper.COL_DESCRIPCION, descripcion)
+        mBD.insert(MyDBOpenHelper.TABLA_EVENTOS, null, values)
+    }
+    fun changeEvento(fecha:String, hora:String,idEvento: Int){
         val values=ContentValues()
         values.put(MyDBOpenHelper.COL_FECHA_EVENTO,fecha)
         values.put(MyDBOpenHelper.COL_HORA,hora)

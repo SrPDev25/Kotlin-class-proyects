@@ -25,7 +25,7 @@ class AltaEventoActivity : AppCompatActivity() {
                             binding.timePicker.hour,
                             binding.timePicker.minute)
             if(titulo!="" && descripcion!=""&&fecha.time>System.currentTimeMillis()){
-                var fechaString=fecha.day.toString() +"/"+fecha.month+1+"/"+fecha.year
+                val fechaString="${binding.dataPicker.dayOfMonth}/${fecha.month+1}/${fecha.year}"
                 bd.addEvento(fechaString,fecha.hours.toString()+":"+fecha.minutes.toString(),titulo,descripcion)
                 finish()
             }else

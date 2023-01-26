@@ -20,7 +20,6 @@ class AddFaltasActivity : AppCompatActivity() {
         binding = ActivityAddFaltasBinding.inflate(layoutInflater)
         setContentView(binding.root)
         profesor = intent.getIntExtra("Profesor", -1)
-        //todo todo
         bd = OperacionesDao(this)
         binding.dataPicker.maxDate = System.currentTimeMillis()
         binding.buttonAnadir.setOnClickListener {
@@ -118,4 +117,5 @@ class AddFaltasActivity : AppCompatActivity() {
                 }
             }
         }
+
 }
