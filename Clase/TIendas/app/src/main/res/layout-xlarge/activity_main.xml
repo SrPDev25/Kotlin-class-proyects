@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/containerMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".vista.MainActivity">
+
+    <!--TODO Reconoce el tamaño de la tablet #xlong #long
+        Este layout es solamente para las tablets,
+            - Se encuentra en otro paquete que solo se ejecuta en tablets,
+                de esa forma reconoce que layout usar si usamos tablet
+            -Diferentes layouts
+                - xlarge screens are at least 960dp x 720dp
+                - large screens are at least 640dp x 480dp
+                - normal screens are at least 470dp x 320dp
+                - small screens are at least 426dp x 320dp
+
+            - Lo anterior se elige al crear un layout
+            -->
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <!--FragmetContainerView no puede ser modificado en tiempo de ejecución
+            - Como es fijo, se le fija la clase Consulta desde el fragment
+            - Sugieren no usarlo
+            -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentLista"
+        android:name="com.mjpg.tiendas.vista.Consulta"
+       android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        tools:layout="@layout/consulta"
+       />
+
+   <FrameLayout
+       android:id="@+id/fragmentdetalle"
+       android:layout_width="0dp"
+       android:layout_weight="2"
+       android:layout_height="match_parent"
+       android:layout_toRightOf="@+id/fragmentLista"/>
+</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
