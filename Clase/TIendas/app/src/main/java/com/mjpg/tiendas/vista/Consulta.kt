@@ -25,6 +25,9 @@ class Consulta: Fragment(), EventosListener {
     private var mActivity: MainActivity? = null
     private lateinit var tiendas :MutableList<Tienda>
 
+    /**
+     * Método que infla el layout
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,18 +35,38 @@ class Consulta: Fragment(), EventosListener {
         mBinding = ConsultaBinding.inflate(inflater, container, false)
         return mBinding.root
     }
+
+    /**
+     * Método para cuando se crea el fragment
+     *
+     *
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpActionBar()
+        /**
+         * Coge la conexión de la base de datos del activity
+         */
         db = TiendasDAO(mActivity!!.applicationContext)
     }
+
+    /**
+     * Método que se ejecuta para continuar el fragment después de pausarlo
+     *
+     * En este caso se llama para que además de sus funciones acutalice el RecyclerView
+     */
     override fun onResume() {
         super.onResume()
         configurarRecycler()
     }
+
+    /**
+     * Carga los datos del MainActivity en una variable para modificar el ActionBar
+     * y para su usar sus métodos en un futuro
+     */
     private fun setUpActionBar() {
         // Vamos a conseguir la actividad en la cual este alojada este fragment
-        mActivity = activity as? MainActivity
+        mActivity = activity as? MainActivity//No es una copia de datos, sino el MainActivity en si
         //mostrar  la flecha de retroceso en la parte arriba
         mActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         // configurar el titulo
@@ -55,7 +78,11 @@ class Consulta: Fragment(), EventosListener {
             mActivity?.anadir()
         }
     }
- private fun configurarRecycler() {
+
+    /**
+     * Reinicia el recycler
+     */
+    private fun configurarRecycler() {
         adaptador = AdaptadorTienda(mutableListOf(),this )
         gridLayout = GridLayoutManager(mActivity!!.applicationContext, 2)
         getAllTiendas()
@@ -65,16 +92,17 @@ class Consulta: Fragment(), EventosListener {
             adapter = adaptador
         }
     }
+
+
     private fun getAllTiendas() {
 
         consultaCorrutinas()
     }
 
+
    private  fun consultaCorrutinas()
     {
-
        GlobalScope.launch (Dispatchers.IO){
-
              tiendas= db.getAllTiendas()
          launch(Dispatchers.Main){
                adaptador.setTiendas(tiendas)
@@ -90,7 +118,7 @@ class Consulta: Fragment(), EventosListener {
         mActivity?.editar(id)
     }
     override fun onFavorito(tienda: Tienda) {
-// todo falta meterlo en un hilo
+    // todo falta meterlo en un hilo
         if (tienda.esFavorito == 0)
             tienda.esFavorito = 1
         else
@@ -99,10 +127,14 @@ class Consulta: Fragment(), EventosListener {
         adaptador.update(tienda)
     }
     override fun borrarTienda(id: Long) {
-// todo falta meterlo en un hilo y preguntar si realmente lo quiere borrar
+    // todo falta meterlo en un hilo y preguntar si realmente lo quiere borrar
               db.deleteTienda(id)
               adaptador.borrar(id) }
 
+    /**
+     * Método de Fragment()
+     * Supongo que destruye el fragment
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         db.cerrar()

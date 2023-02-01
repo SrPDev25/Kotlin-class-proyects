@@ -74,6 +74,7 @@ class AdaptadorTienda(
 
     }
 
+
     fun setTiendas(tiendas: MutableList<Tienda>) {
         this.tiendas = tiendas
         notifyDataSetChanged()

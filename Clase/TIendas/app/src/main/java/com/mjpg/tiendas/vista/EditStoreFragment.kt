@@ -40,7 +40,9 @@ class EditStoreFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         mActivity = activity as? MainActivity
         db = TiendasDAO(mActivity!!.applicationContext)
+        //Recibe el argumento con el código de la tienda como con el Intent.getExtraInt()
         val id = arguments?.getLong(getString(R.string.arg_id), 0)
+        //Si no te pasa ningun id
         if (id == null) {
             mTienda = db.primerElemento()
             if (mTienda != null) {
@@ -79,6 +81,7 @@ class EditStoreFragment : Fragment() {
         }
         setHasOptionsMenu(true)
     }
+
 
     private fun setupTextFields() {
         with(mBinding) {
@@ -120,7 +123,12 @@ class EditStoreFragment : Fragment() {
         }
     }
 
+
     private fun String.editable(): Editable = Editable.Factory.getInstance().newEditable(this)
+
+    /**
+     * Metodo que infla el selected menu para poder modificarlo, solo se puede infrar uno
+     */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_save, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -146,9 +154,12 @@ class EditStoreFragment : Fragment() {
                         webSite = mBinding.etWebSite.text.toString().trim()
                         photoUrl = mBinding.etPhotoUrl.text.toString().trim()
                     }
+
+                    //Corrutina
                     GlobalScope.launch(Dispatchers.IO) {
 
-                        if (misEditMode) db.updateTienda(mTienda!!)
+                        if (misEditMode)
+                            db.updateTienda(mTienda!!)
                         else
                             mTienda!!.id = db.addTienda(mTienda!!)
                         withContext(Dispatchers.Main) {
@@ -184,8 +195,13 @@ class EditStoreFragment : Fragment() {
         return isValid
     }
 
+    /**
+     * Esconde el teclado
+     */
     private fun hideKeyboard() {
+        //Si la view está cargada
         if (view != null) {
+            //TODO mirar como funciona el "as"
             val imm =
                 mActivity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
             imm!!.hideSoftInputFromWindow(view?.windowToken, 0)

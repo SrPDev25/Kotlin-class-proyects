@@ -33,10 +33,13 @@ class MainActivity : AppCompatActivity(), Comunicar {
             )//Son los argumentos .argments que se transmiten al fragmento, solo pueden ser datos primitivos
             fragmentEditar.arguments=args
             val fragmentManager =
-                supportFragmentManager //Supongo que igual que el layoutManager, pero con fragments
-            val fragmentTransaction = fragmentManager.beginTransaction()
+                supportFragmentManager //Tiene la estructura y funciones tipo Fragment
+            val fragmentTransaction = fragmentManager.beginTransaction()//
+            //Añade a la "estructura" el fragmento con id fragmentdetalle y su respectiva clase
             fragmentTransaction.add(R.id.fragmentdetalle, fragmentEditar)
+            //Supuesto eliminar el boton de ir hacia atras
             fragmentTransaction.addToBackStack(null)
+            //Aplica cambios
             fragmentTransaction.commit()
 
 
