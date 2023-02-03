@@ -7,7 +7,7 @@ import com.example.ut7ej8ortegamartinezdaniel.databinding.ActivityAltaEventoBind
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
-class AltaEventoActivity : AppCompatActivity() {
+class   AltaEventoActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAltaEventoBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
