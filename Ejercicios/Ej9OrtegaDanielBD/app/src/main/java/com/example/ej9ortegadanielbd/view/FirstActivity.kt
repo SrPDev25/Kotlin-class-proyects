@@ -3,8 +3,8 @@ package com.example.ej9ortegadanielbd.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.ej9ortegadanielbd.dataBase.OperacionesDao
 import com.example.ej9ortegadanielbd.databinding.ActivityFirstBinding
-import com.example.ut7ej7ortegadaniel.dataBase.OperacionesDao
 
 class FirstActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFirstBinding
@@ -13,16 +13,16 @@ class FirstActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding=ActivityFirstBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        bd=OperacionesDao(this)
+        bd= OperacionesDao(this)
 
         if(bd.tablasVacias()){
             bd.insertarDatos()
         }
 
         Thread{
-            Thread.sleep(3*1000)
+            Thread.sleep(3*10)
             val myIntent= Intent(this, CardsActivity::class.java)
-            startActivity(intent)
+            startActivity(myIntent)
         }.start()
 
     }
