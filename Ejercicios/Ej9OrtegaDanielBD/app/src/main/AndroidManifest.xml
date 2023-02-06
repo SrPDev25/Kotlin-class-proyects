@@ -15,15 +15,23 @@
         <activity
             android:name=".view.CardsActivity"
             android:exported="false"
-            android:label="@string/title_activity_cards"
-            android:theme="@style/Theme.Ej9OrtegaDanielBD.NoActionBar" >
+            android:label="@string/title_activity_cards">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".view.MainActivity"
+            android:exported="false"
+            android:label="@string/title_activity_cards">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".view.FirstActivity"
-            android:exported="true" >
+            android:exported="true"
+            android:theme="@style/Theme.Ej9OrtegaDanielBD.NoActionBar" >>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
