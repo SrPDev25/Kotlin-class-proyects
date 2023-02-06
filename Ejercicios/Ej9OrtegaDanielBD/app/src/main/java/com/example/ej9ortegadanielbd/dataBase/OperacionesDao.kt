@@ -37,6 +37,7 @@ class OperacionesDao(contexto: Context) {
         return isVacia
     }
 
+    //TODO al crear al usuario hay que crear todas sus relaciones
     fun addUsuario(nombre:String){
         val values=ContentValues()
         values.put(MyDBOpenHelper.NOMBRE_USUARIO,nombre)
