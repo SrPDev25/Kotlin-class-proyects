@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ej9ortegadanielbd.control.Usuario
 import com.example.ej9ortegadanielbd.databinding.ItemCardBinding.bind
 import com.example.ej9ortegadanielbd.dataBase.OperacionesDao
-import com.example.ej9ortegadanielbd.view.CardsActivity
 
 
 class ListenerAdapterCards(private val usuarios: List<Usuario>,  private val cont: Context, private val listener: Events) :

@@ -25,6 +25,7 @@ class Consulta : Fragment(), EventosListener {
     private var mActivity: MainActivity? = null
     private lateinit var tiendas: MutableList<Tienda>
     private lateinit var modelo: VistaModelo
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,7 +44,6 @@ class Consulta : Fragment(), EventosListener {
             if (it == -2L) {
                 configurarRecycler()
             }
-
         }
         modelo.identificador.observe(this.viewLifecycleOwner, observador2)
     }

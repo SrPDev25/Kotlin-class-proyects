@@ -9,8 +9,6 @@ import java.lang.IllegalArgumentException
  * Factory es un interface es un interface que nos proporciona la libreria
  */
 class VistaModeloFactory(private val id:Long):ViewModelProvider.Factory {
-
-
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
        if(modelClass.isAssignableFrom(VistaModelo::class.java)){
            return VistaModelo(id)as T

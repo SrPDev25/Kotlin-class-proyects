@@ -20,8 +20,8 @@ class FirstActivity : AppCompatActivity() {
         }
 
         Thread{
-            Thread.sleep(3*10)
-            val myIntent= Intent(this, CardsActivity::class.java)
+            Thread.sleep(3*1000)
+            val myIntent= Intent(this, MainActivity::class.java)
             startActivity(myIntent)
         }.start()
 
