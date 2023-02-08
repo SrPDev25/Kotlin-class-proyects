@@ -4,9 +4,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class VistaModelo(id:Long): ViewModel() {
+class VistaModelo(id: Long) : ViewModel() {
     var _identificador = MutableLiveData(id)//vista modelo de lectura y escritura
+    //LiveData es un contenedor de observers
     val identificador: LiveData<Long>
-        get()=_identificador
+        //vista modelo de lectura
+        get() = _identificador
+
+    //Inicializa el LiveData
+    //init {
+    //    _identificador = MutableLiveData(0)
+    //}
+
+    //Cambia el modificador
+    fun setIdentificador(id: Long) {
+        _identificador.value = id
+    }
 
 }
+

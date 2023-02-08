@@ -24,7 +24,7 @@ class Consulta : Fragment(), EventosListener {
     private lateinit var mBinding: ConsultaBinding
     private var mActivity: MainActivity? = null
     private lateinit var tiendas: MutableList<Tienda>
-    private lateinit var modelo: VistaModelo
+    private lateinit var modelo: VistaModelo//Modelo
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -86,6 +86,36 @@ class OperacionesDao(contexto: Context) {
         return list
     }
 
+    fun getTipoDenominacion(tipo:Int):String{
+        var denominacion=""
+        var cursor:Cursor=mBD.rawQuery("select ${MyDBOpenHelper.DESCRIPCION_TIPO} from " +
+                "${MyDBOpenHelper.TABLA_TIPO_PROFESIONAL} where ${MyDBOpenHelper.COD_TIPO_PROFESIONAL}=$tipo"
+            ,null)
+        if (cursor.moveToFirst())
+            denominacion=cursor.getString(0)
+
+        return  denominacion
+    }
+
+    fun getNombreProfesional(numeroColegiado:Int):String{
+        var nombre=""
+
+
+
+        return nombre
+    }
+    /*val cursor:Cursor=mBD.rawQuery("select ${MyDBOpenHelper.COD_CITA}, " +
+                "${MyDBOpenHelper.FECHA}, " +
+                "${MyDBOpenHelper.HORA}," +
+                "${MyDBOpenHelper.COD_TIPO_PROFESIONAL}," +
+                "${MyDBOpenHelper.NUM_AFILIADO}" +
+                "from ${MyDBOpenHelper.TABLA_CITAS} " +
+                "where ${MyDBOpenHelper.NUM_AFILIADO}=$numeroColegiado",null)*/
+
+    //TODO getNombreTipo
+    //TODO getNombreProfesional
+    //TODO getCitas(codigoAfiliado)
+
 
     fun insertarDatos(){
         addUsuario("ELPEPE")

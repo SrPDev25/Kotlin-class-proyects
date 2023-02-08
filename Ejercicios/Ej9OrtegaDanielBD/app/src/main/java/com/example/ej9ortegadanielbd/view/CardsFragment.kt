@@ -11,14 +11,15 @@ import com.example.ej9ortegadanielbd.Events
 import com.example.ej9ortegadanielbd.ListenerAdapterCards
 import com.example.ej9ortegadanielbd.dataBase.OperacionesDao
 import com.example.ej9ortegadanielbd.databinding.FragmentCardsBinding
+import com.example.ej9ortegadanielbd.vistaModelo.VistaModelo
 
 class CardsFragment : Fragment(), Events {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: FragmentCardsBinding
     private var mActivity: MainActivity? = null
     private lateinit var linearLayout: LinearLayoutManager
     private lateinit var bd: OperacionesDao
+    private lateinit var modelo: VistaModelo
 
 
     override fun onCreateView(

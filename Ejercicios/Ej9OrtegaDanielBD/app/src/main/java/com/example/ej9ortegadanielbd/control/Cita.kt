@@ -5,5 +5,8 @@ data class Cita (
     var fecha:String,
     var hora:String,
     var codigoProfesional: Int,
-    var numAfiliado:Int
+    var numAfiliado:Int,
+    //Valores para mostrar en tarjeta
+    var nombreProfesional:String="",
+    var nombreTipoProfesional: String=""
         )
