@@ -12,14 +12,16 @@ class VistaModelo(id: Long) : ViewModel() {
         get() = _identificador
 
     //Inicializa el LiveData
-    //init {
-    //    _identificador = MutableLiveData(0)
-    //}
+    init {
+        _identificador = MutableLiveData(0)
+    }
 
     //Cambia el modificador
-    fun setIdentificador(id: Long) {
+    fun setUsuario(id: Long) {
         _identificador.value = id
     }
+
+
 
 }
 

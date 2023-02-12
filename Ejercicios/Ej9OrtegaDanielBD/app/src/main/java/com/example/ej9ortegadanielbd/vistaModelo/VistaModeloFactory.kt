@@ -6,7 +6,7 @@ import java.lang.IllegalArgumentException
 
 //ViewModelProvider genera una comprobación
 /**
- * Factory es un interface es un interface que nos proporciona la libreria
+ * Factory es un interface es un interface que nos proporciona la libreria para manejar el modelo vista controlador
  */
 class VistaModeloFactory(private val id:Long):ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

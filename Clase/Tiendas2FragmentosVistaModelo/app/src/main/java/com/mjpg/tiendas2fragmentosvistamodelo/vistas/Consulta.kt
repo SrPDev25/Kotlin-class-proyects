@@ -40,19 +40,20 @@ class Consulta : Fragment(), EventosListener {
         setUpActionBar()
         db = TiendasDAO(mActivity!!.applicationContext)
         configurarRecycler()
-        val observador2 = Observer<Long> {
+
+        val observador = Observer<Long> {
             if (it == -2L) {
                 configurarRecycler()
             }
         }
-        modelo.identificador.observe(this.viewLifecycleOwner, observador2)
+        modelo.identificador.observe(this.viewLifecycleOwner, observador)
     }
 
 
     private fun setUpActionBar() {
 
         mActivity = activity as? MainActivity
-        val viewModelFactory = VistaModeloFactory(0)
+            val viewModelFactory = VistaModeloFactory(0)
 
         modelo =
             ViewModelProvider(this.requireActivity(), viewModelFactory).get(VistaModelo::class.java)

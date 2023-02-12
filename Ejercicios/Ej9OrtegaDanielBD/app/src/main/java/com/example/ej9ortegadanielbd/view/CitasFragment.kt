@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ej9ortegadanielbd.Events
-import com.example.ej9ortegadanielbd.ListenerAdapterCards
 import com.example.ej9ortegadanielbd.ListenerAdapterCitas
 import com.example.ej9ortegadanielbd.dataBase.OperacionesDao
 import com.example.ej9ortegadanielbd.databinding.FragmentCitaBinding
+import com.example.ej9ortegadanielbd.vistaModelo.VistaModelo
+import com.example.ej9ortegadanielbd.vistaModelo.VistaModeloFactory
 
 class CitasFragment : Fragment(),Events {
 
@@ -18,6 +21,7 @@ class CitasFragment : Fragment(),Events {
     private var mActivity: MainActivity? = null
     private lateinit var linearLayout: LinearLayoutManager
     private lateinit var bd: OperacionesDao
+    private lateinit var modelo:VistaModelo
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,15 +39,30 @@ class CitasFragment : Fragment(),Events {
 
         linearLayout= LinearLayoutManager(mActivity!!.applicationContext)
 
+        val viewModelFactory = VistaModeloFactory(0)
+        modelo =
+            ViewModelProvider(this.requireActivity(), viewModelFactory).get(VistaModelo::class.java)
+        chargeRecycler()
 
+
+    }
+
+    private fun chargeRecycler() {
+        val codUsuario= modelo.identificador.value?.toInt()
+        //!! evita que sea nulo
+        linearLayout = LinearLayoutManager(mActivity!!.applicationContext)
+        //Contexto del activity y listener del fragment
+        binding.container.adapter = ListenerAdapterCitas(bd.getCitas(codUsuario!!), mActivity!!.applicationContext, this)
+        binding.container.layoutManager = linearLayout
+        binding.container.setHasFixedSize(true)
     }
 
     override fun shortClick(codigo: Int) {
-        //TODO("Not yet implemented")
+
     }
 
     override fun longClick(codigo: Int): Boolean {
-        //TODO("Not yet implemented")
+
         return false
     }
 }

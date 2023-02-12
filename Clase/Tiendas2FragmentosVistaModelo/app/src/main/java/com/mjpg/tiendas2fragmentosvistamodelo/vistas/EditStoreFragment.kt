@@ -220,7 +220,7 @@ class EditStoreFragment : Fragment() {
         mActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(false)
         mActivity?.supportActionBar?.title = getString(R.string.consulta)
         setHasOptionsMenu(false)
-        db?.cerrar()
+        db.cerrar()
         super.onDestroy()
     }
 }

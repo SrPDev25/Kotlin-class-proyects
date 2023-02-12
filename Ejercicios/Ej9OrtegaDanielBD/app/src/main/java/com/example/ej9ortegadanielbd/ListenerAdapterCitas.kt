@@ -1,5 +1,6 @@
 package com.example.ej9ortegadanielbd
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,7 @@ import com.example.ej9ortegadanielbd.databinding.ItemCitaBinding.bind
 import com.example.ej9ortegadanielbd.dataBase.OperacionesDao
 
 
-class ListenerAdapterCitas(private val citas: List<Cita>, private val cont: Context, private val listener: Events) :
+class ListenerAdapterCitas(private val citas: MutableList<Cita>, private val cont: Context, private val listener: Events) :
     RecyclerView.Adapter<ListenerAdapterCitas.ViewHolder>() {
     private lateinit var context: Context
 
@@ -33,16 +34,17 @@ class ListenerAdapterCitas(private val citas: List<Cita>, private val cont: Cont
         return ViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder) {
-            var citas = citas.get(position)
+            var cita = citas.get(position)
             var bd= OperacionesDao(cont)
-            binding.fechaTxt.text="Cita a día $citas.fecha"//TODO mejorar la visualización de la fecha
-            binding.horaTxt.text="a las ${citas.hora}"
-            binding.nombreTxt.text="Profesional: ${citas.nombreProfesional}"
-            binding.tipoTxt.text=""
+            binding.fechaTxt.text="Cita a día ${cita.fecha}"//TODO mejorar la visualización de la fecha
+            binding.horaTxt.text="a las ${cita.hora}"
+            binding.nombreTxt.text="Profesional: ${cita.nombreProfesional}"
+            binding.tipoTxt.text=cita.nombreTipoProfesional
             //Inserta un set listener a cada uno de los "holders"
-            setListener(citas.numAfiliado)
+            setListener(cita.numAfiliado)
         }
     }
 
