@@ -43,8 +43,6 @@ class CitasFragment : Fragment(),Events {
         modelo =
             ViewModelProvider(this.requireActivity(), viewModelFactory).get(VistaModelo::class.java)
         chargeRecycler()
-
-
     }
 
     private fun chargeRecycler() {

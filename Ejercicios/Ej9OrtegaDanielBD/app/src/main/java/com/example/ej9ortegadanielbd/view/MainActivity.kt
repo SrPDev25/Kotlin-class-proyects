@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         modeloVistaControlador = ViewModelProvider(this, viewModelFactory)
             .get(VistaModelo::class.java)
         chargeFragment(savedInstanceState)
+
     }
 
     private fun chargeFragment(savedInstanceState: Bundle?) {
@@ -41,6 +42,8 @@ class MainActivity : AppCompatActivity() {
         } else {//Si el fragmente ya existia se sustituye el anterior por el nuevo
             fragmentTransaction.replace(R.id.frag_contenedor, fragmentCards)
         }
+        //Si es el frgament principal hay que deshabilitar el backstack, ya que eliminaria el fragment
+        fragmentTransaction.disallowAddToBackStack()
         fragmentTransaction.commit()
     }
 
@@ -50,6 +53,8 @@ class MainActivity : AppCompatActivity() {
         val fragmentCita=CitasFragment()
         fragmentTransaction=fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frag_contenedor,fragmentCita)
+        //Anula el volver hacia atrás del activity
+        fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
 

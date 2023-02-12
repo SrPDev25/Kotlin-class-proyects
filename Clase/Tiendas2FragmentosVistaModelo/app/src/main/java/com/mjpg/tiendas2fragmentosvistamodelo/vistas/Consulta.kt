@@ -54,9 +54,9 @@ class Consulta : Fragment(), EventosListener {
 
         mActivity = activity as? MainActivity
             val viewModelFactory = VistaModeloFactory(0)
-
         modelo =
             ViewModelProvider(this.requireActivity(), viewModelFactory).get(VistaModelo::class.java)
+
         mBinding.fab.setOnClickListener {
             modelo.setIdentificador(-1L)
             mActivity?.editar()
