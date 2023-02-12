@@ -35,8 +35,7 @@ class ListenerAdapterCards(private val usuarios: List<Usuario>,  private val con
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder) {
-            var usuario = usuarios.get(position)
-            var bd= OperacionesDao(cont)
+            val usuario = usuarios.get(position)
             binding.idCard.text = usuario.numAfiliado.toString()
             binding.nombre.text = usuario.nombre
             //Inserta un set listener a cada uno de los "holders"

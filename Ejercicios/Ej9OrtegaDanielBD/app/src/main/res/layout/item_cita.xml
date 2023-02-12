@@ -9,7 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
         <TextView
-            android:id="@+id/fechaTxt"
+            android:id="@+id/fechasTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
@@ -21,7 +21,7 @@
             />
 
         <TextView
-            android:id="@+id/horaTxt"
+            android:id="@+id/horasTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -30,10 +30,10 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fechaTxt" />
+            app:layout_constraintTop_toBottomOf="@id/fechasTxt" />
 
-        <TextView
-            android:id="@+id/presencialTxt"
+        <!--<TextView
+            android:id="@+id/isPresencialTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
@@ -41,10 +41,10 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />-->
 
         <TextView
-            android:id="@+id/tipoTxt"
+            android:id="@+id/tipoEspecialidadTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
@@ -55,7 +55,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/nombreTxt"
+            android:id="@+id/nombreProfesionalTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
@@ -64,7 +64,7 @@
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/presencialTxt" />
+            />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
