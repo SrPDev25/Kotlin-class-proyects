@@ -37,6 +37,7 @@ class OperacionesDao(contexto: Context) {
     }
 
 
+
     fun addUsuario(login: String,pass:String) {
         val values = ContentValues()
         values.put(MyDBOpenHelper.LOGIN, login)
@@ -62,11 +63,21 @@ class OperacionesDao(contexto: Context) {
         mBD.insert(MyDBOpenHelper.TABLA_PRODUCTO, null, values)
     }
 
+    fun isUsuarioValido(login:String, pass:String):Boolean{
+        var isValido=false
+        var cursor: Cursor = mBD.rawQuery(
+            "select * from ${MyDBOpenHelper.TABLA_USUARIO} " +
+                    "where ${MyDBOpenHelper.LOGIN}=$login and ${MyDBOpenHelper.PASS}=$pass",
+            null
+        )
+
+        return cursor.moveToFirst()
+    }
 
     fun getCategorias(): MutableList<Categoria> {
         var list = mutableListOf<Categoria>()
         var cursor: Cursor = mBD.rawQuery(
-            "select * from ${MyDBOpenHelper.TABLA_USUARIO}",
+            "select * from ${MyDBOpenHelper.TABLA_CATEGORIA}",
             null
         )
         while (cursor.moveToNext())
@@ -128,7 +139,7 @@ class OperacionesDao(contexto: Context) {
         addUsuario("3","3")
         addCategoria("Pantalones", "https://upload.wikimedia.org/wikipedia/commons/d/da/Trousers-colourisolated.jpg")
         addCategoria("Zapatos", "https://i.ebayimg.com/images/g/xiAAAOSwqNlimnj8/s-l500.jpg")
-        addCategoria("Vestidos", "http://cdn.shopify.com/s/files/1/1631/3281/products/vestido-morado-tirantes-vuelo-invitada-boda-evento-mujer-the-are-00006.jpg?v=1632411588")
+        addCategoria("Vestidos", "https://hinsomnia.com/wp-content/uploads/2022/10/Vestido-Rubi-Azul-petroleo-1.jpg")
         addProducto(1, 1,"Vaquero",45,"NO","https://www.gutteridge.com/dw/image/v2/BDJZ_PRD/on/demandware.static/-/Sites-catalog-gutteridge-master/default/dwba200095/hi-res/5T4189UOGU_0218C_005.jpg?sw=1000&sh=1350&q=90&strip=false")
         addProducto(2, 1,"Rosa",99,"SI","https://thinkingmu.com/21092-large_default/pantalon-theresa-de-pana-rosa.jpg")
         addProducto(3, 2,"Jordan",87, "NO","https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/202212/21/00132429600268____8__640x640.jpg")
