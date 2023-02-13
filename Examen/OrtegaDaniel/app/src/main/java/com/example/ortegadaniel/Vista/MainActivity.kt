@@ -33,6 +33,9 @@ class MainActivity : AppCompatActivity() {
         } else {
             chargeFragmentTablet(savedInstanceState)
         }
+        binding.buttonVolver.setOnClickListener(){
+            finish()
+        }
     }
 
     private fun chargeFragmentSmartPhone(savedInstanceState: Bundle?) {
