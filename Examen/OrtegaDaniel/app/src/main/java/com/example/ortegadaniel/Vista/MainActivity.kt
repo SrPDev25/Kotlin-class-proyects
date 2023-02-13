@@ -25,6 +25,8 @@ class MainActivity : AppCompatActivity() {
         val viewModelFactory = VistaModeloFactory(0)
         modeloVistaControlador = ViewModelProvider(this, viewModelFactory)
             .get(VistaModelo::class.java)
+        val tipoUsuario=intent.getLongExtra("tipoLogin",-1L)
+        modeloVistaControlador.setUsuario(tipoUsuario)
         chargeFragment(savedInstanceState)
     }
 
@@ -38,6 +40,15 @@ class MainActivity : AppCompatActivity() {
             fragmentTransaction.replace(R.id.frag_contenedor, fragmentCards)
         }
         fragmentTransaction.disallowAddToBackStack()
+        fragmentTransaction.commit()
+    }
+
+    public fun chargeProductos(){
+        val fragmentProducto=ProductoFragment()
+        fragmentTransaction=fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frag_contenedor,fragmentProducto)
+        //Anula el volver hacia atrás del activity
+        fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
 }

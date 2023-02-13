@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ej9ortegadanielbd.vistaModelo.VistaModelo
 import com.example.ej9ortegadanielbd.vistaModelo.VistaModeloFactory
 import com.example.ortegadaniel.OperacionesDao
-import com.example.ortegadaniel.databinding.FragmentCategoriasBinding
-import com.example.ortegadaniel.tool.Events
+import com.example.ortegadaniel.databinding.FragmentProductosBinding
 import com.example.ortegadaniel.tool.ListenerAdapterCategorias
+import com.example.ortegadaniel.tool.ListenerAdapterProductos
 
-class CategoriasFragment : Fragment(), Events {
+class ProductoFragment : Fragment() {
 
-    private lateinit var binding: FragmentCategoriasBinding
+    private lateinit var binding: FragmentProductosBinding
     private var mActivity: MainActivity? = null
     private lateinit var linearLayout: LinearLayoutManager
     private lateinit var bd: OperacionesDao
@@ -28,7 +28,7 @@ class CategoriasFragment : Fragment(), Events {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCategoriasBinding.inflate(inflater, container, false)
+        binding = FragmentProductosBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -39,7 +39,7 @@ class CategoriasFragment : Fragment(), Events {
          */
         //Cast seguro
         mActivity = activity as? MainActivity
-        bd =OperacionesDao(mActivity!!.applicationContext)
+        bd = OperacionesDao(mActivity!!.applicationContext)
 
         val viewModelFactory = VistaModeloFactory(0)
         modelo =
@@ -56,16 +56,19 @@ class CategoriasFragment : Fragment(), Events {
         //!! evita que sea nulo
         linearLayout = LinearLayoutManager(mActivity!!.applicationContext)
         //Contexto del activity y listener del fragment
-        binding.content.adapter = ListenerAdapterCategorias(bd.getCategorias(), mActivity!!.applicationContext, this)
-        binding.content.layoutManager = linearLayout
-        binding.content.setHasFixedSize(true)
-    }
-    override fun shortClick(codigo: Int) {
-        modelo.setCategoria(codigo.toLong())
-        mActivity?.chargeProductos()
+        val codUsuario= modelo.identificador.value?.toInt()
+        val categoria= modelo.categoria.value?.toInt()
+
+        if (codUsuario==1){
+            binding.container.adapter = ListenerAdapterProductos(bd.getProductosExclusivosOf(categoria!!), mActivity!!.applicationContext)
+            binding.container.layoutManager = linearLayout
+            binding.container.setHasFixedSize(true)
+        }else{
+            binding.container.adapter = ListenerAdapterProductos(bd.getProductosOf(categoria!!), mActivity!!.applicationContext)
+            binding.container.layoutManager = linearLayout
+            binding.container.setHasFixedSize(true)
+        }
+
     }
 
-    override fun longClick(): Boolean {
-        return true
-    }
 }

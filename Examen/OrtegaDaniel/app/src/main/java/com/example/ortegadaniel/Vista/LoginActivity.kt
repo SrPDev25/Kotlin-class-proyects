@@ -21,7 +21,7 @@ class LoginActivity : AppCompatActivity() {
                 binding.passText.text?.clear()
                 binding.userLayout.error=""
                 var intent= Intent(this,MainActivity::class.java)
-                    .putExtra("tipoLogin",1)
+                    .putExtra("tipoLogin",1L)
                 startActivity(intent)
             }else{
                 binding.passText.text?.clear()
@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
         }
         binding.buttonInvitado.setOnClickListener(){
             var intent= Intent(this,MainActivity::class.java)
-                .putExtra("tipoLogin",0)
+                .putExtra("tipoLogin",0L)
             startActivity(intent)
         }
 

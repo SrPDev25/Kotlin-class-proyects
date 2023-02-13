@@ -95,7 +95,7 @@ class OperacionesDao(contexto: Context) {
         var list = mutableListOf<Producto>()
         var cursor: Cursor = mBD.rawQuery(
             "select * from ${MyDBOpenHelper.TABLA_PRODUCTO} " +
-                    "where cod_categoria=$categoria and exclusividad='SI'",
+                    "where cod_categoria=$categoria",
             null
         )
         while (cursor.moveToNext()){
@@ -115,7 +115,7 @@ class OperacionesDao(contexto: Context) {
         var list = mutableListOf<Producto>()
         var cursor: Cursor = mBD.rawQuery(
             "select * from ${MyDBOpenHelper.TABLA_PRODUCTO} " +
-                    "where cod_categoria=$categoria",
+                    "where cod_categoria=$categoria and ${MyDBOpenHelper.EXCLUSIVO}!='SI'",
             null
         )
         while (cursor.moveToNext()){
