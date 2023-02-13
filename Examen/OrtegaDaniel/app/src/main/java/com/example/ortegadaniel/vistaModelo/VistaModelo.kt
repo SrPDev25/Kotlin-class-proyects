@@ -19,7 +19,7 @@ class VistaModelo(id: Long) : ViewModel() {
     //Inicializa el LiveData
     init {
         _identificador = MutableLiveData(0)
-        _categoria=MutableLiveData(-1)
+        _categoria=MutableLiveData(0)
     }
 
     //Cambia el modificador

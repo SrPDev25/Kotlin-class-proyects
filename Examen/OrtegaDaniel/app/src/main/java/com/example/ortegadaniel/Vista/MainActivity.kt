@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bd: OperacionesDao
     private lateinit var fragmentManager: FragmentManager
     private lateinit var fragmentTransaction: FragmentTransaction
-    private lateinit var modeloVistaControlador:VistaModelo
+    private lateinit var modeloVistaControlador: VistaModelo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,12 +25,17 @@ class MainActivity : AppCompatActivity() {
         val viewModelFactory = VistaModeloFactory(0)
         modeloVistaControlador = ViewModelProvider(this, viewModelFactory)
             .get(VistaModelo::class.java)
-        val tipoUsuario=intent.getLongExtra("tipoLogin",-1L)
+        val tipoUsuario = intent.getLongExtra("tipoLogin", -1L)
         modeloVistaControlador.setUsuario(tipoUsuario)
-        chargeFragment(savedInstanceState)
+
+        if (binding.fragContenedor != null) {
+            chargeFragmentSmartPhone(savedInstanceState)
+        } else {
+            chargeFragmentTablet(savedInstanceState)
+        }
     }
 
-    private fun chargeFragment(savedInstanceState: Bundle?) {
+    private fun chargeFragmentSmartPhone(savedInstanceState: Bundle?) {
         val fragmentCards = CategoriasFragment()
         fragmentManager = supportFragmentManager
         fragmentTransaction = fragmentManager.beginTransaction()
@@ -43,10 +48,29 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-    public fun chargeProductos(){
-        val fragmentProducto=ProductoFragment()
-        fragmentTransaction=fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frag_contenedor,fragmentProducto)
+    private fun chargeFragmentTablet(savedInstanceState: Bundle?) {
+        val fragmentCategorias = CategoriasFragment()
+        val fragmentProductos = ProductoFragment()
+        fragmentManager = supportFragmentManager
+        fragmentTransaction = fragmentManager.beginTransaction()
+        if (savedInstanceState == null) {
+            fragmentTransaction.add(R.id.fragmentCategorias, fragmentCategorias)
+            fragmentTransaction.add(R.id.fragmentProductos, fragmentProductos)
+        } else {
+            fragmentTransaction.replace(R.id.fragmentCategorias, fragmentCategorias)
+            fragmentTransaction.replace(R.id.fragmentProductos, fragmentProductos)
+        }
+        fragmentTransaction.disallowAddToBackStack()
+        fragmentTransaction.commit()
+    }
+
+    public fun chargeProductos() {
+        val fragmentProducto = ProductoFragment()
+        fragmentTransaction = fragmentManager.beginTransaction()
+        if (binding.fragContenedor != null)
+            fragmentTransaction.replace(R.id.frag_contenedor, fragmentProducto)
+        else
+            fragmentTransaction.replace(R.id.fragmentProductos, fragmentProducto)
         //Anula el volver hacia atrás del activity
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()

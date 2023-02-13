@@ -41,7 +41,7 @@ class MyDBOpenHelper(context: Context, name:String,
                     "($COD_CATEGORIA Integer PRIMARY KEY AUTOINCREMENT," +
                     "$DENOMINACION_CATEGORIA text," +
                     "${IMAGEN} TEXT)"
-            val crearTablaProducto = "CREATE  TABLE $TABLA_CATEGORIA  " +
+            val crearTablaProducto = "CREATE  TABLE $TABLA_PRODUCTO  " +
                     "($CODIGO_PRODUCTO Integer PRIMARY KEY," +
                     "$COD_CATEGORIA INTEGER," +
                     "$DENOMINACION_PRODUCTO TEXT," +
