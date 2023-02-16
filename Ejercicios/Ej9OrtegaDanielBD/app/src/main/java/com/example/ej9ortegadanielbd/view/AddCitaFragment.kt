@@ -1,6 +1,7 @@
 package com.example.ej9ortegadanielbd.view
 
 import android.R
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.app.TimePickerDialog
@@ -46,75 +47,74 @@ class AddCitaFragment : Fragment() {
         //Cast seguro
         mActivity = activity as? MainActivity
         bd = OperacionesDao(mActivity!!.applicationContext)
+        chargeViewModel()
 
+
+
+        binding.dataPicker.setOnClickListener() {
+            chargeDataPicker()
+        }
+
+        binding.timePicker.setOnClickListener() {
+            chargeTimePicker()
+        }
+
+    }
+
+    private fun chargeViewModel() {
         val viewModelFactory = VistaModeloFactory(0)
         modelo =
             ViewModelProvider(this.requireActivity(), viewModelFactory)[VistaModelo::class.java]
         val observador = Observer<Long> {}
         modelo.identificador.observe(this.viewLifecycleOwner, observador)
+    }
 
-
-        binding.dataPicker.setOnClickListener() {
-            // on below line we are getting
-            // the instance of our calendar.
-            val c = Calendar.getInstance()
-
-            // on below line we are getting
-            // our day, month and year.
-            val year = c.get(Calendar.YEAR)
-            val month = c.get(Calendar.MONTH)
-            val day = c.get(Calendar.DAY_OF_MONTH)
-
-            // on below line we are creating a
-            // variable for date picker dialog.
-            val datePickerDialog = this.context?.let { it1 ->
-                DatePickerDialog(
-                    // on below line we are passing context.
-                    it1, { view, year, monthOfYear, dayOfMonth ->
-                        // on below line we are setting
-                        // date to our edit text.
-                        val dat = (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
-                        binding.dataPicker.setText(dat)
-                    },
-                    // on below line we are passing year, month
-                    // and day for the selected date in our date picker.
-                    year, month, day
-                )
-
-            }
-            datePickerDialog!!.datePicker.minDate = System.currentTimeMillis()
-
-            // at last we are calling show
-            // to display our date picker dialog.
-            datePickerDialog?.show()
-        }
-        binding.timePicker.setOnClickListener() {
-            val cal = Calendar.getInstance()
-            val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
-                cal.set(Calendar.HOUR_OF_DAY, hour)
-                cal.set(Calendar.MINUTE, minute)
-                binding.timePicker.setText(SimpleDateFormat("HH:mm").format(cal.time))
-            }
-
-
-            TimePickerDialog(
-                this.context,
-                timeSetListener,
-                cal.get(Calendar.HOUR_OF_DAY),
-                cal.get(Calendar.MINUTE),
-                true
-            ).show()
-
-
-            /*val timePicker=this.context?.let { it1 ->
-                MaterialTimePicker.Builder()
-                    .setTimeFormat(TimeFormat.CLOCK_12H)
-                    .setHour(12)
-                    .setMinute(10)
-                    .setTitleText("Select Appointment time")
-                    .build()*/
+    @SuppressLint("SimpleDateFormat")
+    private fun chargeTimePicker() {
+        val cal = Calendar.getInstance()
+        val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
+            cal.set(Calendar.HOUR_OF_DAY, hour)
+            cal.set(Calendar.MINUTE, minute)
+            binding.timePicker.setText(SimpleDateFormat("HH:mm").format(cal.time))
         }
 
+
+        TimePickerDialog(
+            this.context,
+            timeSetListener,
+            cal.get(Calendar.HOUR_OF_DAY),
+            cal.get(Calendar.MINUTE),
+            true
+        ).show()
+    }
+
+    private fun chargeDataPicker() {
+        //Dia de hoy
+        val c = Calendar.getInstance()
+        //El día de hoy
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+
+        val datePickerDialog = this.context?.let { it1 ->
+            DatePickerDialog(
+                // it se refiere al mismo objeto, a partir de aquí se indicarán el:
+                it1, { view, year, monthOfYear, dayOfMonth ->
+                    // Acción del view
+                    val dat = (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
+                    binding.dataPicker.setText(dat)
+                },
+                // Insertar datos del dia, mes y año actual
+                year, month, day
+            )
+
+        }
+
+        datePickerDialog!!.datePicker.minDate = System.currentTimeMillis()
+
+        // Muestra el picker
+        datePickerDialog.show()
     }
 
 }
