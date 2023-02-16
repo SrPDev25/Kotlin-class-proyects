@@ -3,6 +3,7 @@ package com.example.ej9ortegadanielbd.view
 import android.R
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,9 @@ import com.example.ej9ortegadanielbd.dataBase.OperacionesDao
 import com.example.ej9ortegadanielbd.databinding.FragmentAddCitaBinding
 import com.example.ej9ortegadanielbd.vistaModelo.VistaModelo
 import com.example.ej9ortegadanielbd.vistaModelo.VistaModeloFactory
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -24,11 +28,11 @@ class AddCitaFragment : Fragment() {
     private var mActivity: MainActivity? = null
     private lateinit var bd: OperacionesDao
     private lateinit var modelo: VistaModelo
+    private lateinit var dateEdt: EditText
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddCitaBinding.inflate(inflater, container, false)
         return binding.root
@@ -46,11 +50,11 @@ class AddCitaFragment : Fragment() {
         val viewModelFactory = VistaModeloFactory(0)
         modelo =
             ViewModelProvider(this.requireActivity(), viewModelFactory)[VistaModelo::class.java]
-        val observador = Observer<Long> {
-        }
+        val observador = Observer<Long> {}
         modelo.identificador.observe(this.viewLifecycleOwner, observador)
 
-        binding.dataPicker.setOnClickListener(){
+
+        binding.dataPicker.setOnClickListener() {
             // on below line we are getting
             // the instance of our calendar.
             val c = Calendar.getInstance()
@@ -63,29 +67,61 @@ class AddCitaFragment : Fragment() {
 
             // on below line we are creating a
             // variable for date picker dialog.
-            val datePickerDialog = DatePickerDialog(
-                // on below line we are passing context.
-                this,
-                { view, year, monthOfYear, dayOfMonth ->
-                    // on below line we are setting
-                    // date to our edit text.
-                    val dat = (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
-                    dateEdt.setText(dat)
-                },
-                // on below line we are passing year, month
-                // and day for the selected date in our date picker.
-                year,
-                month,
-                day
-            )
+            val datePickerDialog = this.context?.let { it1 ->
+                DatePickerDialog(
+                    // on below line we are passing context.
+                    it1, { view, year, monthOfYear, dayOfMonth ->
+                        // on below line we are setting
+                        // date to our edit text.
+                        val dat = (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
+                        binding.dataPicker.setText(dat)
+                    },
+                    // on below line we are passing year, month
+                    // and day for the selected date in our date picker.
+                    year, month, day
+                )
+
+            }
+            datePickerDialog!!.datePicker.minDate = System.currentTimeMillis()
+
             // at last we are calling show
             // to display our date picker dialog.
-            datePickerDialog.show()
+            datePickerDialog?.show()
         }
+        binding.timePicker.setOnClickListener() {
+            val cal = Calendar.getInstance()
+            val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
+                cal.set(Calendar.HOUR_OF_DAY, hour)
+                cal.set(Calendar.MINUTE, minute)
+                binding.timePicker.setText(SimpleDateFormat("HH:mm").format(cal.time))
+            }
 
 
+            TimePickerDialog(
+                this.context,
+                timeSetListener,
+                cal.get(Calendar.HOUR_OF_DAY),
+                cal.get(Calendar.MINUTE),
+                true
+            ).show()
+
+
+            /*val timePicker=this.context?.let { it1 ->
+                MaterialTimePicker.Builder()
+                    .setTimeFormat(TimeFormat.CLOCK_12H)
+                    .setHour(12)
+                    .setMinute(10)
+                    .setTitleText("Select Appointment time")
+                    .build()*/
+        }
 
     }
 
-
 }
+
+
+
+
+
+
+

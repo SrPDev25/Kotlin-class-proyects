@@ -58,6 +58,15 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
+    fun addCitas() {
+        val fragmentCita=AddCitaFragment()
+        fragmentTransaction=fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frag_contenedor,fragmentCita)
+        //Anula el volver hacia atrás del activity
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
+    }
+
 
 
 

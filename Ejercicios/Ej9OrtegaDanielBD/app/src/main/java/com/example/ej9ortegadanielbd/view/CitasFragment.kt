@@ -43,6 +43,9 @@ class CitasFragment : Fragment(),Events {
         modelo =
             ViewModelProvider(this.requireActivity(), viewModelFactory).get(VistaModelo::class.java)
         chargeRecycler()
+        binding.btnNuevaCita.setOnClickListener(){
+            mActivity!!.addCitas()
+        }
     }
 
     private fun chargeRecycler() {
