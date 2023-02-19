@@ -6,6 +6,7 @@ import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,8 +58,8 @@ class AddCitaFragment : Fragment() {
         var spinnerAdapter: ArrayAdapter<TipoProfesional>
         //Creo que es un poco guarro, ya que le esconde al adapter que puede no haber contexto
         context?.let {
-            spinnerAdapter = ArrayAdapter(it, R.layout.simple_list_item_1,arrayTipoProfesional)
-            binding.comboTipoProfesional.adapter= spinnerAdapter
+            spinnerAdapter = ArrayAdapter(it, R.layout.simple_list_item_1, arrayTipoProfesional)
+            binding.comboTipoProfesional.adapter = spinnerAdapter
         }
 
 
@@ -89,7 +90,13 @@ class AddCitaFragment : Fragment() {
             var hourText = SimpleDateFormat("HH:mm").format(cal.time)
             var minutes = hourText.split(":")[1].toInt()
             minutes -= minutes % 10
-            hourText = hourText.split(":")[0] + ":" + minutes
+            hourText = if (minutes != 0)
+                hourText.split(":")[0] + ":" + minutes
+            else
+                hourText.split(":")[0] + ":00"
+
+            comprobarHora(hourText)
+
             binding.timePicker.setText(hourText)
         }
 
@@ -101,6 +108,23 @@ class AddCitaFragment : Fragment() {
             cal.get(Calendar.MINUTE),
             true
         ).show()
+    }
+
+    fun comprobarHora(hour:String){
+        val hourSplited=hour.split(":")
+        val date=Date(System.currentTimeMillis())
+        var error=0
+
+        if (hourSplited[0].toInt()<date.hours)
+            error=-1
+        else if(hourSplited[1].toInt()<date.minutes && hourSplited[0].toInt()==date.hashCode())
+            error=-1
+
+
+        if (error==-1)
+            binding.timePickerLayout.error="Hora pasada"
+        else
+            binding.timePickerLayout.error="Hora pasada"
     }
 
     private fun chargeDataPicker() {
@@ -117,7 +141,7 @@ class AddCitaFragment : Fragment() {
                 // it se refiere al mismo objeto, a partir de aquí se indicarán el:
                 it1, { view, year, monthOfYear, dayOfMonth ->
                     // Acción del view
-                    val dat = (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
+                    val dat = (dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year)
                     binding.dataPicker.setText(dat)
                 },
                 // Insertar datos del dia, mes y año actual

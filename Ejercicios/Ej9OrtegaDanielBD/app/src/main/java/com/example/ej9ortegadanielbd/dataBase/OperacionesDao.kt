@@ -147,43 +147,53 @@ class OperacionesDao(contexto: Context) {
         return tipoProfesionals
     }
 
+    fun comprobarFechaYHora(fecha: String,hora: String):Int{
+        var error=0
+        error=comprobarHora(hora)
 
-    /*val cursor:Cursor=mBD.rawQuery("select ${MyDBOpenHelper.COD_CITA}, " +
-                "${MyDBOpenHelper.FECHA}, " +
-                "${MyDBOpenHelper.HORA}," +
-                "${MyDBOpenHelper.COD_TIPO_PROFESIONAL}," +
-                "${MyDBOpenHelper.NUM_AFILIADO}" +
-                "from ${MyDBOpenHelper.TABLA_CITAS} " +
-                "where ${MyDBOpenHelper.NUM_AFILIADO}=$numeroColegiado",null)*/
 
-    //TODO getNombreTipo
-    //TODO getNombreProfesional
-    //TODO getCitas(codigoAfiliado)
-    //select c.id, c.FECHA,c.hora, p.nombre, tp.descripcion  from citas c, profesional_usuario pu, tipo_profesional tp, profesionales p where c.num_afiliacion=pu.num_afiliacion and pu.num_colegiado=p.num_colegiado and c.cod_tipo=p.cod_tipo and tp.cod_tipo=c.cod_tipo
+        return error
+    }
+
+    private fun comprobarHora(hora: String): Int {
+        var error=0
+
+
+        return error
+    }
 
 
     fun insertarDatos() {
-        addUsuario("ELPEPE")
+        addUsuario("Nieves")
         addUsuario("Carlos I de España V de Alemania")
         addTipoProfesional("Enfermeria")
         addTipoProfesional("Matrona")
         addTipoProfesional("Medicina")
         addTipoProfesional("Trabajador social")
         addTipoProfesional("Extracciones")
-        addProfesional(2, "Juan")
+
         addProfesional(1, "Juanjo")
+        addProfesional(2, "Juan")
         addProfesional(3, "Juan Antonio")
         addProfesional(4, "Alvar")
         addProfesional(5, "Paco")
+        addProfesional(2, "Nieves")
+
         addRelacion(2, 1)
+        addRelacion(2, 6)
+        addRelacion(2, 3)
+        addRelacion(2, 4)
         addRelacion(2, 5)
         addRelacion(1, 2)
         addRelacion(1, 1)
+        addRelacion(1, 3)
+        addRelacion(1, 4)
         addRelacion(1, 5)
-        addRelacion(2, 3)
-        addCita("2023/03/15", "13:30", 2, 1)
-        addCita("2023/03/23", "15:30", 5, 1)
-        addCita("2023/03/23", "15:30", 3, 2)
+
+        addCita("15/03/2023", "13:30", 2, 1)
+        addCita("23/05/2023", "15:30", 5, 1)
+        addCita("23/11/2023", "15:30", 3, 2)
+        addCita("11/11/2023", "11:10", 3, 2)
 
     }
 
