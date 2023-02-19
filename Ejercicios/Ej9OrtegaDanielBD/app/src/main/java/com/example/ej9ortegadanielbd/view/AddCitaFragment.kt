@@ -9,10 +9,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.ej9ortegadanielbd.control.TipoProfesional
 import com.example.ej9ortegadanielbd.dataBase.OperacionesDao
 import com.example.ej9ortegadanielbd.databinding.FragmentAddCitaBinding
 import com.example.ej9ortegadanielbd.vistaModelo.VistaModelo
@@ -21,6 +24,7 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.ForkJoinTask
 
 
 class AddCitaFragment : Fragment() {
@@ -29,7 +33,6 @@ class AddCitaFragment : Fragment() {
     private var mActivity: MainActivity? = null
     private lateinit var bd: OperacionesDao
     private lateinit var modelo: VistaModelo
-    private lateinit var dateEdt: EditText
 
 
     override fun onCreateView(
@@ -41,6 +44,7 @@ class AddCitaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         /**Es necesario el contexto tanto para la base de datos como para el recycler
          *Por ello como el fragment no tiene el contexto de una activity se llama al MainActivity de la siguiente manera
          */
@@ -49,6 +53,13 @@ class AddCitaFragment : Fragment() {
         bd = OperacionesDao(mActivity!!.applicationContext)
         chargeViewModel()
 
+        var arrayTipoProfesional = bd.getTipoProgesional()
+        var spinnerAdapter: ArrayAdapter<TipoProfesional>
+        //Creo que es un poco guarro, ya que le esconde al adapter que puede no haber contexto
+        context?.let {
+            spinnerAdapter = ArrayAdapter(it, R.layout.simple_list_item_1,arrayTipoProfesional)
+            binding.comboTipoProfesional.adapter= spinnerAdapter
+        }
 
 
         binding.dataPicker.setOnClickListener() {
@@ -75,7 +86,11 @@ class AddCitaFragment : Fragment() {
         val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
             cal.set(Calendar.HOUR_OF_DAY, hour)
             cal.set(Calendar.MINUTE, minute)
-            binding.timePicker.setText(SimpleDateFormat("HH:mm").format(cal.time))
+            var hourText = SimpleDateFormat("HH:mm").format(cal.time)
+            var minutes = hourText.split(":")[1].toInt()
+            minutes -= minutes % 10
+            hourText = hourText.split(":")[0] + ":" + minutes
+            binding.timePicker.setText(hourText)
         }
 
 

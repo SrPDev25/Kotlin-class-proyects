@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import com.example.ej9ortegadanielbd.control.Cita
+import com.example.ej9ortegadanielbd.control.TipoProfesional
 import com.example.ej9ortegadanielbd.control.Usuario
 import com.mjpg.tiendas.bd.MyDBOpenHelper
 
@@ -122,6 +123,28 @@ class OperacionesDao(contexto: Context) {
             )
         }
         return citas
+    }
+
+    /**
+     * Devulve todas las citas de un usuario
+     */
+    fun getTipoProgesional(): MutableList<TipoProfesional> {
+        var tipoProfesionals = mutableListOf<TipoProfesional>()
+        //El select completo donde se obtienen las citas del usuario y los datos que vamos a añadir en el recycler para identificarlas
+        val cursor: Cursor = mBD.rawQuery(
+            "select ${MyDBOpenHelper.COD_TIPO_PROFESIONAL}, ${MyDBOpenHelper.DESCRIPCION_TIPO} " +
+                    "from ${MyDBOpenHelper.TABLA_TIPO_PROFESIONAL}", null
+        )
+        while (cursor.moveToNext()) {
+            tipoProfesionals.add(
+                TipoProfesional(
+                    cursor.getInt(0),
+                    cursor.getString(1)
+                )
+            )
+
+        }
+        return tipoProfesionals
     }
 
 
