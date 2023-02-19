@@ -147,20 +147,19 @@ class OperacionesDao(contexto: Context) {
         return tipoProfesionals
     }
 
-    fun comprobarFechaYHora(fecha: String,hora: String):Int{
-        var error=0
-        error=comprobarHora(hora)
+    fun isProfesionalOcupado(fecha: String,hora: String,numAfiliado: Int,tipoProfesional: Int):Boolean{
+        val cursor:Cursor=mBD.rawQuery(
+                "select c.* from citas c join profesional_usuario r on r.num_afiliacion=c.num_afiliacion " +
+                "where r.num_colegiado=(select r.num_colegiado  from profesional_usuario r " +
+                        "join citas c on c.num_afiliacion=r.num_afiliacion join profesionales p on " +
+                        "r.num_colegiado=p.num_colegiado where c.num_afiliacion=$numAfiliado and p.cod_tipo=$tipoProfesional group by r.id limit 1)"+
+                " and fecha=\"$fecha\" and hora=\"$hora\"",null)
 
 
-        return error
+        return cursor.moveToFirst()
     }
-
-    private fun comprobarHora(hora: String): Int {
-        var error=0
-
-
-        return error
-    }
+//select r.num_colegiado  from profesional_usuario r join citas c on c.num_afiliacion=r.num_afiliacion join profesionales p on r.num_colegiado=p.num_colegiado where c.num_afiliacion=1 and p.cod_tipo=1 group by r.id
+//select c.* from citas c join profesional_usuario r on r.num_afiliacion=c.num_afiliacion where r.num_colegiado=1 and fecha="23/11/2023" and hora="15:30"
 
 
     fun insertarDatos() {

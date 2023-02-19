@@ -6,6 +6,7 @@ import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.os.Looper
 import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,7 @@ import com.example.ej9ortegadanielbd.dataBase.OperacionesDao
 import com.example.ej9ortegadanielbd.databinding.FragmentAddCitaBinding
 import com.example.ej9ortegadanielbd.vistaModelo.VistaModelo
 import com.example.ej9ortegadanielbd.vistaModelo.VistaModeloFactory
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import java.text.SimpleDateFormat
@@ -34,6 +36,8 @@ class AddCitaFragment : Fragment() {
     private var mActivity: MainActivity? = null
     private lateinit var bd: OperacionesDao
     private lateinit var modelo: VistaModelo
+    private lateinit var lista: MutableList<TipoProfesional>
+    private var usuario = 0
 
 
     override fun onCreateView(
@@ -54,23 +58,50 @@ class AddCitaFragment : Fragment() {
         bd = OperacionesDao(mActivity!!.applicationContext)
         chargeViewModel()
 
-        var arrayTipoProfesional = bd.getTipoProgesional()
-        var spinnerAdapter: ArrayAdapter<TipoProfesional>
+        lista = bd.getTipoProgesional()
+        val viewModelFactory = VistaModeloFactory(0)
+        modelo =
+            ViewModelProvider(this.requireActivity(), viewModelFactory).get(VistaModelo::class.java)
+        usuario = modelo.identificador.value!!.toInt()
+
+
         //Creo que es un poco guarro, ya que le esconde al adapter que puede no haber contexto
         context?.let {
-            spinnerAdapter = ArrayAdapter(it, R.layout.simple_list_item_1, arrayTipoProfesional)
+            val spinnerAdapter = ArrayAdapter(it, R.layout.simple_list_item_1, lista)
             binding.comboTipoProfesional.adapter = spinnerAdapter
         }
 
 
+
         binding.dataPicker.setOnClickListener() {
             chargeDataPicker()
+
         }
 
         binding.timePicker.setOnClickListener() {
             chargeTimePicker()
         }
 
+        binding.buttonAddCita.setOnClickListener {
+            buttonAction()
+        }
+    }
+
+    private fun buttonAction() {
+        comprobarHora()
+        if (binding.timePickerLayout.error != "") {
+            bd.addCita(
+                binding.dataPicker.text.toString(),
+                binding.timePicker.text.toString(),
+                lista.get(binding.comboTipoProfesional.selectedItemPosition).codigo,
+                usuario
+            )
+            view?.let{
+                Snackbar.make(it,"Cita creada exitosamente",Snackbar.LENGTH_LONG).show()
+            }
+
+            mActivity?.mostrarCitas()
+        }
     }
 
     private fun chargeViewModel() {
@@ -94,9 +125,6 @@ class AddCitaFragment : Fragment() {
                 hourText.split(":")[0] + ":" + minutes
             else
                 hourText.split(":")[0] + ":00"
-
-            comprobarHora(hourText)
-
             binding.timePicker.setText(hourText)
         }
 
@@ -110,21 +138,35 @@ class AddCitaFragment : Fragment() {
         ).show()
     }
 
-    fun comprobarHora(hour:String){
-        val hourSplited=hour.split(":")
-        val date=Date(System.currentTimeMillis())
-        var error=0
+    fun comprobarHora() {
+        val hour=binding.timePicker.text.toString()
+        val hourSplited = hour.split(":")
+        val date = Date(System.currentTimeMillis())
+        var error = 0
+        val fecha = binding.dataPicker.text.toString()
+        val fechaHoy = "${date.day}/${date.month + 1}/${date.year}"
 
-        if (hourSplited[0].toInt()<date.hours)
-            error=-1
-        else if(hourSplited[1].toInt()<date.minutes && hourSplited[0].toInt()==date.hashCode())
-            error=-1
+        if (fecha == fechaHoy) {
+            if (hourSplited[0].toInt() < date.hours)
+                error = -1
+            else if (hourSplited[1].toInt() < date.minutes && hourSplited[0].toInt() == date.hashCode())
+                error = -1
+        }
 
-
-        if (error==-1)
-            binding.timePickerLayout.error="Hora pasada"
+        if (error == -1)
+            binding.timePickerLayout.error = "Hora pasada"
+        else if (!fecha.isBlank() && bd.isProfesionalOcupado(
+                fecha,
+                hour,
+                usuario,
+                lista.get(binding.comboTipoProfesional.selectedItemPosition).codigo
+            )
+        )
+            binding.timePickerLayout.error = "Profesional ocupado"
+        else if (binding.dataPicker.text.toString()=="" || binding.timePicker.text.toString()=="")
+            binding.timePickerLayout.error="Faltan datos"
         else
-            binding.timePickerLayout.error="Hora pasada"
+            binding.timePickerLayout.error = ""
     }
 
     private fun chargeDataPicker() {
@@ -154,6 +196,7 @@ class AddCitaFragment : Fragment() {
 
         // Muestra el picker
         datePickerDialog.show()
+
     }
 
 }
