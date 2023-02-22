@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModelProvider
 import com.example.ej9ortegadanielbd.R
 import com.example.ej9ortegadanielbd.dataBase.OperacionesDao
@@ -18,21 +17,23 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fragmentManager: FragmentManager
     private lateinit var fragmentTransaction: FragmentTransaction
     private lateinit var modeloVistaControlador:VistaModelo
+    private lateinit var savedInstanceState:Bundle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         bd= OperacionesDao(this)
+        this.savedInstanceState=savedInstanceState!!
         //Se inicializan ambos en el constructor pero el viewModel es una variable del contenedor de fragments
         val viewModelFactory = VistaModeloFactory(0)
         modeloVistaControlador = ViewModelProvider(this, viewModelFactory)
             .get(VistaModelo::class.java)
-        chargeFragment(savedInstanceState)
+        chargeMainFragment()
 
     }
 
-    private fun chargeFragment(savedInstanceState: Bundle?) {
+    public fun chargeMainFragment() {
         val fragmentCards = CardsFragment()
         fragmentManager = supportFragmentManager
         fragmentTransaction = fragmentManager.beginTransaction()

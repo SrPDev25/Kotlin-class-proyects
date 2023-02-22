@@ -78,6 +78,16 @@ class OperacionesDao(contexto: Context) {
         mBD.insert(MyDBOpenHelper.TABLA_CITAS, null, values)
     }
 
+    fun addRelacionesUsuario(listaUsuario: MutableList<Int>,usuario:String) {
+        addUsuario(usuario)
+        val cursor:Cursor=mBD.rawQuery("select ${MyDBOpenHelper.NUM_AFILIADO} " +
+                "from ${MyDBOpenHelper.TABLA_USUARIO} order by ${MyDBOpenHelper.NUM_COLEGIADO} desc",null)
+        
+        for (i in listaUsuario)
+            addRelacion()
+
+    }
+
     fun getUsuarios(): MutableList<Usuario> {
         var list = mutableListOf<Usuario>()
         var cursor: Cursor = mBD.rawQuery(
@@ -150,7 +160,7 @@ class OperacionesDao(contexto: Context) {
 
     fun getProfesionales(tipoProfesional: Int): MutableList<Profesional> {
         val listaProfesional= mutableListOf<Profesional>()
-        val cursor:Cursor=mBD.rawQuery("select * from ${MyDBOpenHelper.TABLA_PROFESIONAL} " +
+        val cursor:Cursor=mBD.rawQuery("select ${MyDBOpenHelper.NUM_COLEGIADO},${MyDBOpenHelper.NOMBRE_PROFESIONAL}, ${MyDBOpenHelper.COD_TIPO_PROFESIONAL} from ${MyDBOpenHelper.TABLA_PROFESIONAL} " +
                 "where ${MyDBOpenHelper.COD_TIPO_PROFESIONAL}=$tipoProfesional",null)
         while (cursor.moveToNext()){
             listaProfesional.add(Profesional(
@@ -215,6 +225,8 @@ class OperacionesDao(contexto: Context) {
         addCita("11/11/2023", "11:10", 3, 2)
 
     }
+
+
 
 
 }
