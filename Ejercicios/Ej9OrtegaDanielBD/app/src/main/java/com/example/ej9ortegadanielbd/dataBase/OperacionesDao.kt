@@ -78,14 +78,18 @@ class OperacionesDao(contexto: Context) {
         mBD.insert(MyDBOpenHelper.TABLA_CITAS, null, values)
     }
 
-    fun addRelacionesUsuario(listaUsuario: MutableList<Int>,usuario:String) {
+    fun addRelacionesUsuario(listaUsuario: MutableList<Int>, usuario: String) {
         addUsuario(usuario)
-        val cursor:Cursor=mBD.rawQuery("select ${MyDBOpenHelper.NUM_AFILIADO} " +
-                "from ${MyDBOpenHelper.TABLA_USUARIO} order by ${MyDBOpenHelper.NUM_COLEGIADO} desc",null)
-        
-        for (i in listaUsuario)
-            addRelacion()
-
+        val cursor: Cursor = mBD.rawQuery(
+            "select ${MyDBOpenHelper.NUM_AFILIADO} " +
+                    "from ${MyDBOpenHelper.TABLA_USUARIO} order by ${MyDBOpenHelper.NUM_AFILIADO} desc",
+            null
+        )
+        if (cursor.moveToFirst()) {
+            val afiliado = cursor.getInt(0)
+            for (i in listaUsuario)
+                addRelacion(afiliado, i)
+        }
     }
 
     fun getUsuarios(): MutableList<Usuario> {
@@ -159,27 +163,37 @@ class OperacionesDao(contexto: Context) {
     }
 
     fun getProfesionales(tipoProfesional: Int): MutableList<Profesional> {
-        val listaProfesional= mutableListOf<Profesional>()
-        val cursor:Cursor=mBD.rawQuery("select ${MyDBOpenHelper.NUM_COLEGIADO},${MyDBOpenHelper.NOMBRE_PROFESIONAL}, ${MyDBOpenHelper.COD_TIPO_PROFESIONAL} from ${MyDBOpenHelper.TABLA_PROFESIONAL} " +
-                "where ${MyDBOpenHelper.COD_TIPO_PROFESIONAL}=$tipoProfesional",null)
-        while (cursor.moveToNext()){
-            listaProfesional.add(Profesional(
-                cursor.getInt(0),
-                cursor.getString(1),
-                cursor.getInt(2)
-            ))
+        val listaProfesional = mutableListOf<Profesional>()
+        val cursor: Cursor = mBD.rawQuery(
+            "select ${MyDBOpenHelper.NUM_COLEGIADO},${MyDBOpenHelper.NOMBRE_PROFESIONAL}, ${MyDBOpenHelper.COD_TIPO_PROFESIONAL} from ${MyDBOpenHelper.TABLA_PROFESIONAL} " +
+                    "where ${MyDBOpenHelper.COD_TIPO_PROFESIONAL}=$tipoProfesional", null
+        )
+        while (cursor.moveToNext()) {
+            listaProfesional.add(
+                Profesional(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getInt(2)
+                )
+            )
         }
 
         return listaProfesional
     }
 
-    fun isProfesionalOcupado(fecha: String,hora: String,numAfiliado: Int,tipoProfesional: Int):Boolean{
-        val cursor:Cursor=mBD.rawQuery(
-                "select c.* from citas c join profesional_usuario r on r.num_afiliacion=c.num_afiliacion " +
-                "where r.num_colegiado=(select r.num_colegiado  from profesional_usuario r " +
-                        "join citas c on c.num_afiliacion=r.num_afiliacion join profesionales p on " +
-                        "r.num_colegiado=p.num_colegiado where c.num_afiliacion=$numAfiliado and p.cod_tipo=$tipoProfesional group by r.id limit 1)"+
-                " and fecha=\"$fecha\" and hora=\"$hora\"",null)
+    fun isProfesionalOcupado(
+        fecha: String,
+        hora: String,
+        numAfiliado: Int,
+        tipoProfesional: Int
+    ): Boolean {
+        val cursor: Cursor = mBD.rawQuery(
+            "select c.* from citas c join profesional_usuario r on r.num_afiliacion=c.num_afiliacion " +
+                    "where r.num_colegiado=(select r.num_colegiado  from profesional_usuario r " +
+                    "join citas c on c.num_afiliacion=r.num_afiliacion join profesionales p on " +
+                    "r.num_colegiado=p.num_colegiado where c.num_afiliacion=$numAfiliado and p.cod_tipo=$tipoProfesional group by r.id limit 1)" +
+                    " and fecha=\"$fecha\" and hora=\"$hora\"", null
+        )
 
 
         return cursor.moveToFirst()
@@ -225,8 +239,6 @@ class OperacionesDao(contexto: Context) {
         addCita("11/11/2023", "11:10", 3, 2)
 
     }
-
-
 
 
 }

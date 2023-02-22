@@ -16,24 +16,23 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bd: OperacionesDao
     private lateinit var fragmentManager: FragmentManager
     private lateinit var fragmentTransaction: FragmentTransaction
-    private lateinit var modeloVistaControlador:VistaModelo
-    private lateinit var savedInstanceState:Bundle
+    private lateinit var modeloVistaControlador: VistaModelo
+    private lateinit var savedInstanceState: Bundle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        bd= OperacionesDao(this)
-        this.savedInstanceState=savedInstanceState!!
+        bd = OperacionesDao(this)
         //Se inicializan ambos en el constructor pero el viewModel es una variable del contenedor de fragments
         val viewModelFactory = VistaModeloFactory(0)
         modeloVistaControlador = ViewModelProvider(this, viewModelFactory)
             .get(VistaModelo::class.java)
-        chargeMainFragment()
+        chargeStartFragment(savedInstanceState)
 
     }
 
-    public fun chargeMainFragment() {
+    private fun chargeStartFragment(savedInstanceState: Bundle?) {
         val fragmentCards = CardsFragment()
         fragmentManager = supportFragmentManager
         fragmentTransaction = fragmentManager.beginTransaction()
@@ -48,44 +47,51 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
+    public fun chargeMainFragment() {
+        val fragmentCards = CardsFragment()
+        fragmentManager = supportFragmentManager
+        fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frag_contenedor, fragmentCards)
 
+        fragmentTransaction.disallowAddToBackStack()
+        fragmentTransaction.commit()
+    }
 
     fun mostrarCitas() {
-        val fragmentCita=CitasFragment()
-        fragmentTransaction=fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frag_contenedor,fragmentCita)
+        val fragmentCita = CitasFragment()
+        fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frag_contenedor, fragmentCita)
         //Anula el volver hacia atrás del activity
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
 
     fun addCitas() {
-        val fragmentCita=AddCitaFragment()
-        fragmentTransaction=fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frag_contenedor,fragmentCita)
+        val fragmentCita = AddCitaFragment()
+        fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frag_contenedor, fragmentCita)
         //Anula el volver hacia atrás del activity
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
 
-    fun addUsuarioNombre(){
-        val fragment=AddUsuarioNombreFragment()
-        fragmentTransaction=fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frag_contenedor,fragment)
+    fun addUsuarioNombre() {
+        val fragment = AddUsuarioNombreFragment()
+        fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frag_contenedor, fragment)
 
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
 
-    fun addUsuarioProfesional(){
-        val fragment=AddUsuarioProfesionalFragment()
-        fragmentTransaction=fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frag_contenedor,fragment)
+    fun addUsuarioProfesional() {
+        val fragment = AddUsuarioProfesionalFragment()
+        fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frag_contenedor, fragment)
 
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
-
 
 
 }
