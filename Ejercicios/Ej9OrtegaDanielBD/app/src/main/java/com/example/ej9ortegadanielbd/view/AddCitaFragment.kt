@@ -3,17 +3,12 @@ package com.example.ej9ortegadanielbd.view
 import android.R
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-import android.app.DatePickerDialog.OnDateSetListener
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.os.Looper
-import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -23,11 +18,8 @@ import com.example.ej9ortegadanielbd.databinding.FragmentAddCitaBinding
 import com.example.ej9ortegadanielbd.vistaModelo.VistaModelo
 import com.example.ej9ortegadanielbd.vistaModelo.VistaModeloFactory
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.timepicker.MaterialTimePicker
-import com.google.android.material.timepicker.TimeFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.ForkJoinTask
 
 
 class AddCitaFragment : Fragment() {
@@ -59,7 +51,7 @@ class AddCitaFragment : Fragment() {
         bd = OperacionesDao(mActivity!!.applicationContext)
         chargeViewModel()
 
-        lista = bd.getTipoProgesional()
+        lista = bd.getTipoProfesional()
         val viewModelFactory = VistaModeloFactory(0)
         modelo =
             ViewModelProvider(this.requireActivity(), viewModelFactory).get(VistaModelo::class.java)

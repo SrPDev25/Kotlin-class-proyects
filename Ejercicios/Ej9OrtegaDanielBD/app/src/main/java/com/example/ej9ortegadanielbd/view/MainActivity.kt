@@ -67,6 +67,23 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
+    fun addUsuarioNombre(){
+        val fragment=AddUsuarioNombreFragment()
+        fragmentTransaction=fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frag_contenedor,fragment)
+
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
+    }
+
+    fun addUsuarioProfesional(){
+        val fragment=AddUsuarioProfesionalFragment()
+        fragmentTransaction=fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frag_contenedor,fragment)
+
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
+    }
 
 
 

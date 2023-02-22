@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import com.example.ej9ortegadanielbd.control.Cita
+import com.example.ej9ortegadanielbd.control.Profesional
 import com.example.ej9ortegadanielbd.control.TipoProfesional
 import com.example.ej9ortegadanielbd.control.Usuario
 import com.mjpg.tiendas.bd.MyDBOpenHelper
@@ -128,7 +129,7 @@ class OperacionesDao(contexto: Context) {
     /**
      * Devulve todas las citas de un usuario
      */
-    fun getTipoProgesional(): MutableList<TipoProfesional> {
+    fun getTipoProfesional(): MutableList<TipoProfesional> {
         var tipoProfesionals = mutableListOf<TipoProfesional>()
         //El select completo donde se obtienen las citas del usuario y los datos que vamos a añadir en el recycler para identificarlas
         val cursor: Cursor = mBD.rawQuery(
@@ -145,6 +146,21 @@ class OperacionesDao(contexto: Context) {
 
         }
         return tipoProfesionals
+    }
+
+    fun getProfesionales(tipoProfesional: Int): MutableList<Profesional> {
+        val listaProfesional= mutableListOf<Profesional>()
+        val cursor:Cursor=mBD.rawQuery("select * from ${MyDBOpenHelper.TABLA_PROFESIONAL} " +
+                "where ${MyDBOpenHelper.COD_TIPO_PROFESIONAL}=$tipoProfesional",null)
+        while (cursor.moveToNext()){
+            listaProfesional.add(Profesional(
+                cursor.getInt(0),
+                cursor.getString(1),
+                cursor.getInt(2)
+            ))
+        }
+
+        return listaProfesional
     }
 
     fun isProfesionalOcupado(fecha: String,hora: String,numAfiliado: Int,tipoProfesional: Int):Boolean{
@@ -176,7 +192,11 @@ class OperacionesDao(contexto: Context) {
         addProfesional(3, "Juan Antonio")
         addProfesional(4, "Alvar")
         addProfesional(5, "Paco")
-        addProfesional(2, "Nieves")
+        addProfesional(2, "Andres")
+        addProfesional(1, "Marina")
+        addProfesional(3, "María")
+        addProfesional(5, "Alberto")
+        addProfesional(1, "Ejemplo")
 
         addRelacion(2, 1)
         addRelacion(2, 6)

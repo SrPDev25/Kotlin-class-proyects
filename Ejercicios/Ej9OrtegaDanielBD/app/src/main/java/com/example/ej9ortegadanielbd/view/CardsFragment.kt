@@ -51,6 +51,10 @@ class CardsFragment : Fragment(), Events {
         chargeRecycler()
         modelo.identificador.observe(this.viewLifecycleOwner, observador)
 
+        binding.buttonAddUsuario.setOnClickListener(){
+            mActivity!!.addUsuarioNombre()
+        }
+
     }
 
     private fun chargeRecycler() {
