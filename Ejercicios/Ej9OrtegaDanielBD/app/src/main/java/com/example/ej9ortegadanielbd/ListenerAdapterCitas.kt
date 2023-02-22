@@ -37,13 +37,13 @@ class ListenerAdapterCitas(private val citas: MutableList<Cita>, private val con
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder) {
-            var cita = citas.get(position)
-            binding.fechasTxt.text="Fecha cita: ${cita.fecha},"//TODO mejorar la visualización de la fecha
-            binding.horasTxt.text="${cita.hora}"
+            val cita = citas.get(position)
+            binding.fechasTxt.text="Fecha cita: ${cita.fecha},"
+            binding.horasTxt.text= cita.hora
             binding.nombreProfesionalTxt.text="Profesional: ${cita.nombreProfesional}"
             binding.tipoEspecialidadTxt.text=cita.nombreTipoProfesional
             //Inserta un set listener a cada uno de los "holders"
-            setListener(cita.numAfiliado)
+            setListener(cita.id)
         }
     }
 

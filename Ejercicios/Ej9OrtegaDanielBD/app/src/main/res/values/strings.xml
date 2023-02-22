@@ -11,4 +11,8 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="id_example">id</string>
     <string name="nombre_example">NombreEjemplo</string>
+    <string name="tipo">TIPO</string>
+    <string name="nombre_medico">nombre medico</string>
+    <string name="hora">HORA</string>
+    <string name="fecha">FECHA</string>
 </resources>

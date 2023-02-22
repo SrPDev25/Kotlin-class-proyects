@@ -28,10 +28,9 @@ class MainActivity : AppCompatActivity() {
         bd = OperacionesDao(this)
         //Se inicializan ambos en el constructor pero el viewModel es una variable del contenedor de fragments
         val viewModelFactory = VistaModeloFactory(0)
-        modeloVistaControlador = ViewModelProvider(this, viewModelFactory)
-            .get(VistaModelo::class.java)
+        modeloVistaControlador = ViewModelProvider(this, viewModelFactory)[VistaModelo::class.java]
         chargeStartFragment(savedInstanceState)
-
+        title="Gestor de citas"
     }
 
     private fun chargeStartFragment(savedInstanceState: Bundle?) {
@@ -98,6 +97,7 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         val myFragment: Fragment? = getSupportFragmentManager().findFragmentByTag("Main")
         if(myFragment!=null && !myFragment.isVisible)

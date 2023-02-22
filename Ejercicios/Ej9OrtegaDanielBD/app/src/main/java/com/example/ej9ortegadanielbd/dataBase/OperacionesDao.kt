@@ -92,6 +92,11 @@ class OperacionesDao(contexto: Context) {
         }
     }
 
+    fun deleteCita(id:Int){
+        mBD.delete(MyDBOpenHelper.TABLA_CITAS,"${MyDBOpenHelper.COD_CITA}= $id",null )
+
+    }
+
     fun getUsuarios(): MutableList<Usuario> {
         var list = mutableListOf<Usuario>()
         var cursor: Cursor = mBD.rawQuery(

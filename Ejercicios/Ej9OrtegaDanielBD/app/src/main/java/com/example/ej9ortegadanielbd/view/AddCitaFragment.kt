@@ -42,7 +42,6 @@ class AddCitaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //TODO añadir eliminar citas
         /**Es necesario el contexto tanto para la base de datos como para el recycler
          *Por ello como el fragment no tiene el contexto de una activity se llama al MainActivity de la siguiente manera
          */

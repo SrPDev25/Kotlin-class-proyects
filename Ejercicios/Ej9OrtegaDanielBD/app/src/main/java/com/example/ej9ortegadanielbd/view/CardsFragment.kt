@@ -65,13 +65,10 @@ class CardsFragment : Fragment(), Events {
         binding.recycler.layoutManager = linearLayout
         binding.recycler.setHasFixedSize(true)
     }
+
     override fun shortClick(codigo: Int) {
         modelo.setUsuario(codigo.toLong())
         mActivity?.mostrarCitas()
     }
 
-    override fun longClick(codigo: Int): Boolean {
-
-        return false
-    }
 }
