@@ -38,6 +38,7 @@ class AddCitaFragment : Fragment() {
     private lateinit var modelo: VistaModelo
     private lateinit var lista: MutableList<TipoProfesional>
     private var usuario = 0
+    private var error = false
 
 
     override fun onCreateView(
@@ -89,15 +90,15 @@ class AddCitaFragment : Fragment() {
 
     private fun buttonAction() {
         comprobarHora()
-        if (binding.timePickerLayout.error != "") {
+        if (!this.error) {
             bd.addCita(
                 binding.dataPicker.text.toString(),
                 binding.timePicker.text.toString(),
                 lista.get(binding.comboTipoProfesional.selectedItemPosition).codigo,
                 usuario
             )
-            view?.let{
-                Snackbar.make(it,"Cita creada exitosamente",Snackbar.LENGTH_LONG).show()
+            view?.let {
+                Snackbar.make(it, "Cita creada exitosamente", Snackbar.LENGTH_LONG).show()
             }
 
             mActivity?.mostrarCitas()
@@ -139,33 +140,37 @@ class AddCitaFragment : Fragment() {
     }
 
     fun comprobarHora() {
-        val hour=binding.timePicker.text.toString()
+        val hour = binding.timePicker.text.toString()
         val hourSplited = hour.split(":")
         val date = Date(System.currentTimeMillis())
-        var error = 0
+        this.error = false
         val fecha = binding.dataPicker.text.toString()
-        val fechaHoy = "${date.day}/${date.month + 1}/${date.year}"
+        val fechaHoy = "${date.date}/${date.month + 1}/${date.year + 1900}"
 
         if (fecha == fechaHoy) {
-            if (hourSplited[0].toInt() < date.hours)
-                error = -1
-            else if (hourSplited[1].toInt() < date.minutes && hourSplited[0].toInt() == date.hashCode())
-                error = -1
+            if (hourSplited[0].toInt() < date.hours) {
+                binding.timePickerLayout.error = "Hora pasada"
+                this.error = true
+            } else if (hourSplited[1].toInt() < date.minutes && hourSplited[0].toInt() == date.hashCode()) {
+                binding.timePickerLayout.error = "Hora pasada"
+                this.error = true
+            }
         }
 
-        if (error == -1)
-            binding.timePickerLayout.error = "Hora pasada"
-        else if (!fecha.isBlank() && bd.isProfesionalOcupado(
+        //Comprueba si el profesional del usuario está ocupado
+        if (!fecha.isBlank() && bd.isProfesionalOcupado(
                 fecha,
                 hour,
                 usuario,
                 lista.get(binding.comboTipoProfesional.selectedItemPosition).codigo
             )
-        )
+        ) {
             binding.timePickerLayout.error = "Profesional ocupado"
-        else if (binding.dataPicker.text.toString()=="" || binding.timePicker.text.toString()=="")
-            binding.timePickerLayout.error="Faltan datos"
-        else
+            this.error = true
+        } else if (binding.dataPicker.text.toString() == "" || binding.timePicker.text.toString() == "") {
+            binding.timePickerLayout.error = "Faltan datos"
+            this.error = true
+        } else if(!error)
             binding.timePickerLayout.error = ""
     }
 
